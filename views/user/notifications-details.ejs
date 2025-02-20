@@ -1,0 +1,53 @@
+
+
+<%- include('./partials/navbar') %>
+<%- include('../partials/messages') %>
+
+<main class="main">
+  <div class="container">
+
+    <div class="profile-nav mt-3 ">
+      <a class="back-btn" href="/user/notifications"><i class="bi bi-arrow-left-circle"></i> Back</a>
+    </div>
+
+
+
+    
+
+            <div class=" mb-4">
+              
+              <% if(userNotifications.length <= 0){ %>
+                
+
+                      <div style="margin-top: 200px;">
+                        <div class="d-flex flex-column justify-content-center align-items-center" >
+                          <p> No Notifications</p>
+                        </div>
+                        
+                      </div> 
+
+
+                        <% } else{ %>  
+    
+                          <% userNotifications.forEach(function(data) {%> 
+                          <div class=" mb-3">
+
+                                    <div class="row no-gutters align-items-center">
+                                          <p class="text-gray-500"><%= data.message%></p>
+                                    </div>
+                            </div>
+                            <% }) %>
+
+         
+                            <% } %>
+                   
+                </div>
+            </div>
+
+
+            <br>
+            <br>
+  </div>
+
+
+</main>

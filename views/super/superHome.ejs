@@ -1,0 +1,357 @@
+<!-- Top Navbar -->
+<!-- Topbar -->
+<%- include ('../partials/topbar') %>
+  <!-- End of Topbar -->
+  <!-- Offcanvas Menu for Mobile -->
+  <%- include ('../partials/superSidebar') %>
+  <%- include ('../partials/messages') %>
+
+    <!-- Admin Panel Content -->
+    <div class="container-fluid p-4">
+        <!--  top Content Row -->
+        
+        <div class="  p-2 mb-4">
+          <div class="row">
+            <!-- Total Sales -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-primary h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Total Sales
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= totalNumberOfSales %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Total Users -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-secondary h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Total Users
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= totalVerifiedUsers.length %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-user fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Home Sales -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-secondary h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Home Sales
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= counterSaleData.length %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-home fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Total Earnings -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-success h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Total Earnings
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= formatedProfit %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Shipping Earnings -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-success h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Shipping Earnings
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= formatedProfitForShipping %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Processing Orders -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-danger h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        Processing Orders
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= pendingOrders %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-table fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- On Route -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-warning h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                        On Route
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= shippedData.length %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-truck fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Orders Completed -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-success h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Orders Completed
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= completedOrders %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-truck fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Canceled Orders -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-danger h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        Canceled Orders
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= totalCanceledOrder.length %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-times fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Unresolved Sales -->
+            <div class="col-xl-2 col-md-6 col-6 mb-3">
+              <div class="card border-left-danger h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        Unresolved Sales
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <%= unresolvedSales.length %>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-times fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-xl-3 col-lg-4">
+            <div class=" container-fluid mb-4">
+
+             
+                <a class="btn btn-outline-secondary mb-1 mr-2" href="/super/all-logistic-company">Logistics Shifts</a>
+                <a class="btn btn-outline-secondary mb-1 mr-2" href="/super/all-external-riders">External Logistics </a>
+                <a class="btn btn-outline-primary mb-1 mr-2" href="/super/all-brands">Brands</a>
+                <a class="btn btn-outline-primary mb-1 mr-2" href="/super/all-ranks">Ranks</a>
+                <a class="btn btn-outline-primary mb-1 mr-2" href="/super/tags">product tags</a>
+                <a class="btn btn-outline-primary mb-1 mr-2" href="/super/all-regions">All Regions</a>
+                <a class="btn btn-outline-primary mb-1 mr-2" href="/super/all-exclusive-codes">exclusive codes</a>
+                <a class="btn btn-outline-secondary mb-1 mr-2" href="/super/sales">Resolve Sales</a>
+                <a class="btn btn-outline-success mb-1 mr-2" href="/super/create-sales">Shopping</a>
+                <a class="btn btn-outline-success mb-1 mr-2" href="/super/all-supplier">Suppliers</a>
+                <a class="btn btn-outline-primary mb-1 mr-2" href="/super/all-canceled-order">canceled table</a>
+
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-lg-6">
+            <div class=" card mb-4">
+
+              <div class="card-header">Top selling products</div>
+              <!-- Card Body -->
+
+              <div class="card-body">
+
+                <table class="table  table-responsive">
+                    <thead >
+                      <tr>
+                        <th>#</th>
+                        <th>image</th>
+                        <th>Product Name</th>
+                        <th> Sold</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% topSelling.forEach((product, index) => { %>
+                        <tr>
+                          <td><%= index + 1 %></td>
+                          <td>
+                            <a href="/super/inventory/<%= product.inventory_id %>">
+                            <img class="img-thumbnail" style="max-width: 40px;"
+                              src="/uploads/<%= product.image %>" alt="image">
+                            </a>
+                            </td>
+                          <td><%= product.ProductName %></td>
+                          <td><%= product.total_sold %></td>
+                        </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+          <!-- Area Chart -->
+          <div class="col-xl-6 col-lg-6">
+            <div class="mb-4">
+              <!-- Card Header - Dropdown -->
+
+              <div class="card">
+                <div class="card-header">Top 50 Customers</div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table " id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Spending</th>
+                          <th>Last seen</th>
+
+                        </tr>
+                      </thead>
+
+                      <tbody>
+
+                        <tr>
+
+
+                          <% totalVerifiedUsers.forEach(function(data) {%>
+
+                        <tr>
+                          <td>
+                            <%= data['First_name'] %>
+                              <%= data['Last_name'] %>
+                          </td>
+                          <td><span class="item-price">
+                              <%= data['spending'] %>
+                            </span></td>
+                          <td>
+                            <%= data['previous_visit'] %>
+                          </td>
+                        </tr>
+
+                        <% }) %>
+
+
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pie Chart -->
+      
+        </div>
+
+
+    </div>
+
+
+    <script>
+      // Display current date
+      document.getElementById('currentDate').innerText = new Date().toLocaleDateString();
+
+      let formattedPrices = document.querySelectorAll('.item-price');
+      function formatPrice() {
+        formattedPrices.forEach(priceElement => {
+          let price = parseFloat(priceElement.textContent.replace(/[^0-9.-]+/g, "")); // Remove any non-numeric characters
+          priceElement.textContent = price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        });
+      }
+      formatPrice()
+    </script>

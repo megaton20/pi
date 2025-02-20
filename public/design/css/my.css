@@ -1,0 +1,399 @@
+:root {
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Nunito", sans-serif;
+  --nav-font: "Inter", sans-serif;
+}
+
+/* Global Colors */
+:root {
+  --default-color: #8a2be2;
+  --secondary-color: #6a5acd;
+
+  /* Contrast Color - This is a color used for text when the background color is one of the heading, accent, or default colors. Its purpose is to ensure proper contrast and readability when placed over these more dominant colors. */
+  --contrast-color: #feffff;
+}
+
+/* Smooth scroll */
+:root {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  margin: 0;
+  background: linear-gradient(to bottom, #1a1f36, #121826);
+  color: white;
+  font-family: "Orbitron", sans-serif;
+}
+
+
+a {
+  text-decoration: none !important;
+}
+
+
+.secondary-btn{
+  background-color: var(--secondary-color) !important;
+  border: none !important;
+}
+.no-items-message{
+  background-color: var(--secondary-color);
+  padding: 10px;
+  margin: 20px 5px;
+  color: #fff;
+  border-radius: 5px;
+
+}
+#message-container {
+  position: fixed;
+  top: 10px;
+  right: 5px;
+  width: 300px;
+  z-index: 9999;
+  padding: 10px;
+
+}
+
+.message {
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+  color: #fff;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  font-size: 13px;
+}
+
+/* Error messages */
+.message.error {
+  background-color: #ff4d4f !important;
+}
+
+/* Warning messages */
+.message.warning {
+  background-color: #ffa500 !important;
+}
+
+/* Success messages */
+.message.success {
+  background-color: #6dc870 !important;
+}
+
+.overlay-buttons{
+  overflow: hidden;
+  margin: 10px;
+}
+/* Slide-in effect */
+.message.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide-out effect */
+.message.remove {
+  opacity: 0 !important;
+  transform: translateX(100%) !important;
+}
+
+/* Close Button */
+.close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  float: right; /* Align button to the right */
+  margin-left: 10px;
+}
+
+.close-btn:hover {
+  color: #000; /* Darken color on hover */
+}
+
+
+
+.m-card {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 100px;
+  
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+
+.points {
+  overflow: hidden;
+  height: 50px;
+  position: relative;
+}
+
+.email-list {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s ease-in-out;
+}
+
+.email-item {
+  height: 50px;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  filter: blur(2px);
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.email-item.focused {
+  opacity: 1;
+  filter: blur(0);
+}
+
+
+
+
+
+/* Dashboard Container */
+.dash-jumbotron-wrap {
+  position: sticky; /* Makes it stick to a specific scroll position */
+  top: -50px; /* Space from the top before it sticks */
+  z-index: 1;
+  margin-top: 10px;
+  margin-bottom: 100px;
+  height: 170px;
+  background-color: var(--default-color);
+  color: var(--contrast-color);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+
+  /* Compact Profile Container */
+  .compact-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+/* Sticky Tabs */
+.sticky-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0.5rem 0;
+  background: rgba(26, 31, 54, 0.6); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Glass effect */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Soft border */
+}
+
+.sticky-tabs .nav-tabs {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem;
+  border-bottom: none; /* Remove default border */
+}
+
+.sticky-tabs .nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  padding: 0.8rem 1rem;
+  transition: all 0.3s ease-in-out;
+  border-radius: 6px;
+}
+
+/* Hover effect */
+.sticky-tabs .nav-link:hover {
+  background: rgba(255, 255, 255, 0.2); /* Light transparent hover */
+}
+
+/* Active tab */
+.sticky-tabs .nav-link.active {
+  color: #fff !important;
+  background: rgba(106, 90, 205, 0.8) !important; /* Slightly opaque highlight */
+  border-bottom: 2px solid #6a5acd;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+
+
+/* invites Styling */
+.invite-card {
+  background-color: var(--background-color-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Invite Link - Hide Input */
+.invite-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invite-link input {
+  position: absolute;
+  left: -9999px;
+}
+
+.copy-icon {
+  font-size: 1.1em;
+  cursor: pointer;
+  color: var(--default-color);
+  display: inline-flex;
+  align-items: center;
+}
+
+.copy-icon.copied {
+  color: var(--success-color);
+}
+
+/* Referral Table Styling */
+.table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.referral-name {
+  font-weight: 500;
+  color: var(--contrast-color);
+}
+
+.referral-status i {
+  font-size: 1.2em;
+}
+
+
+
+/*--------------------------------------------------------------
+# Disable aos animation delay on mobile devices
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
+}
+
+a {
+  color: var(--default-color);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: color-mix(in srgb, var(--default-color), transparent 25%);
+  text-decoration: none !important;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+.navbar-brand img {
+  max-width: 40px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand img {
+    max-width: 40px;
+    /* Reduce the size slightly for mobile screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand img {
+    max-width: 40px;
+    /* Even smaller size for very small screens */
+  }
+}
+
+
+
+.my-btn,
+.my-btn:focus {
+  color: var(--contrast-color);
+  background: var(--default-color);
+  border: none;
+  font-size: 14px;
+  padding: 12px 25px;
+  border-radius: 5px;
+  transition: 0.3s;
+  margin: 0;
+}
+
+.my-btn-primary{
+  color: #fff !important;
+  background: var(--default-color) !important;
+  font-size: 14px;
+  padding: 7px 15px !important;
+  border-radius: 5px;
+  transition: 0.3s;
+  margin: 0 !important;
+}
+
+.my-btn-outline {
+  color: var(--heading-color);
+  border: 1px solid var(--default-color);
+  background: none;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px 25px;
+  border-radius: 5px;
+  transition: 0.3s;
+  box-shadow: 0 3px 3px -5px, 0 2px 5px #0000000f;
+}
+
+.my-btn-outline:hover {
+  color: var(--contrast-color);
+  background: var(--default-color);
+  font-size: 14px;
+  padding: 8px 25px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.my-btn:hover,
+.my-btn:focus:hover {
+  color: var(--contrast-color);
+  background: color-mix(in srgb, var(--default-color), transparent 15%);
+}
+
+.top-nav {
+  background-color: #76ecbd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  height: 40px;
+  z-index: 10000;
+}
+
+
+.my-box-shadow {
+  box-shadow: 0 3px 3px -5px, 0 2px 5px #0000000f;
+}
+
+

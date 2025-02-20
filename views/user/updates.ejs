@@ -1,0 +1,68 @@
+<style>
+  .news-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  .news-card {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background: #2a3348;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+    border-left: 5px solid;
+  }
+
+  .news-card:hover {
+    transform: translateY(-5px);
+    background-color: #394660;
+  }
+
+  .news-content {
+    flex: 1;
+    padding-left: 15px;
+  }
+
+  .news-title {
+    margin: 0 0 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .news-meta {
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+
+  .news-description {
+    font-size: 0.9rem;
+    color: #ddd;
+    margin-top: 5px;
+  }
+
+  .news-card a {
+    text-decoration: none;
+    color: #6a5acd;
+    font-weight: bold;
+    display: block;
+    margin-top: 8px;
+  }
+</style>
+
+<div class="news-container">
+  <% updates.forEach(update => { %>
+    <div class="news-card" style="border-left-color: <%= update.category === 'feature' ? '#007bff' : update.category === 'bugfix' ? '#f25c54' : '#3dd598' %>">
+      <div class="news-content">
+        <h5 class="news-title"><%= update.title %></h5>
+        <p class="news-meta"><%= update.date %> | <%= update.category.toUpperCase() %></p>
+        <p class="news-description"><%= update.summary %></p>
+        <a href="/news/<%= update.id %>">Read More</a>
+      </div>
+    </div>
+  <% }) %>
+</div>

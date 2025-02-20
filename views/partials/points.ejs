@@ -1,0 +1,7 @@
+<div class="points">
+    <div id="emailList" class="email-list">
+      <% recentCustomers.forEach((customer) => { %>
+        <div class="email-item"> <img src="/images/check.png" style="max-width: 20px;" alt="coin"> <%= customer.maskedEmail %> just earned  <img src="/images/coin.png" style="max-width: 20px;" alt="coin"> <%= customer.points %></div>
+      <% }); %>
+    </div>
+  </div>

@@ -1,0 +1,84 @@
+
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include ('../partials/superSidebar') %>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <%- include ('../partials/topbar') %>
+                <!-- End of Topbar -->
+                <%- include ('../partials/messages') %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">  Edit "<%= categoryData[0].Category_name %>" Category</h1>
+                    <a class="btn btn-outline-primary mb-1 mr-2"href="/super/all-categories">View Categories</a>
+
+                    <!-- DataTales Example -->
+                    <div class=" mb-4">
+
+                                <form action="/super/edit-category/<%= categoryData[0].CategoryID %>" method="post" >
+                                   <div class="row ">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Enter Category Name</label>
+                                            <input type="text" name="Category_name" class="form-control" value="<%= categoryData[0].Category_name %>" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for=""> Category image Name</label>
+                                            <input type="text" name="image_name" class="form-control" value="<%= categoryData[0].image %>">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for=""> Desc</label>
+                                            <textarea name="Desc" class="form-control" id="" cols="30" rows="10" ><%= categoryData[0].details %></textarea>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="mt-4">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input name="_method" type="submit" value="Update" class="btn btn-primary "/>
+                                </div>
+                                </form>
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <%- include ('../partials/footer') %>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+

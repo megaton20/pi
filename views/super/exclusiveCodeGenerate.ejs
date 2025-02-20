@@ -1,0 +1,54 @@
+<!-- Sidebar -->
+<%- include ('../partials/topbar') %>
+    <%- include ('../partials/superSidebar') %>
+        <!-- End of Sidebar -->
+        <%- include ('../partials/messages') %>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+         
+                <a href="/super/all-exclusive-codes" class="btn-outline-primary btn mb-3" type="submit">Back</a>
+                
+                
+                <div class="contianer mb-4">
+                  <div class="m-card">
+                          <form action="/super/generate-codes" method="post">
+                              <input type="number" placeholder="numer of codes to generate" name="quantity"
+                                  class="form-control">
+                              <button class="btn-outline-primary btn mt-2" type="submit">Generate new batch</button>
+                          </form>
+
+                  </div>
+
+              </div>
+
+                  
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+            <!-- Footer -->
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <%- include ('../partials/footer') %>
+                <!-- End of Footer -->
+
+
+
+
+                
+

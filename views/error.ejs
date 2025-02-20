@@ -1,0 +1,51 @@
+
+<style>
+
+    .success-container {
+        margin-top: 300px;
+    }
+
+    .smile {
+        width: 100px;
+        height: 100px;
+        animation: pulse 1.5s infinite;
+        position: relative;
+    }
+
+    .glow {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: glowPulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+
+    @keyframes glowPulse {
+        0%, 100% { box-shadow: 0 0 10px rgba(255, 47, 0, 0.5); }
+        50% { box-shadow: 0 0 30px rgba(255, 38, 0, 0.9); }
+    }
+</style>
+
+
+
+
+<div class="compact-container">
+<div class="success-container">
+    <div class="glow">
+        
+        <img src="/images/sadface.png" alt="Success" class="smile">
+    </div>
+    <div class="text-center">
+        <h2 class=" text-danger"> Error occured!!</h2>
+        <a href="/" class="btn btn-danger">Continue</a>
+    </div>
+</div>
+</div>

@@ -1,0 +1,43 @@
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+    <div class="navbar-toggler-logo">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand text-light" href="/"><img src="/images/logo.png" alt="logo"></a>
+    </div>
+
+
+   
+    <!-- <div class="m-2">
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= day %> </span>
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= date %> </span>
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= month %> </span>
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= year %> </span>
+    </div> -->
+
+    
+
+
+	<!-- Navbar icons visible only on mobile -->
+    <div class=" d-block d-lg-none">  <!-- Mobile only visible -->
+            <div class="navbar-icons-home">
+
+                <a href="/user/search" class="nav-link user-icon ">
+                    <i class="fas fa-search icon-size"></i>
+                </a>
+
+                    <a href="/user/fetchCart" class="ml-3 nav-link user-icon position-relative">
+                    <i class="fas fa-shopping-cart icon-size"></i>
+                    <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning cart-badge"></span>
+                </a>
+
+                    <a href="/user/profile" class="ml-3 mr-4 nav-link user-icon">
+                        <i class="fas fa-user icon-size"></i>
+                    </a>
+
+            </div>
+
+    </div>
+</div>
+</nav>

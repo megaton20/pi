@@ -1,0 +1,59 @@
+
+    <style>
+        /* 404 Page Styling */
+        .error-content {
+            color: white;
+            font-family: "Orbitron", sans-serif;
+            text-align: center;
+        }
+
+        .error-content {
+            position: relative;
+            margin-top: 200px;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            position: relative;
+            color: #6a5acd;
+            text-shadow: 0 0 10px #6a5acd, 0 0 20px rgba(106, 90, 205, 0.6);
+            animation: glitch 1s infinite alternate;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px 0px #ff00ff, -2px -2px 0px #00ffff; }
+            100% { text-shadow: -2px -2px 0px #ff00ff, 2px 2px 0px #00ffff; }
+        }
+
+        .error-message {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .back-link {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #6a5acd;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .back-link:hover {
+            color: #fff;
+            text-shadow: 0 0 5px #6a5acd;
+        }
+    </style>
+
+
+    <div class="compact-container">
+        <div class="d-flex justify-content-center">
+           <div class="error-content">
+            <div class="error-code">404</div>
+            <p class="error-message">It looks like you found a glitch in the matrix...</p>
+            <a href="/" class="back-link">← Back</a>
+           </div>
+        </div>
+    </div>

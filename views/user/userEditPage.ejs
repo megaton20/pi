@@ -1,0 +1,177 @@
+
+
+<%- include('./partials/navbar') %>
+<%- include ('../partials/messages') %>
+<main class="main">
+<div class="container">
+
+     <a class="back-btn" href="/user/user-details"><i class="bi bi-arrow-left-circle"></i> Back</a>
+ 
+    <h3 class="mb-4">Complete your profile information</h3>
+
+    <form class="row g-3 mb-3" id="updateUserInfoForm" action="/user/update-user-info/<%= userData.id %>" method="post" onsubmit="return validateForm()">
+      <div class="col-md-6">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" name="First_name" class="form-control" id="firstName" value="<%= userData.First_name %>">
+        <small id="firstNameError" class="text-danger"></small>
+      </div>
+      <div class="col-md-6">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" name="Last_name" class="form-control" id="lastName" value="<%= userData.Last_name %>">
+        <small id="lastNameError" class="text-danger"></small>
+      </div>
+    
+      <div class="col-md-6">
+        <label for="gender" class="form-label">Gender</label>
+        <select id="gender" name="gender" class="form-select form-control">
+          <option value="<%= userData.gender %>"><%= userData.gender %></option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        <small id="genderError" class="text-danger"></small>
+      </div>
+    
+      <div class="col-md-6">
+        <label for="state" class="form-label mt-1">Current State For Shipping</label>
+        <select id="state" name="state" class="form-select form-control" onchange="LGAs()">
+          <option value="<%= userData.state %>"><%= userData.state %></option>
+          <% stateData.forEach(data =>  {%>
+            <option value="<%= data['state'] %>"><%= data['state'] %></option>
+          <% }) %>
+        </select>
+        <small id="stateError" class="text-danger"></small>
+      </div>
+    
+      <div class="col-md-6">
+        <label for="lga" class="form-label mt-1">Current LGA For Shipping</label>
+        <select id="lga" name="lga" class="form-select form-control">
+          <option value="<%= userData.lga %>"><%= userData.lga %></option>
+        </select>
+        <small id="lgaError" class="text-danger"></small>
+      </div>
+    
+      <div class="col-md-6">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" name="Address" class="form-control" id="address" placeholder="1234 Main St" value="<%= userData.Address %>">
+        <small id="addressError" class="text-danger"></small>
+      </div>
+    
+      <div class="col-12">
+        <label for="landmark" class="form-label">Landmark</label>
+        <input type="text" name="land_mark" class="form-control" id="landmark" placeholder="Landmark or closest Bus stop" value="<%= userData.land_mark %>">
+        <small id="landmarkError" class="text-danger"></small>
+      </div>
+    
+      <div class="col-12 mt-2">
+        <input type="hidden" name="_method" value="PUT">
+        <input name="_method" type="submit" value="Update" class="mt-2 my-btn" style="width: 100%;" />
+      </div>
+    </form>
+    
+
+    
+
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<%- include ('../partials/openFooter')%>
+
+</main>
+
+<script>
+  function LGAs() {
+    const stateSelect = document.getElementById("state");
+    const lgaSelect = document.getElementById("lga");
+    const selectedState = stateSelect.value;
+    
+    
+    // Clear the existing options in the LGA select element
+    while (lgaSelect.options.length > 0) {
+      lgaSelect.remove(0);
+    }
+    
+    if (selectedState) {
+      fetch(`/getlgas/${selectedState}`) // Make an AJAX request to the /getlgas route
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(lga => {
+        const option = document.createElement("option");
+        option.text = lga;
+        option.value = lga;
+        lgaSelect.add(option);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching LGAs:', error);
+      });
+    }
+    
+    }
+  
+  
+</script>
+
+<script>
+  function validateForm() {
+    let isValid = true;
+
+    // Clear previous errors
+    document.querySelectorAll(".text-danger").forEach(el => el.textContent = "");
+
+    // First Name validation
+    const firstName = document.getElementById("firstName").value.trim();
+    if (!firstName) {
+      document.getElementById("firstNameError").textContent = "First name is required.";
+      isValid = false;
+    }
+
+    // Last Name validation
+    const lastName = document.getElementById("lastName").value.trim();
+    if (!lastName) {
+      document.getElementById("lastNameError").textContent = "Last name is required.";
+      isValid = false;
+    }
+
+    // Gender validation
+    const gender = document.getElementById("gender").value;
+    if (!gender) {
+      document.getElementById("genderError").textContent = "Please select your gender.";
+      isValid = false;
+    }
+
+    // State validation
+    const state = document.getElementById("state").value;
+    if (!state) {
+      document.getElementById("stateError").textContent = "Please select your state.";
+      isValid = false;
+    }
+
+    // LGA validation
+    const lga = document.getElementById("lga").value;
+    if (!lga) {
+      document.getElementById("lgaError").textContent = "Please select your LGA.";
+      isValid = false;
+    }
+
+    // Address validation
+    const address = document.getElementById("address").value.trim();
+    if (!address) {
+      document.getElementById("addressError").textContent = "Address is required.";
+      isValid = false;
+    }
+
+    // Landmark validation
+    const landmark = document.getElementById("landmark").value.trim();
+    if (!landmark) {
+      document.getElementById("landmarkError").textContent = "Landmark is required.";
+      isValid = false;
+    }
+
+    return isValid; // If all validations pass, form will submit; otherwise, it won't.
+  }
+</script>

@@ -1,0 +1,150 @@
+
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include ('../partials/superSidebar') %>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <%- include ('../partials/topbar') %>
+                <!-- End of Topbar -->
+                <%- include ('../partials/messages') %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class=" mb-4">
+                        <div class="row">
+                            <!-- Area Chart -->
+                            <div class="col-xl-6 col-lg-6">
+                              <!-- Card Header - Dropdown -->
+                  
+                              <!-- Card Body -->
+                  
+                              <p class="text-uppercase text-primary">order details</p>
+                  
+                              <div class="row">
+                                <div class="col-6">customer email</div>
+                                <div class="col-6"><%= canceledResults[0].customer_email %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">Full Name</div>
+                                <div class="col-6"><%= Fullname %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">Sale id:</div>
+                                <div class="col-6"><%= canceledResults[0].sale_id %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">Delivery:</div>
+                                <div class="col-6"><%= canceledResults[0].Delivery %></div>
+                              </div>
+                            
+                              <div class="row">
+                                <div class="col-6">Payment:</div>
+                                <div class="col-6"><%= canceledResults[0].payment_type %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">Date:</div>
+                                <div class="col-6"><%= canceledResults[0].created_date %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">order Status:</div>
+                                <div class="col-6"><%= canceledResults[0].status %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">Address:</div>
+                                <div class="col-6"><%= canceledResults[0].customer_address %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">phone:</div>
+                                <div class="col-6"><%= canceledResults[0].customer_phone %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">State:</div>
+                                <div class="col-6"><%= canceledResults[0].customer_state %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">lga:</div>
+                                <div class="col-6"><%= canceledResults[0].customer_lga %></div>
+                              </div>
+                            
+                            </div>
+                  
+                            <div class="col-xl-6 col-lg-6">
+                              <p class="text-uppercase text-primary">Item Ordered List</p>
+                  
+                              <table class="table table-bordered"width="100%"cellspacing="0">
+                                <thead>
+                                  <tr>
+                                    <th>ID</th>
+                                    <th>image</th>
+                                    <th>cart id</th>
+                                    <th>Product Name</th>
+                                    <th>price</th>
+                                    <th>QTY</th>
+                                    <th>ST</th>
+                                  </tr>
+                                </thead>
+                  
+                                <tbody>
+                                  <% orderedItemsResults.forEach(function(data) {%>
+                                  <tr>
+                                    <td><%= data['id'] %></td>
+                                    <td><img class="img-thumbnail" style="max-width: 40px;" src="/uploads/<%= data['image'] %>" alt="image"></td>
+                                    <td><%= data['cart_id'] %></td>
+                                    <td><%= data['name'] %></td>
+                                    <td><%= data['price_per_item'] %></td>
+                                    <td><%= data['quantity'] %></td>
+                                    <td><%= data['subTotal'] %></td>
+                  
+                                    <!-- Display the expiry date directly -->
+                  
+                                    <% }) %>
+                                  </tr>
+                                </tbody>
+                              </table>
+                  
+                              <div class="row">
+                  
+                                  <div class="col-6">SF:</div>
+                                  <div class="col-6"><%= canceledResults[0].shipping_fee %></div>
+                  
+                                    <div class="col-6">Amount:</div>
+                                    <div class="col-6"><%= canceledResults[0].total_amount %></div>
+                  
+                              </div>
+                            </div>
+                          </div>
+                                
+                      
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <%- include ('../partials/footer') %>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>

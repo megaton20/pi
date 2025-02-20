@@ -1,0 +1,143 @@
+<style>
+
+  .privacy-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .privacy-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+  .privacy-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .privacy-option:last-child {
+    border-bottom: none;
+  }
+
+  .privacy-option label {
+    font-size: 1rem;
+    color: #333;
+  }
+
+  .privacy-option input[type="checkbox"] {
+    appearance: none;
+    width: 40px;
+    height: 20px;
+    background: #ddd;
+    border-radius: 20px;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .privacy-option input[type="checkbox"]:checked {
+    background: #007bff;
+  }
+
+  .privacy-option input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    top: 1px;
+    left: 1px;
+    transition: transform 0.3s ease;
+  }
+
+  .privacy-option input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+  }
+
+  .ajax-response {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1rem;
+    color: #007bff;
+    display: none;
+  }
+</style>
+
+
+
+<%- include ('./partials/topnav') %>
+<%- include ('../partials/messages') %>
+
+
+<div class="compact-container">
+  <!-- Privacy Options -->
+  <div class="privacy-options mt-4">
+    <div class="privacy-option">
+      <label for="share-profile">Allow Profile Sharing</label>
+      <input type="checkbox" id="share-profile" data-setting="share_profile">
+    </div>
+    <div class="privacy-option">
+      <label for="track-location">Enable Location Tracking</label>
+      <input type="checkbox" id="track-location" data-setting="track_location">
+    </div>
+    <div class="privacy-option">
+      <label for="ad-personalization">Ad Personalization</label>
+      <input type="checkbox" id="ad-personalization" data-setting="ad_personalization">
+    </div>
+  </div>
+
+  <div class="ajax-response" id="ajax-response">Settings updated successfully!</div>
+</div>
+
+
+<script>
+
+// Attach event listeners to all checkboxes
+document.querySelectorAll('.privacy-option input[type="checkbox"]').forEach((checkbox) => {
+  checkbox.addEventListener('change', (event) => {
+    // Get the setting name and its current value
+    const settingName = event.target.dataset.setting;
+    const isEnabled = event.target.checked;
+
+    // Send the data using AJAX
+    updatePrivacySetting(settingName, isEnabled);
+  });
+});
+
+// Function to send AJAX request
+function updatePrivacySetting(setting, value) {
+  const ajaxResponse = document.getElementById('ajax-response');
+
+  // Simulate an AJAX request
+  fetch('/update-privacy-settings', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ setting, value }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        ajaxResponse.textContent = 'Settings updated successfully!';
+        ajaxResponse.style.display = 'block';
+      } else {
+        throw new Error('Failed to update settings');
+      }
+    })
+    .catch((error) => {
+      ajaxResponse.textContent = error.message;
+      ajaxResponse.style.color = 'red';
+      ajaxResponse.style.display = 'block';
+    });
+
+  // Hide the message after 3 seconds
+  setTimeout(() => {
+    ajaxResponse.style.display = 'none';
+  }, 3000);
+}
+</script>

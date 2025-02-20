@@ -1,0 +1,52 @@
+<style>
+
+/* delete */
+.delete-account a {
+  font-size: 1.1em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Space between icon and text */
+}
+
+.delete-account i {
+  font-size: 1.2em;
+}
+
+</style>
+<%- include ('./partials/topnav') %>
+      <%- include ('./partials/messages') %>
+
+<main class="main">
+  <div class="compact-container">
+            <h2>We're sorry to see you go</h2>
+            <p>Please let us know why you're deactivating your account:</p>
+            <form action="/auth/delete-account" method="post">
+              <div class="form-group">
+                <label for="deactivationReason">Reason for Deactivation</label>
+                <select name="reason" class="form-control" id="deactivationReason" required>
+                  <option value="" disabled selected>Select a reason</option>
+                  <option value="I found the site difficult to use">I found the site difficult to use</option>
+                  <option value="I didn't find what I was looking for">I didn't find what I was looking for</option>
+                  <option value="I had a poor customer service experience">I had a poor customer service experience</option>
+                  <option value="I have privacy or security concerns">I have privacy or security concerns</option>
+                  <option value="I receive too many emails/notifications">I receive too many emails/notifications</option>
+                  <option value="I prefer a competitor's service">I prefer a competitor's service</option>
+                  <option value="Other (please specify below)">Other (please specify below)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="additionalComments">Additional Comments</label>
+                <textarea name="Comments" class="form-control" id="additionalComments" rows="3" placeholder="Please provide any additional feedback here..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-danger">Delete account permanently</button>
+            </form>
+        </div>
+  </div>
+
+
+
+  <br>
+  <br>
+</main>

@@ -1,0 +1,33 @@
+
+<div id="message-container">
+    <% if (typeof msg !== 'undefined' && msg.length > 0) { %>
+        <% msg.forEach(function (message) { %>
+            <div class="message <%= message.type %>">
+                <%= message.text %>
+            </div>
+        <% }); %>
+    <% } %>
+</div>
+
+
+
+<!-- 
+<script>
+const messages = document.querySelectorAll('.message');
+messages.forEach((message, index) => {
+    // Delay each message based on its index
+    setTimeout(() => {
+        message.classList.add('show'); // Add 'show' class for animation
+
+        // Remove the message after a few seconds
+        setTimeout(() => {
+            message.classList.add('remove'); // Add 'remove' class for sliding out
+            setTimeout(() => {
+                message.remove(); // Completely remove the message after animation
+            }, 500); // Match the duration of the 'remove' animation
+        }, 4000); // Display duration for each message
+    }, index * 4000); // Stagger messages by 1 second
+});
+
+  </script> -->
+  

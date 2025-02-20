@@ -1,0 +1,706 @@
+
+  <style>
+    .mining-wating{
+       max-width:30px;
+    }
+.newsbar {
+  padding: 10px;
+  margin: 20px 0;
+  background-color: #22283d;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+}
+.newsbar .item{
+  font-size: 12px;
+}
+.online-status{
+  height:10px;
+  width: 10px;
+  margin-bottom: 10px;
+  background-color: #3dd598;
+  border-radius: 50%;
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #22283d;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  height: auto;
+  min-height: 60px;
+  margin-bottom: 20px;
+}
+
+/* User Info - Profile & Details */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 1;
+  min-width: 0; /* Prevents unnecessary stretching */
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #6a5acd;
+  object-fit: cover;
+}
+
+/* Text Section */
+.user-text h5 {
+  font-size: 0.9rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.email {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #aaa;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 120px; /* Prevents extra-long emails from stretching */
+}
+
+.details {
+  font-size: 0.75rem;
+  color: #bbb;
+  margin: 0;
+
+}
+
+/* Balance Section */
+.balance-info {
+  text-align: right;
+  min-width: 80px;
+}
+
+.balance-info h2 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #6a5acd;
+}
+
+.earnings {
+  font-size: 0.75rem;
+  color: #bbb;
+  margin: 0;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  .user-header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 12px;
+  }
+
+  .user-info {
+    gap: 5px;
+  }
+
+  .profile-pic {
+    width: 35px;
+    height: 35px;
+  }
+
+  .user-text h5 {
+    font-size: 0.85rem;
+  }
+
+  .email {
+    font-size: 0.75rem;
+    max-width: 100px;
+  }
+
+  .details {
+    font-size: 0.7rem;
+  }
+
+  .balance-info h2 {
+    font-size: 1rem;
+  }
+}
+
+
+    .feed-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 10px;
+      padding: 10px;
+      background-color: #1a1f36;
+      border-radius: 5px;
+      box-shadow: 0px 0px 12px rgba(138, 43, 226, 0.7);
+      color: white;
+    }
+
+    #balance {
+      color: #6a5acd;
+    }
+
+    /* PNG Earn Button */
+    .earn-button-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+    
+    .earn-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .earn-button img {
+      border-radius: 50px;
+      width: 150px;
+      height: auto;
+      transition: transform 0.2s ease-in-out;
+      animation: pulse 2s infinite;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .earn-button:disabled img {
+      filter: grayscale(20%);
+      animation: none;
+    }
+
+    .earn-button:hover:not(:disabled) img {
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(138, 43, 226, 0.7), 0 0 40px rgba(106, 90, 205, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(138, 43, 226, 1), 0 0 50px rgba(106, 90, 205, 0.9);
+      }
+    }
+
+    /* Timer */
+    #timer {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #bbb;
+    }
+
+    /* Success Message */
+    .success-message {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #3dd598;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: fadeout 2s forwards;
+    }
+
+    @keyframes fadeout {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        display: none;
+      }
+    }
+
+    /* Progress Bar */
+    .progress-bar-wrapper {
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #333;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, #6a5acd, #8a2be2);
+    }
+
+    /* Footer */
+    footer p {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+
+    /* Extra Info Section */
+.extra-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #22283d;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+/* Individual Info Cards */
+.info-card {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  background: #1a1f36;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.info-card h3 {
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  color: #8a2be2;
+}
+
+.info-card p {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0;
+  color: #fff;
+}
+
+/* Mobile Adjustments */
+/* Extra Info Section */
+.extra-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #22283d;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  color: white;
+  flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+}
+
+/* Individual Info Cards */
+.info-card {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  background: #1a1f36;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  min-width: 100px; /* Ensures a reasonable size */
+}
+
+.info-card h3 {
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  color: #8a2be2;
+}
+
+.info-card p {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0;
+  color: #fff;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  .extra-info {
+    justify-content: center;
+  }
+
+  .info-card {
+    width: 48%; /* Two per row */
+    margin-bottom: 6px;
+  }
+
+  .info-card h3 {
+    font-size: 0.75rem;
+  }
+
+  .info-card p {
+    font-size: 0.85rem;
+  }
+
+  /* Next Reward Full Width */
+  .info-card:last-child {
+    width: 100%;
+    order: 10; /* Moves it to the last row */
+  }
+}
+
+
+.mining-log-container {
+  padding: 5px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 10px;
+  display: flex;
+  flex-direction: column-reverse; /* New logs appear at the bottom */
+}
+
+#mining-log p {
+  margin: 0;
+  padding: 0px 3px;
+  opacity: 0;
+  animation: fade-in-move-up 15s ease-in-out forwards;
+}
+
+/* Gain (Green) & Loss (Red) */
+.mined-gain {
+  color: #25a00d; /* Green */
+}
+
+.mined-loss {
+  color: #ff4d4d; /* Red */
+}
+
+/* Animations */
+@keyframes fade-in-move-up {
+  0% { opacity: 0; transform: translateY(5px); }
+  20% { opacity: 1; } /* Fully visible quickly */
+  80% { opacity: 1; } /* Stay visible */
+  100% { opacity: 0; transform: translateY(-100%); } /* Fade out and move up */
+}
+
+.leaderboard {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding: 10px;
+  background-color: #22283d;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+}
+
+
+/* Leaderboard Title */
+.leaderboard h3 {
+  font-size: 1rem;
+  color: #8a2be2;
+  margin-bottom: 8px;
+}
+
+/* Leaderboard List */
+.leaderboard-container {
+  max-height: 200px; /* Prevents leaderboard from being too tall */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #8a2be2 #1a1f36;
+}
+
+.leaderboard-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leaderboard-container::-webkit-scrollbar-thumb {
+  background: #8a2be2;
+  border-radius: 4px;
+}
+
+.leaderboard-container::-webkit-scrollbar-track {
+  background: #1a1f36;
+}
+
+/* Individual Leaderboard Entry */
+.leaderboard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid #444;
+  font-size: 0.9rem;
+}
+
+/* Highlight Current User */
+.leaderboard .highlight {
+  background-color: rgba(138, 43, 226, 0.2);
+  font-weight: bold;
+  border-left: 4px solid #8a2be2;
+  padding-left: 6px;
+}
+
+/* Leaderboard Entry Details */
+.leaderboard .rank {
+  font-weight: bold;
+  color: #f8b400;
+  width: 40px;
+  text-align: left;
+}
+
+.leaderboard .name {
+  flex: 1;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.leaderboard .earnings {
+  font-weight: bold;
+  color: #3dd598;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  .leaderboard {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .leaderboard li {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .leaderboard .rank {
+    width: 30px;
+  }
+
+  .leaderboard-container {
+    max-height: 150px;
+  }
+}
+
+
+
+  </style>
+
+  <div class="compact-container">
+
+    
+    
+    <header class="user-header">
+      <div class="user-info">
+        <img src="/images/<%= user.image %>" alt="Profile Picture" class="profile-pic">
+        <div class="user-text">
+          <h5><%= user.fname %> <%= user.lname %></h5>
+          <p class="email"><%= user.email %></p>
+          <p class="details"> Level: <%= user.mining_level %></p>
+          <p class="details text-success"> mining Rate: <%= user.mining_rate %></p>
+          <!-- <p class="details"> status: </p> <span class="online-status"></span> -->
+        </div>
+      </div>
+      <div class="balance-info">
+        <h2>Bal: $<%= user.balance %></h2>
+        <p class="earnings">+ $<span id="earnings"><%= dailyEarn %></span> today</p>
+        <div class="mining-log-container">
+          <div id="mining-log"></div>
+      </div>
+      </div>
+    </header>
+    
+     <br>
+
+    <div class="feed-container">
+      <%- include ('../partials/messages') %>
+      <main>
+        <div class="earn-button-wrapper">
+          <button class="earn-button" id="earnButton" disabled>
+            <img id="earnImage" src="/images/earn-active.png" alt="Earn Button">
+          </button>
+        </div>
+        <p id="timer">Loading...</p>
+
+        <footer>
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar">
+              <div class="progress" ></div>
+            </div>
+            <p id="in-words"></p>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <br>
+   
+    <section class="extra-info">
+      <div class="info-card">
+        <h3>💰 Today's Push</h3>
+        <p ><span id="pushes"><%= dailyEarningsResult.length %></span> Push(es)</p>
+      </div>
+      <div class="info-card">
+        <h3>🔥 Streak</h3>
+        <p><%= streak.length %> day(s)</p>
+      </div>
+      <div class="info-card">
+        <h3>🎯 Ads Reward</h3>
+        <p>$0.00 </p>
+      </div>
+      <div class="info-card">
+        <h3>⏳ tasks Reward</h3>
+        <p id="next-reward"><%=userTask.length %> </p>
+      </div>
+    </section>
+    
+    <br>
+    
+  </div>
+
+  <%- include ('./partials/bottomnav') %>
+
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+      const earningsDiv = document.getElementById("earnings");
+      const pushesDiv = document.getElementById("pushes");
+      const timerElement = document.getElementById("timer");
+      const earnButton = document.getElementById("earnButton");
+      const earnImage = document.getElementById("earnImage");
+      const successMessage = document.getElementById("successMessage");
+      const progressBar = document.querySelector(".progress");
+      const miningLog = document.getElementById("mining-log"); // Ensure mining log exists
+      const cooldown = 30 * 60; // 30 minutes in seconds
+  
+      let remainingTime = <%= remainingTime %>; // Get time from server
+      let pushes = <%= pushes %>; // Get earning data
+      let dailyEarn = <%= dailyEarn %>; // Get earning data
+
+
+      let miningInterval;
+  
+      function updateUI() {
+          if (remainingTime <= 0) {
+              timerElement.textContent = "";
+              earnButton.disabled = false;
+              earnImage.src = "/images/earn-active.png";
+              progressBar.style.width = "100%"; // Full progress
+              document.getElementById("in-words").textContent = "Ready to earn!";
+              let waitingImg = document.createElement('img')
+                waitingImg.src = "/images/wait.png";
+                waitingImg.classList.add('mining-wating')
+                miningLog.appendChild(waitingImg);
+          } else {
+              earnButton.disabled = true;
+              earnImage.src = "/images/earn-inactive.png";
+  
+              // Format minutes and seconds properly
+              let minutes = Math.floor(remainingTime / 60);
+              let seconds = remainingTime % 60;
+              timerElement.textContent = `Ready in ${minutes}:${seconds.toString().padStart(2, "0")}`;
+  
+              let progress = ((cooldown - remainingTime) / cooldown) * 100;
+              progressBar.style.width = `${progress}%`;
+              document.getElementById("in-words").textContent = `${Math.round(progress)}% till next push`;
+              pushesDiv.textContent = pushes + 1
+                  earningsDiv.textContent = Number(dailyEarn) + 0.10
+          }
+      }
+  
+      function startCountdown() {
+          updateUI();
+          const timerInterval = setInterval(() => {
+              if (remainingTime > 0) {
+                  remainingTime--;
+                  updateUI();
+              } else {
+                  clearInterval(timerInterval);
+                  earnButton.disabled = false;
+                  earnImage.src = "/images/earn-active.png";
+                  timerElement.textContent = "Click to Earn!";
+                  progressBar.style.width = "100%";
+                  
+              }
+          }, 1000);
+      }
+  
+      if (remainingTime > 0) {
+          startCountdown();
+          startMiningSimulation()
+      } else {
+          earnButton.disabled = false;
+          timerElement.textContent = "Push to Earn!";
+          let waitingImg = document.createElement('img')
+          waitingImg.src = "/images/wait.png";
+                waitingImg.classList.add('mining-wating')
+                miningLog.appendChild(waitingImg);
+      }
+  
+      earnButton.addEventListener("click", async () => {
+          if (earnButton.disabled) return;
+
+          earnButton.disabled = true;
+          earnImage.src = "/images/earn-inactive.png";
+  
+          try {
+              const response = await fetch("/user/reset-timer", { method: "POST" });
+              if (!response.ok) throw new Error("Failed to reset timer");
+  
+              remainingTime = cooldown;
+              startMiningSimulation(); // Start mining simulation after clicking
+              startCountdown();
+          } catch (error) {
+              console.error("Error resetting timer:", error);
+          }
+      });
+  
+      function startMiningSimulation() {
+    const miningLog = document.getElementById("mining-log");
+    if (!miningLog) return console.error("mining-log div is missing!");
+
+    miningLog.innerHTML = ""; // Clear old logs
+    clearInterval(miningInterval); // Stop any existing mining process
+
+   
+
+    miningInterval = setInterval(() => {
+        if (remainingTime <= 0) {
+            clearInterval(miningInterval);
+            // console.log("Mining complete!");
+            return;
+        }
+
+        let minedAmount = (Math.random() * 0.02 - 0.01).toFixed(4); // Simulated earnings
+        let logEntry = document.createElement("p");
+
+        logEntry.textContent = minedAmount >= 0 ? `+${minedAmount}` : minedAmount;
+        logEntry.classList.add(minedAmount >= 0 ? "mined-gain" : "mined-loss");
+
+        miningLog.appendChild(logEntry);
+
+        if (miningLog.children.length > 10) {
+            miningLog.removeChild(miningLog.firstChild);
+        }
+
+        setTimeout(() => logEntry.remove(), 6000); // Remove after animation
+    }, 1000);
+}
+
+  });
+  </script>
+  

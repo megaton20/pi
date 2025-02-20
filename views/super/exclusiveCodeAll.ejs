@@ -1,0 +1,191 @@
+<!-- Sidebar -->
+<%- include ('../partials/topbar') %>
+    <%- include ('../partials/superSidebar') %>
+        <!-- End of Sidebar -->
+        <%- include ('../partials/messages') %>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Exclusive Codes </h1>
+         
+
+                <a href="/super/generate-new-codes" class="btn-outline-primary btn mb-3" type="submit">Generate codes</a>
+                
+                
+                <% if (exclusiveCode.length <= 0) { %>
+                    <div class="card-body">
+                      <h1>No Exclusive Code Record Found!</h1>
+                    </div>
+                  <% } else { %>
+                    <br>
+                    <button id="exportCodesButton" class="btn btn-outline-success mb-3">Export Codes</button>
+                  
+                    <% let redeemedCodes = exclusiveCode.filter(data => data.is_redeemed); %>
+                    <% let unredeemedCodes = exclusiveCode.filter(data => !data.is_redeemed); %>
+                  
+                    <!-- Bootstrap Tabs -->
+                    <ul class="nav nav-tabs" id="exclusiveCodeTabs">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="unredeemed-tab" data-toggle="tab" href="#unredeemed">Unredeemed Codes</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="redeemed-tab" data-toggle="tab" href="#redeemed">Redeemed Codes</a>
+                      </li>
+                    </ul>
+                  
+                    <div class="tab-content mt-3">
+                  
+                      <!-- Unredeemed Codes Tab -->
+                      <div class="tab-pane fade show active" id="unredeemed">
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>SN</th>
+                                <th>Code</th>
+                                <th>Code Type</th>
+                                <th>Exported</th>
+                                <th>Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% unredeemedCodes.forEach(function(data, index) { %>
+                                <tr>
+                                  <td><%= index + 1 %></td>
+                                  <td><%= data.code %></td>
+                                  <td>
+
+                              
+                                    <span class="badge <%= data.is_paid ? 'badge-success' : 'badge-danger' %>">
+
+                                        <% if (data.is_paid) { %>
+                                            Paid code
+                                            <% } else { %>
+                                                Free code
+                                          <% } %>
+                                      </span>
+                                  </td>
+                                  <td>
+
+                              
+                                    <span class="badge <%= data.is_exported ? 'badge-success' : 'badge-warning' %>">
+
+                                        <% if (data.is_exported) { %>
+
+                                              Has been Exported
+
+                                          <% } else { %>
+                                            Not yet Exported
+                                          <% } %>
+                                      </span>
+                                  </td>
+                                  <td><span class="badge badge-warning">Not Redeemed</span></td>
+                                </tr>
+                              <% }) %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                  
+                      <!-- Redeemed Codes Tab -->
+                      <div class="tab-pane fade" id="redeemed">
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>SN</th>
+                                <th>Code</th>
+                                <th>Code Type</th>
+                                <th>Exported</th>
+                                <th>Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% redeemedCodes.forEach(function(data, index) { %>
+                                <tr>
+                                  <td><%= index + 1 %></td>
+                                  <td><%= data.code %></td>
+                                  <td>
+
+                              
+                                    <span class="badge <%= data.is_paid ? 'badge-success' : 'badge-danger' %>">
+
+                                        <% if (data.is_paid) { %>
+                                            Paid code
+                                            <% } else { %>
+                                                Free code
+                                          <% } %>
+                                      </span>
+                                  </td>
+
+                                  <td>
+
+                              
+                                    <span class="badge <%= data.is_exported ? 'badge-success' : 'badge-warning' %>">
+
+                                        <% if (data.is_exported) { %>
+
+                                              Has been Exported
+
+                                          <% } else { %>
+                                            Not yet Exported
+                                          <% } %>
+                                      </span>
+                                  </td>
+                                  <td><span class="badge badge-success">Redeemed</span></td>
+                                </tr>
+                              <% }) %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                  
+                    </div>
+                  
+                  <% } %>
+                  
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+            <!-- Footer -->
+            <%- include ('../partials/footer') %>
+                <!-- End of Footer -->
+
+
+
+                <script>
+                    document.getElementById('exportCodesButton').addEventListener('click', async () => {
+                      try {
+                        const response = await fetch('/super/export-codes', {
+                          method: 'GET',
+                        });
+                  
+                        if (response.ok) {
+                          const blob = await response.blob();
+                          const url = window.URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = url;
+                          a.download = 'generated_codes.csv';
+                          document.body.appendChild(a);
+                          a.click();
+                          a.remove();
+                          window.URL.revokeObjectURL(url);
+                  
+                          // Refresh the page after download
+                          window.location.reload();
+                        } else {
+                          alert('Failed to export codes.');
+                        }
+                      } catch (error) {
+                        console.error('Error downloading codes:', error);
+                      }
+                    });
+                  </script>
+                  
+
+                
+

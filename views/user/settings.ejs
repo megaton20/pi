@@ -1,0 +1,191 @@
+<style>
+
+  /* Header Section */
+  .settings-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .settings-header .avatar {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--default-color);
+  }
+
+  .settings-header .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .settings-header .user-info {
+    flex: 1;
+  }
+
+  .settings-header .user-info h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--default-color);
+  }
+
+  .settings-header .user-info p {
+    margin: 5px 0 0;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+
+  /* Settings Options Section */
+  .settings-option{
+
+    margin-bottom: 5px;
+  }
+  .settings-options {
+    margin-bottom: 30px;
+  }
+
+  .settings-category {
+    margin-bottom: 20px;
+  }
+
+  .settings-category h3 {
+    font-size: .9rem;
+    margin-bottom: 10px;
+    color: #fff;
+    padding-bottom: 5px;
+  }
+  .settings-option {
+  display: flex;
+  align-items: center; 
+  gap: 10px; 
+  background-color: #22283d;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s;
+  cursor: pointer;
+  font-size: 14px; 
+}
+
+.settings-option:hover {
+  background-color: var(--accent-color);
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-option i {
+  font-size: 1.2rem; /* Set consistent icon size */
+  flex-shrink: 0; /* Prevent the icon from resizing */
+  color: #007bff;
+}
+
+.settings-option p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.settings-option:hover i {
+  color: #fff; /* Change icon color on hover */
+}
+
+
+  .settings-option i {
+    font-size: 1.2rem;
+  }
+
+  /* Special styling for danger options (e.g., Sign Out) */
+  .settings-option.text-danger {
+    background-color: #f8d7da;
+    color: #dc3545;
+  }
+
+  .settings-option.text-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .settings-header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .settings-header .user-info {
+      margin-top: 10px;
+      flex-direction: column;
+    }
+  }
+</style>
+
+<%- include ('./partials/topnav') %>
+<%- include ('../partials/messages') %>
+
+<main class="main mt-4">
+
+    <div class="compact-container">
+      <div class="settings-header">
+        <!-- User Avatar -->
+        <div class="avatar">
+          <img src="/images/<%=user.image%>" alt="User Avatar">
+        </div>
+
+        <!-- User Info -->
+        <div class="user-info">
+          <h1><%=user.fname%> <%=user.lname%></h1>
+          <p><%=user.email%></p>
+        </div>
+      </div>
+
+        <!-- Privacy & Security -->
+        <div class="settings-category">
+          <h3>Privacy & Security</h3>
+          <a href="/user/settings-privacy" class="settings-option">
+            <i class="bi bi-lock"></i>
+            <p>Privacy Settings</p>
+          </a>
+          <a href="/user/change-password" class="settings-option">
+            <i class="bi bi-key"></i>
+            <p>Change Password</p>
+          </a>
+      
+        </div>
+
+        <!-- Help & Support -->
+        <div class="settings-category">
+          <h3>Help & Support</h3>
+          <a href="/user/settings-help" class="settings-option">
+            <i class="bi bi-info-circle"></i>
+            <p>Help</p>
+          </a>
+          <a href="/user/settings-policy" class="settings-option">
+            <i class="bi bi-file-earmark-text"></i>
+            <p>Policy</p>
+          </a>
+        </div>
+
+        <!-- Sign Out -->
+        <div class="settings-category">
+          <a href="/logout" class="settings-option">
+            <i class="bi bi-box-arrow-right text-danger "></i>
+            <p class="text-danger"> Sign Out</p>
+          </a>
+          <a href="/user/delete-account" class="settings-option ">
+            <i class="bi bi-trash text-danger"></i>
+            <p class="text-danger">Delete Account</p>
+          </a>
+        </div>
+      </div>
+    </div>
+</main>
+
+<br>
+<br>
+<br>

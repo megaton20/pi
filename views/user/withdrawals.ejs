@@ -1,0 +1,186 @@
+  
+  <style>
+    /* Withdrawal Grid */
+    .withdrawal-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr;
+    }
+  
+    .withdrawal-card {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 10px;
+      background: #2a3348;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    }
+  
+    .withdrawal-card:hover {
+      transform: translateY(-5px);
+      background-color: #394660;
+    }
+  
+    .withdrawal-icon {
+      font-size: 1.8rem;
+      color: #6a5acd;
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(106, 90, 205, 0.1);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+    }
+  
+    .withdrawal-details h5 {
+      margin: 0 0 0.3rem 0;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fff;
+    }
+  
+    .withdrawal-details p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+  
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-top: 0.3rem;
+    }
+  
+    .badge.completed {
+      background-color: #3dd598;
+      color: white;
+    }
+  
+    .badge.failed {
+      background-color: #f25c54;
+      color: white;
+    }
+  
+    .badge.pending {
+      background-color: #f2b354;
+      color: white;
+    }
+  
+    .withdrawal-action {
+      font-size: 0.9rem;
+      font-weight: bold;
+      background: #6a5acd;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      margin-left: auto;
+      transition: background-color 0.2s ease-in-out;
+    }
+  
+    .withdrawal-action:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+  
+    .withdrawal-action:hover:not(:disabled) {
+      background-color: #584dc5;
+    }
+  </style>
+  
+  
+  
+    <div class="compact-container">
+
+      <%- include('../partials/messages') %>
+  
+      <!-- Sticky Tabs -->
+      <div class="sticky-tabs">
+        <ul class="nav nav-tabs" id="withdrawalTabs" role="tablist">
+          <li class="nav-item">
+            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button">
+             History
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="approved-tab" data-bs-toggle="tab" data-bs-target="#approved" type="button">
+              Approved
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button">
+              Pending
+            </button>
+          </li>
+  
+        </ul>
+      </div>
+  
+      <!-- Withdrawal Content -->
+      <div class="tab-content scrollable-content" id="withdrawalTabsContent">
+        <!-- All Withdrawals -->
+        <div class="tab-pane fade show active" id="all">
+          <div class="withdrawal-grid">
+            <div class="withdrawal-card">
+              <div class="withdrawal-icon">
+                <i class="bi bi-film"></i>
+              </div>
+              <div class="withdrawal-details">
+                <h5>Watch Trailer</h5>
+                <p>Watch the trailer of a featured movie to earn rewards.</p>
+                <span class="badge pending">Pending</span>
+              </div>
+              <!-- <button class="withdrawal-action">Start Withdrawal</button> -->
+            </div>
+          </div>
+        </div>
+  
+        <!-- Approved -->
+        <div class="tab-pane fade" id="approved">
+          <div class="withdrawal-grid">
+            <div class="withdrawal-card">
+              <div class="withdrawal-icon">
+                <i class="bi bi-check-circle"></i>
+              </div>
+              <div class="withdrawal-details">
+                <h5>Listen to Music</h5>
+                <p>Play a recommended song for at least 1 minute.</p>
+                <span class="badge completed">Completed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Pending -->
+        <div class="tab-pane fade" id="pending">
+          <div class="withdrawal-grid">
+            <div class="withdrawal-card">
+              <div class="withdrawal-icon">
+                <i class="bi bi-hourglass-split"></i>
+              </div>
+              <div class="withdrawal-details">
+                <h5>Invite Friends</h5>
+                <p>Share your referral link to invite friends.</p>
+                <span class="badge pending">Pending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+
+      </div>
+    </div>
+
+  
+        
+  
+        <%- include ('./partials/bottomnav') %>
+        
+  
+  

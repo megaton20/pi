@@ -1,0 +1,357 @@
+<!-- Page Wrapper -->
+<div id="wrapper">
+  <!-- Sidebar -->
+  <%- include ('../partials/superSidebar') %>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+    <div id="content">
+      <!-- Topbar -->
+      <%- include ('../partials/topbar') %>
+      <!-- End of Topbar -->
+      <%- include ('../partials/messages') %>
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+        <a class="btn btn-outline-primary mb-1 mr-2 mt-2" href="/super/new-orders">New Orders</a>
+
+        <div class="row">
+          <!-- Area Chart -->
+          <div class="col-xl-6 col-lg-6">
+            <!-- Card Header - Dropdown -->
+
+            <!-- Card Body -->
+
+            <p class="text-uppercase text-primary">order details</p>
+
+            <div class="row">
+              <div class="col-6">customer email</div>
+              <div class="col-6"><%= orderData[0].customer_email %></div>
+            </div>
+            <div class="row">
+              <div class="col-6">customer id:</div>
+              <div class="col-6"><%= orderData[0].customer_id %></div>
+            </div>
+            <div class="row">
+              <div class="col-6">Pick up location:</div>
+              <div class="col-6"><%= orderData[0].pick_up_store_name %></div>
+            </div>
+            <div class="row">
+              <div class="col-6">Sale id:</div>
+              <div class="col-6"><%= orderData[0].sale_id %></div>
+            </div>
+            <% transactionID.forEach(function(data) {%>
+              <div class="row">
+                <div class="col-6">transaction id:</div>
+                <div class="col-6"><%= data['transaction_id'] %></div>
+              </div>
+              <% }) %>
+          
+            <div class="row">
+              <div class="col-6">Delivery:</div>
+              <div class="col-6"><%= orderData[0].Delivery %></div>
+            </div>
+          
+            <div class="row">
+              <div class="col-6">Payment:</div>
+              <div class="col-6"><%= orderData[0].payment_type %></div>
+            </div>
+            <div class="row">
+              <div class="col-6">Date:</div>
+              <div class="col-6"><%= orderData[0].created_date %></div>
+            </div>
+            <div class="row">
+              <div class="col-6">Status:</div>
+              <div class="col-6"><%= orderData[0].status %></div>
+            </div>
+            <div class="row">
+              <div class="col-6">Address:</div>
+              <div class="col-6"><%= orderData[0].customer_address %></div>
+            </div>
+            <div class="row">
+              <div class="col-6">phone:</div>
+              <div class="col-6"><%= orderData[0].customer_phone %></div>
+            </div>
+            <div class="row">
+              <div class="col-6">State:</div>
+              <div class="col-6"><%= orderData[0].customer_state %></div>
+            </div>
+            <div class="row">
+              <div class="col-6">lga:</div>
+              <div class="col-6"><%= orderData[0].customer_lga %></div>
+            </div>
+          
+          </div>
+
+
+          <!-- items table -->
+          <div class="col-xl-6 col-lg-6">
+            <p class="text-uppercase text-primary">Item Ordered List</p>
+
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>image</th>
+                  <th>cart id</th>
+                  <th>Product Name</th>
+                  <th>price</th>
+                  <th>QTY</th>
+                  <th>ST</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% productBought.forEach(function(data) {%>
+                <tr>
+                  <td><%= data['id'] %></td>
+                  <td><img class="img-thumbnail" style="max-width: 40px;" src="/uploads/<%= data['image'] %>" alt="image"></td>
+                  <td><%= data['cart_id'] %></td>
+                  <td><%= data['name'] %></td>
+                  <td><%= data['price_per_item'] %></td>
+                  <td><%= data['quantity'] %></td>
+                  <td><%= data['subTotal'] %></td>
+
+                  <!-- Display the expiry date directly -->
+
+                  <% }) %>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="row">
+
+              <div class="col-6">SF:</div>
+              <div class="col-6"><%= orderData[0].shipping_fee %></div>
+
+                <div class="col-6">Amount:</div>
+                <div class="col-6"><%= orderData[0].total_amount %></div>
+
+          </div>
+
+            <br>
+<br>
+
+  
+          </div>
+        </div>
+
+        <div class="row mt-4">
+
+
+          <!-- dispatch information -->
+          
+
+          <% if (orderData[0].driver != null) { %>
+            <div class="col-lg-6">
+              <p class="text-uppercase text-primary">Company Dispatch</p>
+              <div class="row">
+                <div class="col-lg-3"> Driver Name</div>
+                <div class="col-auto"><%= orderData[0].driver %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3"> Driver Email:</div>
+                <div class="col-auto"><%= orderData[0].driver_email %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3"> Driver phone:</div>
+                <div class="col-auto"><%= orderData[0].driver_phone %></div>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="col-lg-6">
+              <p class="text-uppercase text-primary">Rider </p>
+              <div class="row">
+                <div class="col-3"> Rider Name</div>
+                <div class="col-auto"><%= orderData[0].rider_company_name %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3">Rider Email:</div>
+                <div class="col-auto"><%= orderData[0].rider_email %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3"> Rider phone:</div>
+                <div class="col-auto"><%= orderData[0].rider_phone %></div>
+              </div>
+            </div>
+          <% } %>
+        
+
+
+
+          <!-- shipping action area -->
+          <% if( orderData[0].status == "canceled" ){ %>
+            <div class="col-lg-6 mt-4">
+
+              <p class="text-danger"><i class="fas fa-times"></i> order has been canceled!</p>
+            </div>
+            <% } else { %>
+                 <!-- shhipping actions -->
+          <div class="col-lg-6 mt-4">
+            <% if( orderData[0].status == "incomplete" ){ %>
+            <a href="/super/confirm-order/<%= orderData[0].id %>">
+              <button type="submit"class="btn btn-success mt-4"style="width: 100%">Confirm order</button>
+            </a>
+
+            <a href="/super/super-cancel/<%= orderData[0].id %>">
+              <button type="submit"class="btn btn-danger mt-2"style="width: 100%">Cancel (No stock)</button>
+            </a>
+
+
+            <% } else{ %> <% if( orderData[0].status == "waiting" ){ %>
+
+            <br/>
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+                <ul class="nav nav-tabs nav-tabs-bordered">
+    
+                  <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">My Logistics</button>
+                  </li>
+    
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Select Other Riders</button>
+                  </li>
+    
+                </ul>
+    
+                <div class="tab-content">
+    
+                  <div class="tab-pane fade show active profile-overview pt-3" id="profile-overview">
+                      <form action="/super/ship-order/<%= orderData[0].id %>"method="post">
+                        <div class="form-group">
+                          <select name="logistics" id="" class="form-control">
+                            <option value="">Select Company</option>
+
+                            <% logisticsDrivers.forEach(function(data) {%>
+                            <option value="<%= data['name'] %>"><%=data['name'] %></option>
+                            <% }) %>
+
+                          </select>
+                        </div>
+
+                        <button style="width: 100%" class="btn btn-success">Ship</button>
+                      </form>
+    
+                  </div>
+
+
+
+    
+                  <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+    
+                    <form action="/super/ship-order-with-rider/<%= orderData[0].id %>"method="post">
+                      <div class="form-group">
+                        <select name="rider"  class="form-control">
+                          <option value="">Select Rider</option>
+        
+                          <% ridersData.forEach(function(data) {%>
+                          <option value="<%= data['companyName'] %>"><%=data['companyName'] %></option>
+                          <% }) %>
+        
+                        </select>
+                      </div>
+        
+                      <button style="width: 100%" class="btn btn-success">Ship With Rider</button>
+                    </form>
+                  </div>
+    
+    
+                </div><!-- End Bordered Tabs -->
+    
+              </div>
+            <% } else{ %>
+
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+                <ul class="nav nav-tabs nav-tabs-bordered">
+    
+                  <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">My Logistics</button>
+                  </li>
+    
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Select Other Riders</button>
+                  </li>
+    
+                </ul>
+    
+                <div class="tab-content">
+    
+                  <div class="tab-pane fade show active profile-overview pt-3" id="profile-overview">
+                      <form action="/super/new-driver/<%= orderData[0].id %>"method="post">
+                        <div class="form-group">
+                          <select name="logistics" id="" class="form-control">
+                            <option value="">Select Company</option>
+
+                            <% logisticsDrivers.forEach(function(data) {%>
+                            <option value="<%= data['name'] %>"><%=data['name'] %></option>
+                            <% }) %>
+
+                          </select>
+                        </div>
+
+                        <button style="width: 100%" class="btn btn-success">reassign Shipment</button>
+                      </form>
+    
+                  </div>
+
+
+
+    
+                  <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+    
+                    <form action="/super/new-rider/<%= orderData[0].id %>"method="post">
+                      <div class="form-group">
+                        <select name="rider"  class="form-control">
+                          <option value="">Select Rider</option>
+        
+                          <% ridersData.forEach(function(data) {%>
+                          <option value="<%= data['companyName'] %>"><%=data['companyName'] %></option>
+                          <% }) %>
+        
+                        </select>
+                      </div>
+        
+                      <button style="width: 100%" class="btn btn-success">Ship With new Rider</button>
+                    </form>
+                  </div>
+    
+    
+                </div><!-- End Bordered Tabs -->
+    
+              </div>
+
+            <% } %> <% } %>
+          </div>
+              <% } %>
+
+       
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- End of Main Content -->
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+      <!-- Footer -->
+      <%- include ('../partials/footer') %>
+      <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+</div>

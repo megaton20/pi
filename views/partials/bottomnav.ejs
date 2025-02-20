@@ -1,0 +1,82 @@
+
+<style>
+	.fixed-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px 0;
+  z-index: 1000; 
+  background: #2a3348;
+}
+.fixed-navbar.active {
+  color: var(--default-color);
+  font-weight: bold;
+}
+.nav-item.active {
+  color: var(--default-color);
+  font-weight: bold;
+}
+
+
+
+
+.nav-item {
+  text-align: center;
+  text-decoration: none;
+  color: #ffff;
+  font-size: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: color 0.3s ease-in-out;
+}
+
+
+
+.nav-item p {
+  margin: 0;
+  font-size: 12px; 
+}
+
+
+@media (max-width: 768px) {
+  .nav-item p {
+    font-size: 10px; 
+  }
+}
+
+</style>
+
+<div class="fixed-navbar">
+  <a href="/" class="nav-item <%= currentPage === 'feed' ? 'active' : '' %>" title="Dashboard">
+    <i class="fas fa-home"></i>
+    <p>Feed</p>
+  </a>
+
+  <a href="/tasks" class="nav-item <%= currentPage === 'tasks' ? 'active' : '' %>" title="Tasks">
+    <i class="fas fa-tasks"></i>
+    <p>Tasks</p>
+  </a>
+
+  <a href="/notifications" class="nav-item <%= currentPage === 'notifications' ? 'active' : '' %>" title="Notifications">
+    <i class="fas fa-bell"></i>
+    <p>Notifications</p>
+  </a>
+
+  <a href="/withdrawals" class="nav-item <%= currentPage === 'withdrawals' ? 'active' : '' %>" title="Withdrawals">
+    <i class="fas fa-wallet"></i>
+    <p>Withdrawals</p>
+  </a>
+
+  <a href="/profile" class="nav-item <%= currentPage === 'profile' ? 'active' : '' %>" title="Profile">
+    <i class="fas fa-user"></i>
+    <p>User</p>
+  </a>
+</div>

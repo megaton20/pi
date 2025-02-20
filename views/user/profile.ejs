@@ -1,0 +1,568 @@
+<style>
+
+
+.profile-banner {
+  position: relative;
+  height: 180px;
+  background-color: #22283d;
+  border-radius: 8px;
+}
+
+.profile-banner .edit-banner {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #fff;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-banner .edit-banner i {
+  font-size: 1.2rem;
+}
+
+/* Avatar Styling */
+.avatar {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar .edit-avatar {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.avatar .edit-avatar i {
+  font-size: 0.9rem;
+}
+
+/* User Info */
+.user-info {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.user-info h1 {
+  font-size: 1.4rem;
+  color: white;
+}
+
+.user-info p {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+/* Stats & Buttons */
+.stats-buttons-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.stats-row {
+  background-color: #22283d;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  padding-top: 15px;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat h4 {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.stat p {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 18px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.action-button:hover {
+  background: #0056b3;
+}
+
+.action-button.secondary {
+  background: #6c757d;
+}
+
+.action-button.secondary:hover {
+  background: #5a6268;
+}
+
+/* Media Grid */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 5px;
+  margin: 15px 0;
+}
+
+.media-item {
+  height: 100px;
+  overflow: hidden;
+}
+
+.media-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .profile-banner {
+    height: 140px;
+  }
+
+  .avatar {
+    width: 75px;
+    height: 75px;
+  }
+
+  .user-info h1 {
+    font-size: 1.2rem;
+  }
+
+  .stats-row {
+    flex-wrap: wrap;
+  }
+
+  .media-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+
+  .media-item {
+    height: 90px;
+  }
+}
+
+/* Main Grid for Dashboard */
+.dashboard-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Chart Container */
+.chart-container {
+  flex: 1;
+  max-width: 50%;
+  min-width: 300px;
+  background: #1a1f36;
+  padding: 10px;
+  color: floralwhite;
+  box-shadow: 0px 0px 12px rgba(138, 43, 226, 0.7);
+}
+.throne-image{
+  max-width: 100%;
+  padding: 10px;
+}
+/* Stats Grid */
+.stats-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  /* max-width: 50%; */
+  min-width: 350px;
+}
+
+/* Stat Cards */
+.stat-card {
+  background: #1a1f36;
+  padding: 12px;
+  padding-top: 50px;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+  font-size: 12px;
+}
+
+/* Hover Glow */
+.stat-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 12px rgba(138, 43, 226, 0.7);
+}
+
+/* Graph */
+#miningChart {
+  max-width: 100%;
+  height: 250px;
+}
+
+/* Responsive: Stack graph and stats on mobile */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chart-container, .stats-grid {
+    max-width: 100%;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.invite-board {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding: 10px;
+  background-color: #22283d;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+}
+
+
+/* invite-board Title */
+.invite-board h3 {
+  font-size: 1rem;
+  color: #8a2be2;
+  margin-bottom: 8px;
+}
+
+/* invite-board List */
+.invite-board-container {
+  max-height: 200px; /* Prevents invite-board from being too tall */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #8a2be2 #1a1f36;
+}
+
+.invite-board-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.invite-board-container::-webkit-scrollbar-thumb {
+  background: #8a2be2;
+  border-radius: 4px;
+}
+
+.invite-board-container::-webkit-scrollbar-track {
+  background: #1a1f36;
+}
+
+/* Individual invite-board Entry */
+.invite-board ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.invite-board li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid #444;
+  font-size: 0.9rem;
+}
+
+/* Highlight Current User */
+.invite-board .highlight {
+  background-color: rgba(138, 43, 226, 0.2);
+  font-weight: bold;
+  border-left: 4px solid #8a2be2;
+  padding-left: 6px;
+}
+
+/* invite-board Entry Details */
+.invite-board .rank {
+  font-weight: bold;
+  color: #f8b400;
+  width: 40px;
+  text-align: left;
+}
+
+.invite-board .name {
+  flex: 1;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.invite-board .earnings {
+  font-weight: bold;
+  color: #3dd598;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  .invite-board {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .invite-board li {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .invite-board .rank {
+    width: 30px;
+  }
+
+  .invite-board-container {
+    max-height: 150px;
+  }
+}
+
+
+.copy-icon.copied {
+  color: var(--default-color);
+}
+</style>
+
+
+
+<div class="compact-container">
+  <section class="dashboard-profile mb-4">
+    <!-- Profile Banner -->
+    <div class="profile-banner">
+      <div class="edit-banner">
+        <i class="fas fa-pencil-alt"></i>
+      </div>
+  
+      <!-- Avatar Positioned on Banner -->
+      <div class="avatar">
+        <img src="/images/<%= user.image %>" alt="User Avatar">
+        <div class="edit-avatar">
+          <i class="fas fa-camera"></i>
+        </div>
+      </div>
+    </div>
+  
+    <!-- User Info -->
+    <div class="user-info">
+      <h1><%= user.fname %> <%= user.lname %></h1>
+      <p><i class="fas fa-envelope"></i> <%= user.email %></p>
+    </div>
+
+    <!-- Stats & Actions -->
+    <div class="stats-buttons-wrapper">
+      <div class="stats-row">
+        <div class="stat">
+          <h4><%= referees.length %></h4>
+          <p>Referrals</p>
+        </div>
+        <div class="stat">
+          <h4><%= userTask.length %></h4>
+          <p>Movies Watched</p>
+        </div>
+        <div class="stat">
+          <h4>0</h4>
+          <p>Music Listened</p>
+        </div>
+        <div class="stat">
+          <h4>$ <%= user.balance %></h4>
+          <p>Balance</p>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <!-- <a href="#" class="action-button">
+          <i class="fas fa-comment-dots"></i> Message
+        </a> -->
+        <!-- <a href="#" class="action-button secondary">
+          <i class="fas fa-user-plus"></i> Follow
+        </a> -->
+        <a href="/settings/edit-profile" class="action-button ">
+          <i class="fas fa-pen"></i> Edit Profile
+        </a>
+        <a href="/user/settings" class="action-button secondary">
+          <i class="fas fa-cog"></i> 
+        </a>
+     
+      </div>
+    </div>
+  </section>
+  
+
+  <section class="invite-board">
+    <!-- <h3>🏆 Today's Top Pushers</h3> -->
+    <div class="invite-link">
+      <input id="link" class="form-control" value="<%= referLink %>" readonly />
+      <br>
+      <span id="copy-text" class="copy-icon" onclick="copyToClipboard()"> <i class="bi bi-clipboard"></i></span>
+    </div>
+
+    <div class="invite-board-container">
+      <ul>
+        <% referees.forEach((users, index) => { %>
+          <li class="<%= users.email === user.email ? 'highlight' : '' %>">
+            <span class="rank">#<%= index + 1 %></span>
+            <span class="name"><%= users.fname %> <%= users.lname %> (<%= users.balance %>)</span>
+            <span class="earnings">   <% if (users.has_earned) { %>
+              <i class="fas fa-check text-success"></i>
+              <% } else { %>
+              <i class="fas fa-times text-danger"></i>
+              <% } %>
+            </span>
+          </li>
+        <% }); %>
+      </ul>
+    </div>
+  </section>
+
+
+  <div class="user-dashboard">
+    <div class="dashboard-grid">
+      <!-- Graph Section -->
+      <div class="chart-container">
+        <!-- <canvas id="miningChart"></canvas> -->
+        <img src="/images/phi-coin.png" alt="Profile Picture" class="throne-image">
+      </div>
+  
+      <!-- Stats Section -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>⚡ </h3>
+          <p>Level <%= user.mining_level %></p>
+        </div>
+        <div class="stat-card">
+          <h3>⛏️</h3>
+          <p>$<%= user.mining_rate %>/session</p>
+        </div>
+        <div class="stat-card">
+          <h3>👥 </h3>
+          <p><%= user.total_referrals %></p>
+        </div>
+    
+        <div class="stat-card" id="vip-card">
+          <h3>⭐ </h3>
+          <p><%= user.premium_user ? 'VIP Member' : 'Standard' %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<%- include ('./partials/bottomnav') %>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
+
+<!-- <script>
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    const miningData = <%= JSON.stringify(miningData) %>;
+    return console.log(miningData);
+
+    // Format Dates Properly
+    const miningLabels = miningData.map(row => new Date(row.date).toISOString().split("T")[0]);
+    const miningValues = miningData.map(row => parseFloat(row.total_mined));
+
+
+    // Chart Configuration
+    var options = {
+      chart: {
+        type: 'line',
+        height: 350,
+        background: 'transparent',
+      },
+      series: [{
+        name: "Mining Earnings ($)",
+        data: miningValues
+      }],
+      xaxis: {
+        categories: miningLabels,
+        labels: { style: { colors: "white" } },
+      },
+      yaxis: {
+        labels: { style: { colors: "white" } },
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 2
+      },
+      colors: ["#8a2be2"],
+    };
+
+    // Render the Chart
+    var chart = new ApexCharts(document.querySelector("#miningChart"), options);
+    chart.render();
+  });
+</script>
+ -->
+
+
+ <script>
+  function copyToClipboard() {
+    const copyText = document.getElementById("link");
+    copyText.select();
+    document.execCommand("copy");
+
+    // Update the text and icon to "Copied" with a checkmark
+    const copyTextElement = document.getElementById("copy-text");
+    copyTextElement.innerHTML = 'Copied  <i class="bi bi-check-circle-fill"></i>';
+    copyTextElement.classList.add("copied");
+
+    // Reset back to "Copy" after a delay
+    setTimeout(() => {
+      copyTextElement.innerHTML = '<i class="bi bi-clipboard"></i>';
+      copyTextElement.classList.remove("copied");
+    }, 2000);
+  }
+
+
+
+</script>

@@ -1,0 +1,40 @@
+
+<div id="message-container">
+    <% if(locals.errors && locals.errors.length > 0){ %>
+        <% locals.errors.forEach(function(error) { %>
+            <div class="message warning show" role="alert">
+                <i class="fas fa-times-circle"></i> <%= error.msg %>  
+                <button class="close-btn" aria-label="Close">&times;</button>
+            </div>
+        <% }); %>
+    <% } %>
+    
+    <% if(success_msg && success_msg != ''){ %>
+        <div class="message success show" role="alert">
+            <i class="fas fa-check-circle"></i> <%= success_msg %> 
+            <button class="close-btn" aria-label="Close">&times;</button>
+        </div>
+    <% } %>
+  
+    <% if(error_msg && error_msg != ''){ %>
+        <div class="message error show" role="alert">
+            <i class="fas fa-times-circle"></i> <%= error_msg %>
+            <button class="close-btn" aria-label="Close">&times;</button>
+        </div>
+    <% } %>
+  
+    <% if(error && error != ''){ %>
+        <div class="message error show" role="alert">
+            <i class="fas fa-times-circle"></i> <%= error %> 
+            <button class="close-btn" aria-label="Close">&times;</button>
+        </div>
+    <% } %>
+  
+    <% if(warning_msg && warning_msg != ''){ %>
+        <div class="message warning show" role="alert">
+            <i class="fas fa-exclamation-circle"></i> <%= warning_msg %>
+            <button class="close-btn" aria-label="Close">&times;</button>
+        </div>
+    <% } %>
+  </div>
+  

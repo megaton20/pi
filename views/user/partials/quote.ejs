@@ -1,0 +1,17 @@
+
+
+  <div class="help-box d-flex flex-column justify-content-center align-items-center my-box-shadow">
+    
+       <% if (dailyQuote && dailyQuote.quoteText) { %>
+      &ldquo;<p><%= dailyQuote.quoteText %></p>&rdquo;
+  <% } else { %>
+      <p>No quote available for today.</p>
+  <% } %> </p>
+    <p class="d-flex align-items-center mt-1 mb-0">
+      <% if (dailyQuote && dailyQuote.quoteAuthor) { %>
+      <p>— <%= dailyQuote.quoteAuthor%></p>
+  <% } else { %>
+      <p>No author to ginger.</p>
+  <% } %>
+
+  </div> 

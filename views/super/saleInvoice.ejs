@@ -1,0 +1,136 @@
+<!-- Page Wrapper -->
+<div id="wrapper">
+  <!-- Content Wrapper -->
+  <div id="content-wrapper">
+    <!-- Main Content -->
+    <div id="content ">
+      <!-- Topbar -->
+      <%- include ('../partials/superCounterTopbar') %>
+        <!-- End of Topbar -->
+        <%- include ('../partials/messages') %>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <div class="container mt-4 mb-4" style="border-left: 2px solid #ffdd00">
+              <p class="text-warning">Take your printout and Proceed to the next desk to make your payment</p>
+            </div>
+
+            <div class="container">
+              <div class="row mt-4">
+                <div class="col-6 mb-4">
+                  <div class="row">
+                    <div class="col-6">Sale Id</div>
+                    <div class="col-6">
+                      <%=newSale[0].sale_id%>
+                    </div>
+                    <div class="col-6">Attendant Id</div>
+                    <div class="col-6">
+                      <%=newSale[0].attendant_id%>
+                    </div>
+                    <div class="col-6">Payement method</div>
+                    <div class="col-6">
+                      <%=newSale[0].Payment_type%>
+                    </div>
+
+
+
+                    <div class="col-lg-6 col-sm-12 col-md-8">
+                      <form action="/super/resolve/<%= newSale[0].id %>" method="POST">
+                        <input type="hidden" name="_method" value="PUT" />
+                        <button class="btn btn-primary">Resolve sale with shelf</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="mb-4">
+                    <!-- Card Header - Dropdown -->
+
+                    <!-- Card Body -->
+                    <p class="text-uppercase text-primary">Item Ordered List</p>
+
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Image</th>
+                          <th>Product Name</th>
+                          <th>unit price</th>
+                          <th>ST</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <% newOrderProducts.forEach(function(data) {%>
+                          <tr>
+                            <td>
+                              <%= data['id'] %>
+                            </td>
+                            <td><img class="img-thumbnail" style="max-width: 40px;" src="/uploads/<%= data['image'] %>"
+                                alt="image"></td>
+                            <td>
+                              <%= data['name'] %>
+                            </td>
+                            <td>
+                              <%= data['price_per_item'] %>
+                            </td>
+                            <td>
+                              <%= data['subTotal'] %>
+                            </td>
+
+                            <!-- Display the expiry date directly -->
+
+                            <% }) %>
+                          </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-6 text-primary">Applied Discount:</div>
+                    <div class="col-6 text-warning">0 %</div>
+                    <hr>
+                    <div class="col-6 text-primary">Total To Be Paid:</div>
+                    <div class="col-6 text-warning">₦<%= totalSubtotal %>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+        </div>
+
+        <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+
+
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <%- include ('../partials/footer') %>
+  </div>
+  <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
