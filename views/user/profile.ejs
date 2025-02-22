@@ -1,60 +1,7 @@
 <style>
 
 
-.profile-banner {
-  position: relative;
-  height: 180px;
-  background-color: #22283d;
-  border-radius: 8px;
-}
 
-.profile-banner .edit-banner {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  color: #fff;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.profile-banner .edit-banner i {
-  font-size: 1.2rem;
-}
-
-/* Avatar Styling */
-.avatar {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  border: 3px solid #fff;
-  overflow: hidden;
-}
-
-.avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.avatar .edit-avatar {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  padding: 5px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.avatar .edit-avatar i {
-  font-size: 0.9rem;
-}
 
 /* User Info */
 .user-info {
@@ -112,30 +59,6 @@
   flex-wrap: wrap;
 }
 
-.action-button {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: #007bff;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 18px;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.action-button:hover {
-  background: #0056b3;
-}
-
-.action-button.secondary {
-  background: #6c757d;
-}
-
-.action-button.secondary:hover {
-  background: #5a6268;
-}
 
 /* Media Grid */
 .media-grid {
@@ -368,22 +291,13 @@
 
 
 
+<%- include ('../partials/messages') %>
+
+
 <div class="compact-container">
   <section class="dashboard-profile mb-4">
     <!-- Profile Banner -->
-    <div class="profile-banner">
-      <div class="edit-banner">
-        <i class="fas fa-pencil-alt"></i>
-      </div>
-  
-      <!-- Avatar Positioned on Banner -->
-      <div class="avatar">
-        <img src="/images/<%= user.image %>" alt="User Avatar">
-        <div class="edit-avatar">
-          <i class="fas fa-camera"></i>
-        </div>
-      </div>
-    </div>
+
   
     <!-- User Info -->
     <div class="user-info">
@@ -413,16 +327,19 @@
       </div>
 
       <div class="button-row">
-        <!-- <a href="#" class="action-button">
+        <!-- <a href="#" class=" btn btn-success">
           <i class="fas fa-comment-dots"></i> Message
         </a> -->
-        <!-- <a href="#" class="action-button secondary">
+        <!-- <a href="#" class=" secondary">
           <i class="fas fa-user-plus"></i> Follow
         </a> -->
-        <a href="/settings/edit-profile" class="action-button ">
-          <i class="fas fa-pen"></i> Edit Profile
+        <a href="/user/withdraw" class=" btn btn-success" >
+          <i class="fas fa-coins"></i> Cashout 
         </a>
-        <a href="/user/settings" class="action-button secondary">
+        <!-- <a href="/settings/edit-profile" class=" btn btn-success">
+          <i class="fas fa-pen"></i> Edit Profile
+        </a> -->
+        <a href="/user/settings" class=" btn btn-success">
           <i class="fas fa-cog"></i> 
         </a>
      

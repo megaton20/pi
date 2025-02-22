@@ -9,10 +9,116 @@ const {v4:uuidv4} = require('uuid')
 
 const quoteService = require("../utils/dialyQuote");
 const getRecentCustomers = require("../model/recentCustomers");
-const addRecentlyViewedItem = require("../utils/recentlyViewed");
 const appInfo = require('../model/appinfo')
-const calculateShippingFee = require("../utils/shippingFee");
-const calculateCashback = require("../utils/cashback");
+const bankData = require("../utils/bank");
+
+
+exports.withdrawal =  async (req, res) => {
+  
+  const userId = req.user.id;
+
+  try {
+
+      const {rows:userData} = await query(`SELECT balance FROM users WHERE id = $1`, [userId]);
+      const {rows:referralData} = await query(`SELECT COUNT(*) AS referral_count FROM referrals WHERE referrer_id = $1`, [userId]);
+
+      const balance = parseFloat(userData[0]?.balance || 0);
+      const referralCount = parseInt(referralData[0]?.referral_count || 0);
+
+
+      // Redirect if conditions are not met
+      if (balance < 5000 || referralCount > 10) {
+        req.flash('error_msg', `you do not have enough balance or refferals to withdraw`)
+          return res.redirect('/user/profile');
+      }
+
+   
+
+    // Render the landing page
+    res.render('./user/withdrawal', {
+      pageTitle: `Welcome to ${appInfo}`,
+      currentPage: 'Withdrawals',
+      returnPage:"/user/profile",
+      user:userData[0] || [],
+      balance: 50000 || balance || 20,
+      referralCount: 20 || referralCount || 10,
+      bank:bankData
+    });
+
+  } catch (error) {
+    console.error(`Error fetching user shop data: ${error}`);
+    req.flash('error_msg', 'An error occurred while loading the shop items');
+    return res.redirect('/');
+  }
+}
+
+
+exports.withdrawalFunds = async (req, res) => {
+
+  const userId = req.user.id;
+  const { amount, bank, account_number } = req.body;
+
+  if (!(bank && account_number) ) {
+
+    req.flash('error_msg',`Enter all fields to processs`)
+    return res.redirect('/user/withdraw');
+}
+  const withdrawalAmount = parseFloat(amount);
+
+  if (withdrawalAmount < 5000) {
+
+      req.flash('error_msg',`Minimum withdrawal amount is $5000`)
+      return res.redirect('/user/withdraw');
+  }
+
+  try {
+      // Get user's balance
+      const userData = await query(`SELECT balance FROM users WHERE id = $1`, [userId]);
+      const balance = parseFloat(userData.rows[0]?.balance || 0);
+
+      if (balance < withdrawalAmount) {
+        req.flash('error_msg',`Insufficient balance`)
+          return res.redirect('/user/profile');
+      }
+
+      // Deduct balance and insert into withdrawals table
+      await query('BEGIN');
+
+      await query(`UPDATE users SET balance = balance - $1 WHERE id = $2`, [withdrawalAmount, userId]);
+
+      await query(`INSERT INTO withdrawals (user_id, amount, account_number, bank, id, status) VALUES ($1, $2, $3, $4,$5, 'pending')`,[userId, withdrawalAmount,account_number, bank, uuidv4()]);
+
+      await query('COMMIT');
+
+      return res.redirect('/success');
+  } catch (err) {
+      await query('ROLLBACK');
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.withdrawals = async (req, res) => {
+
+  const { rows: withdrawals } = await query('SELECT * FROM withdrawals WHERE user_id = $1', [req.user.id]);
+  
+  try {
+
+    // Render the landing page
+    res.render('./user/withdrawals', {
+      pageTitle: `Welcome to ${appInfo}`,
+      currentPage: 'withdrawals',
+      recentlyViewed: req.session.recentlyViewed || [],
+      withdrawals:withdrawals || []
+  });
+
+  } catch (error) {
+    console.error(`Error fetching user shop data: ${error}`);
+    req.flash('error_msg', 'An error occurred while loading the shop items');
+    return res.redirect('/');
+  }
+}
+
 
 
 
@@ -61,6 +167,7 @@ exports.feed = async (req, res) => {
     (acc, profit) => acc + parseFloat(profit.earnings),
     0
     );
+
     const pushes = dailyEarningsResult.length
     const { rows: userTask } = await query('SELECT * FROM user_tasks WHERE user_id = $1 AND status = $2 ', [id, 'completed']);
     
@@ -73,9 +180,10 @@ exports.feed = async (req, res) => {
 
   // Ensure lastMineTime is in seconds (convert from milliseconds if needed)
   if (lastMineTime > 9999999999) { 
-      lastMineTime = Math.floor(lastMineTime / 1000);
+    lastMineTime = Math.floor(lastMineTime / 1000);
   }
   const remainingTime = Math.max(1800 - (currentTime - lastMineTime), 0); // 30 minutes cooldown
+
 
   try {
     // Render the landing page
@@ -702,115 +810,67 @@ exports.settingsPolicy = async (req, res) => {
 
 
 
-exports.withdrawals = async (req, res) => {
 
-  
-  try {
 
-    // Render the landing page
-    res.render('./user/withdrawals', {
-      pageTitle: `Welcome to ${appInfo}`,
-      currentPage: 'withdrawals',
-      recentlyViewed: req.session.recentlyViewed || [],
-  });
+exports.changePassword = async (req, res) => {
+  const userId = req.user.id;
 
-  } catch (error) {
-    console.error(`Error fetching user shop data: ${error}`);
-    req.flash('error_msg', 'An error occurred while loading the shop items');
-    return res.redirect('/');
+  const { oldPassword, newPasswordA, newPasswordB } = req.body;
+
+  if (!(oldPassword && newPasswordA && newPasswordB)) {
+    req.flash("error_msg", "Enter all Fields");
+    return res.redirect(`back`);
   }
-}
 
-
-exports.readNotification = async (req, res) => {
-  const id = req.params.id;
+  if (newPasswordA !== newPasswordB) {
+    req.flash("error_msg", "Passwords do not match");
+    return res.redirect(`back`);
+  }
 
   try {
     // Fetch user data
-    const { rows: userNotifications } = await query(
-      'SELECT * FROM "notifications" WHERE "id" = $1',
-      [id]
-    );
+    const userDataQuery = `SELECT * FROM users WHERE id = $1`;
+    const { rows: userDataResult } = await query(userDataQuery, [userId]);
+    const userData = userDataResult[0];
 
-    await query('UPDATE "notifications" SET  "is_read" = $1 WHERE "id" = $2', [
-      true,
-      id,
-    ]);
+    const isMatch = await bcrypt.compare(oldPassword, userData.password);
 
-    // Fetch user data
-    const {
-      rows: [result],
-    } = await query(
-      'SELECT COUNT(*) AS totalunread FROM "notifications" WHERE "user_id" = $1 AND "is_read" = $2',
-      [req.user.id, false]
-    );
-
-    let totalUnreadNotification = parseInt(result.totalunread, 10);
-    const { rows: allCategory } = await query('SELECT * FROM "Category"');
-    // Render the checkout page
-    res.render("./user/notifications-details", {
-      pageTitle: "notifications details ",
-      appInfo: appInfo,
-      
-      userNotifications,
-      totalUnreadNotification,
-      allCategory,
-      recentlyViewed: req.session.recentlyViewed || [],
-    });
+    if (!isMatch) {
+      req.flash("error_msg", "Old Password is not correct");
+      return res.redirect("back");
+    }
   } catch (error) {
-    console.error(`Error during checkout: ${error}`);
-    req.flash("error_msg", "An error occurred ");
-    return res.redirect("/user");
+    console.log(error);
+    req.flash("error_msg", `errorr form server`);
+    return res.redirect("/error");
   }
-};
 
-exports.readAllNotification = async (req, res) => {
-  const id = req.user.id;
+  const hashedPassword = bcrypt.hashSync(newPasswordA, 10);
 
   try {
-    await query(
-      'UPDATE "notifications" SET  "is_read" = $1 WHERE "user_id" = $2',
-      [true, id]
-    );
-
-    // Render the checkout page
-    req.flash("warning_msg", "All rrreaddd! ");
-    res.redirect("back");
+    await query('UPDATE users SET password = $1 WHERE email = $2', [hashedPassword,req.user.email,]);
+    return res.redirect("/success");
   } catch (error) {
-    console.error(`Error during checkout: ${error}`);
-    req.flash("error_msg", "An error occurred ");
-    return res.redirect("/user");
+    console.log(error);
+    req.flash("error_msg", `errorr form server: ${error.message}`);
+    return res.redirect("/error");
   }
 };
-
-exports.deleteNotification = async (req, res) => {
-  const editID = req.params.id;
-
-  try {
-    // Use a parameterized query with $1 for PostgreSQL
-    await query(`DELETE FROM "notifications" WHERE "id" = $1`, [editID]);
-    return res.redirect("back");
-  } catch (error) {
-    req.flash("error_msg", `Error from server: ${error.message}`);
-    return res.redirect("/user");
-  }
-};
-
-
 
 
 exports.deleteAccount = async (req, res) => {
 
+  const userId = req.user.id;
 
   try {
-    const {rows: [user]} = await query('SELECT COUNT(*) AS totalunread FROM "notifications" WHERE "user_id" = $1 AND "is_read" = $2',[req.user.id, false]);
 
+    const { rows: user } = await query(`SELECT * FROM users WHERE id = $1`, [userId]);
 
      return res.render('./user/delete-account', {
         pageTitle: `Welcome to ${appInfo}`,
         currentPage: 'profile',
         returnPage:'/user/settings',
-        user
+        user:user || []
     });
   } catch (err) {
     console.error(err);

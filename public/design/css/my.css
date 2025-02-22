@@ -8,8 +8,6 @@
 :root {
   --default-color: #8a2be2;
   --secondary-color: #6a5acd;
-
-  /* Contrast Color - This is a color used for text when the background color is one of the heading, accent, or default colors. Its purpose is to ensure proper contrast and readability when placed over these more dominant colors. */
   --contrast-color: #feffff;
 }
 
@@ -22,6 +20,7 @@
 body {
   margin: 0;
   background: linear-gradient(to bottom, #1a1f36, #121826);
+  height: 100vh;
   color: white;
   font-family: "Orbitron", sans-serif;
 }

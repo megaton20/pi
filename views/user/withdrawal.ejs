@@ -1,0 +1,127 @@
+<style>
+  .help-container {
+    padding: 1.5rem;
+    color: #fff;
+  }
+
+  .help-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #2a3348;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .help-section h5 {
+    color: #6a5acd;
+    margin-bottom: 0.5rem;
+  }
+
+  .help-section p {
+    color: #aaa;
+  }
+
+
+  .withdrawal-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: #2a3348;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .withdrawal-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+    border-left: 5px solid #6a5acd;
+    padding-left: 10px;
+  }
+
+  .withdrawal-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+  }
+
+  .withdrawal-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background: #6a5acd;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .withdrawal-button:disabled {
+    background: #555;
+    cursor: not-allowed;
+  }
+</style>
+
+
+
+<%- include ('./partials/topnav') %>
+
+  <br>
+  <br>
+  <div class="compact-container">
+    <%- include ('../partials/messages') %>
+      <% if (balance < 5000 || referralCount < 10) { %>
+
+        <h3><i class="fas fa-times"> </i> Not eligible for withdrawal!!</h3>
+
+        <div class="help-section">
+          <h5>1. Earn Rewards</h5>
+          <p>Balance must be up to USD 5,000 </p>
+        </div>
+
+        <div class="help-section">
+          <h5>2. Referrals</h5>
+          <p>must have at least 10 Referrals.</p>
+        </div>
+
+        <div class="help-section">
+          <h5>5. Name must match the bank details provided!</h5>
+          <p>Once you reach the minimum withdrawal amount, you can cash out your earnings securely through the verified
+            local or online bank.</p>
+        </div>
+
+
+
+        <% } else { %>
+
+
+          <div class="withdrawal-container">
+            <div class="withdrawal-header">Withdraw Funds</div>
+            <p style="color: white;">Minimum Withdrawal: $5000</p>
+            <form action="/user/withdraw-funds" method="post">
+              <input type="number" id="withdrawalAmount" name="amount" class="withdrawal-input"
+                placeholder="Enter amount" min="5000">
+              <div class="form-group mb-3">
+                <select name="bank" id="store-bank" class="form-control">
+                  <% bank.forEach(function(bank) { %>
+                    <option value="<%= bank.name %>">
+                      <%= bank.name %>
+                    </option>
+                    <% }) %>
+                </select>
+              </div>
+              <input type="number" name="account_number" class="withdrawal-input" placeholder="Enter account number">
+
+              <button id="withdrawButton" class="withdrawal-button">Withdraw</button>
+            </form>
+
+          </div>
+
+          <% } %>
+
+  </div>

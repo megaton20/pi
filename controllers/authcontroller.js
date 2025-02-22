@@ -313,15 +313,15 @@ exports.resetRequest = async (req, res, next) => {
   // Check the database for the email presence
   try {
 
-    const results = await query(`SELECT * FROM "Users" WHERE email = $1`, [email])
+    const {rows: results} = await query(`SELECT * FROM users WHERE email = $1`, [email])
 
 
-    if (results.rows.length <= 0) {
+    if (results.length = 0) {
       req.flash('error_msg', `Error: No user found with this email`);
       return res.redirect('back');
     }
 
-    const userEmail = results.rows[0].email;
+    const userEmail = results.email;
     const token = generateResetToken(userEmail);
     const resetLink = `${process.env.LIVE_DIRR || `http://localhost:${process.env.PORT || 2000}`}/auth/reset-password/${token}`;
 
@@ -361,11 +361,12 @@ exports.resetRequest = async (req, res, next) => {
       }
 
       req.flash('success_msg', `Check your inbox or spam in ${userEmail} to reset your password`);
-      return res.redirect('back'); // Redirect to a waiting page
+      return res.redirect('/success'); 
     });
   } catch (error) {
+    console.log(error);
     req.flash('error_msg', `Error while sending message`);
-    res.redirect('back');
+    res.redirect('/error');
   }
 };
 

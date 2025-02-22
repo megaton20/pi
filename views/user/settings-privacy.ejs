@@ -1,5 +1,12 @@
 <style>
 
+.ui-card{
+  background-color: #22283d;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 15px;
+  padding: 10px;
+}
   .privacy-header {
     text-align: center;
     margin-bottom: 20px;
@@ -24,7 +31,7 @@
 
   .privacy-option label {
     font-size: 1rem;
-    color: #333;
+    color: #fff;
   }
 
   .privacy-option input[type="checkbox"] {
@@ -63,7 +70,7 @@
     margin-top: 20px;
     text-align: center;
     font-size: 1rem;
-    color: #007bff;
+    color: #00a6ff;
     display: none;
   }
 </style>
@@ -76,7 +83,8 @@
 
 <div class="compact-container">
   <!-- Privacy Options -->
-  <div class="privacy-options mt-4">
+  <div class="ui-card">
+    <div class="privacy-options">
     <div class="privacy-option">
       <label for="share-profile">Allow Profile Sharing</label>
       <input type="checkbox" id="share-profile" data-setting="share_profile">
@@ -89,6 +97,7 @@
       <label for="ad-personalization">Ad Personalization</label>
       <input type="checkbox" id="ad-personalization" data-setting="ad_personalization">
     </div>
+  </div>
   </div>
 
   <div class="ajax-response" id="ajax-response">Settings updated successfully!</div>

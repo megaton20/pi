@@ -276,6 +276,7 @@
   border-radius: 6px;
   background: #1a1f36;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .info-card h3 {
@@ -551,28 +552,30 @@
    
     <section class="extra-info">
       <div class="info-card">
-        <h3>💰 Today's Push</h3>
+        <h3> Today's Push</h3>
         <p ><span id="pushes"><%= dailyEarningsResult.length %></span> Push(es)</p>
       </div>
       <div class="info-card">
-        <h3>🔥 Streak</h3>
+        <h3> Daily Streak</h3>
         <p><%= streak.length %> day(s)</p>
       </div>
       <div class="info-card">
-        <h3>🎯 Ads Reward</h3>
-        <p>$0.00 </p>
+        <h3> Daily Reward</h3>
+        <p>$<%= dailyEarn %>  </p>
       </div>
       <div class="info-card">
-        <h3>⏳ tasks Reward</h3>
+        <h3> tasks Reward</h3>
         <p id="next-reward"><%=userTask.length %> </p>
       </div>
     </section>
     
     <br>
+    <br>
+    <br>
     
   </div>
+    <%- include ('./partials/bottomnav') %>
 
-  <%- include ('./partials/bottomnav') %>
 
 
   <script>
@@ -618,7 +621,7 @@
               progressBar.style.width = `${progress}%`;
               document.getElementById("in-words").textContent = `${Math.round(progress)}% till next push`;
               pushesDiv.textContent = pushes + 1
-                  earningsDiv.textContent = Number(dailyEarn) + 0.10
+                  earningsDiv.textContent = parseFloat(dailyEarn) + 0.1
           }
       }
   

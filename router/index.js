@@ -12,11 +12,9 @@ const fs = require('fs')
 
 
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
-const calculateShippingFee = require("../utils/shippingFee");
-const calculateCashback = require("../utils/cashback");
+
 const quoteService = require("../utils/dialyQuote");
-const getRecentCustomers = require("../model/recentCustomers");
-const addRecentlyViewedItem = require("../utils/recentlyViewed");
+
 const {v4:uuidv4} = require('uuid')
 const { generatePrediction } = require("../utils/prediction");
 const {streakCheck} = require('../utils/streak')

@@ -88,6 +88,30 @@
   background-color: #584dc5;
 }
 
+
+/* ads Grid */
+.ads-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  min-width: 350px;
+}
+
+/* Stat Cards */
+.ads-card {
+  margin-right: 20px;
+  background: #1a1f36;
+  padding: 12px;
+  padding-top: 30px;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+  font-size: 12px;
+  box-shadow: 0px 0px 12px rgba(138, 43, 226, 0.7);
+}
+
 </style>
 
 
@@ -104,14 +128,14 @@
     <div class="sticky-tabs">
       <ul class="nav nav-tabs" id="taskTabs" role="tablist">
         <li class="nav-item">
-          <button class="nav-link active" id="daily-tab" data-bs-toggle="tab" data-bs-target="#daily" type="button">Cinema</button>
+          <button class="nav-link active" id="daily-tab" data-bs-toggle="tab" data-bs-target="#cinema" type="button">Cinema</button>
         </li>
 
         <li class="nav-item">
-          <button class="nav-link" id="weekly-tab" data-bs-toggle="tab" data-bs-target="#weekly" type="button">Audio</button>
+          <button class="nav-link" id="weekly-tab" data-bs-toggle="tab" data-bs-target="#audio" type="button">Audio</button>
         </li>
         <li class="nav-item">
-          <button class="nav-link" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly" type="button"> Ref </button>
+          <button class="nav-link" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#ads" type="button"> General ADs </button>
         </li>
       </ul>
     </div>
@@ -120,7 +144,8 @@
       <!-- Task Content -->
       <div class="tab-content scrollable-content" id="taskTabsContent">
         <!-- Cinema Tasks -->
-        <div class="tab-pane fade show active" id="daily">
+        <br>
+        <div class="tab-pane fade show active" id="cinema">
           <% let cinemaTasks = tasks.filter(task => task.task_type === 'watch_video'); %>
           <% if (cinemaTasks.length > 0) { %>
             <% cinemaTasks.forEach(task => { %>
@@ -149,11 +174,11 @@
         </div>
   
         <!-- Audio Tasks -->
-        <div class="tab-pane fade" id="weekly">
+        <div class="tab-pane fade" id="audio">
           <% let audioTasks = tasks.filter(task => task.task_type === 'listen_music'); %>
           <% if (audioTasks.length > 0) { %>
             <% audioTasks.forEach(task => { %>
-              <div class="task-card">
+              <div class="task-card mb-2">
                 <div class="task-icon">
                   <i class="bi bi-music-note"></i>
                 </div>
@@ -177,26 +202,17 @@
         </div>
   
         <!-- Referral Tasks -->
-        <div class="tab-pane fade" id="monthly">
-          <% if (referrals.length > 0) { %>
-            <% referrals.forEach(ref => { %>
-              <div class="task-card">
-                <div class="task-icon">
-                  <i class="bi bi-person-plus"></i>
+        <div class="tab-pane fade" id="ads">
+                
+          <br>
+          <br>
+          <br>
+          <a href="#" class=" ads-grid mt-5">
+                <div class="ads-card" id="watchAdBtn">
+                  <h3>⚡ </h3>
+                  Watch Ad & Earn
                 </div>
-                <div class="task-details">
-                  <h5>INVITE FRIENDS</h5>
-                  <p>Invite a friend and earn $<%= ref.earnings %> per signup.</p>
-                  <span class="badge <%= ref.user_status === 'completed' ? 'completed' : 'pending' %>">
-                    <%= ref.user_status === 'completed' ? 'Completed' : 'Pending' %>
-                  </span>
-                </div>
-                <button class="task-action">Get Referral Link</button>
-              </div>
-            <% }) %>
-          <% } else { %>
-            <p class="text-center text-light">No Referral tasks available.</p>
-          <% } %>
+            </a>
         </div>
       </div>
   
@@ -266,3 +282,34 @@
   
       </script>
       
+      <script src="https://www.is.com/ironsource-sdk.js"></script>
+
+     
+
+<script>
+    document.getElementById("watchAdBtn").addEventListener("click", function() {
+        ironSource.showRewardedAd({
+            appKey: "YOUR_IRONSOURCE_APP_KEY",
+            userId: 365605,
+            onAdStarted: function() {
+                fetch("/start-ad", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ userId: "USER_ID_HERE" })
+                });
+            },
+            onAdCompleted: function(adData) {
+                fetch("/ad-completed", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        userId: "USER_ID_HERE",
+                        adId: "GENERATED_AD_ID_HERE",
+                        adDuration: adData.duration
+                    })
+                }).then(response => response.json())
+                  .then(data => alert(data.message));
+            }
+        });
+    });
+</script>

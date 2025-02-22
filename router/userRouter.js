@@ -16,6 +16,9 @@ router.post('/reset-timer', userController.mine);
 
 module.exports = router;
 
+router.get('/withdrawals', userController.withdrawals);
+  router.get('/withdraw',userController.withdrawal);
+  router.post('/withdraw-funds',userController.withdrawalFunds);
   router.get('/tasks',userController.task);
   router.post("/tasks/start", userController.performTask);
   router.post("/tasks/complete", userController.completeTask);
@@ -27,7 +30,6 @@ module.exports = router;
   router.get('/settings',userController.settings);
   router.get('/profile',userController.profile);
   
-  router.get('/withdrawals', userController.withdrawals);
   router.get('/notifications', userController.notificationScreen);
   
   router.get('/change-password', userController.settingsPassword);
@@ -38,18 +40,10 @@ module.exports = router;
   router.get('/settings-help', userController.settingsHelp);
 
   router.get('/settings-policy', userController.settingsPolicy);
-  
-  
-  
-  
-
-// notifications
-router.get('/notifications/read-all', userController.readAllNotification);
-router.get('/notifications/:id', userController.readNotification);
-router.delete('/notifications/:id', userController.deleteNotification);
 
 
 
+router.post('/change-password', userController.changePassword); //
 // de
 router.get('/delete-account/',userController.deleteAccount)
 

@@ -57,20 +57,21 @@
 </style>
 
 <div class="fixed-navbar">
-  <a href="/user" class="nav-item <%= currentPage === 'feed' ? 'active' : '' %>" title="Dashboard">
-    <i class="fas fa-home"></i>
-    <p>Feed</p>
+  <a href="/user/leaderboard" class="nav-item <%= currentPage === 'leaderboard' ? 'active' : '' %>" title="leaderboard">
+    <i class="fas fa-trophy"></i>
+    <p>leaderboard</p>
   </a>
+
 
   <a href="/user/tasks" class="nav-item <%= currentPage === 'tasks' ? 'active' : '' %>" title="Tasks">
     <i class="fas fa-tasks"></i>
     <p>Tasks</p>
   </a>
-  <a style="color: gold;" href="/user/leaderboard" class="nav-item <%= currentPage === 'leaderboard' ? 'active' : '' %>" title="leaderboard">
-    <i class="fas fa-trophy"></i>
-    <p>leaderboard</p>
-  </a>
 
+  <a href="/user"  style="color: gold;" class="nav-item <%= currentPage === 'feed' ? 'active' : '' %>" title="Dashboard">
+    <i class="fas fa-home"></i>
+    <p>Home</p>
+  </a>
   <!-- <a href="/user/notifications" class="nav-item <%= currentPage === 'notifications' ? 'active' : '' %>" title="Notifications">
     <i class="fas fa-bell"></i>
     <p>Notifications</p>
@@ -78,7 +79,7 @@
 
   <a href="/user/withdrawals" class="nav-item <%= currentPage === 'withdrawals' ? 'active' : '' %>" title="Withdrawals">
     <i class="fas fa-wallet"></i>
-    <p>Withdrawals</p>
+    <p>payments</p>
   </a>
 
   <a href="/user/profile" class="nav-item <%= currentPage === 'profile' ? 'active' : '' %>" title="Profile">

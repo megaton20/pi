@@ -104,4 +104,14 @@ CREATE TABLE public.referrals (
 );
 
 
+CREATE TABLE withdrawals (
+    id character varying(255) PRIMARY KEY,
+    user_id VARCHAR (255) REFERENCES users(id) ON DELETE CASCADE,
+    bank VARCHAR (255),
+    account_number VARCHAR (255) ,
+    amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
 

@@ -7,48 +7,60 @@ const path = require("path");
 const axios = require("axios");
 
 
+// Function to determine user level based on balance
+function getUserLevel(balance) {
+    if (balance >= 10000) return 10;
+    if (balance >= 9000) return 9;
+    if (balance >= 8000) return 8;
+    if (balance >= 7000) return 7;
+    if (balance >= 6000) return 6;
+    if (balance >= 5000) return 5;
+    if (balance >= 4000) return 4;
+    if (balance >= 3000) return 3;
+    if (balance >= 2000) return 2;
+    return 1; // Default level if balance is below $2000
+}
+
+
 
 
 const userLevelChecker = async () => {
-  try {
-    // Fetch all rank data
-    const rankResults = await query(`SELECT * FROM "ranks"`);
 
-    if (rankResults.rows.length <= 0) {
-      // console.log("no ranks data");
-      return 
-    }
-    const ranks = rankResults.rows;
-
-    // Fetch all user data
-    const userResults = await query(`SELECT * FROM "Users"`);
-    const userData = userResults.rows;
-
-    // Iterate over each user to determine and update their rank
-    for (const user of userData) {
-      let newRank = null;
-
-      // Determine the new rank based on spending
-      for (let i = 0; i < ranks.length; i++) {
-        if (user.spending <= ranks[i].threshold) {
-          newRank = ranks[i];
-          break;
-        }
-      }
-
-      // If no rank matched, assign the highest rank
-      if (!newRank && ranks.length > 0) {
-        newRank = ranks[ranks.length - 1];
-      }
-
-      // Update user rank if a new rank is determined
-      if (newRank) {
-        await query(`UPDATE "Users" SET rank = $1, rank_id = $2 WHERE id = $3`,[newRank.name, newRank.id, user.id]);
-      }
-    }
-  } catch (err) {
-    console.error('Error in userLevelChecker:', err.message);
+  function getUserLevel(referralCount) {
+      if (referralCount >= 40) return 10;
+      if (referralCount >= 35) return 9;
+      if (referralCount >= 30) return 8;
+      if (referralCount >= 25) return 7;
+      if (referralCount >= 20) return 6;
+      if (referralCount >= 16) return 5;
+      if (referralCount >= 15) return 4;
+      if (referralCount >= 10) return 3;
+      if (referralCount >= 5) return 2;
+      return 1; // Default level if referrals are less than 2
   }
+
+      try {
+          // Fetch all users
+          const users = await query("SELECT id, mining_level FROM users");
+  
+          for (const user of users.rows) {
+              // Count referrals for each user
+              const referralResult = await query("SELECT COUNT(*) AS referral_count FROM referrals WHERE referrer_id = $1",[user.id]);
+  
+              const referralCount = parseInt(referralResult.rows[0].referral_count);
+              const newLevel = getUserLevel(referralCount);
+              
+              if (newLevel >= user.mining_level) {
+                  // Update the user's level
+                  await query("UPDATE users SET mining_level = $1 WHERE id = $2", [newLevel, user.id]);
+                //   console.log(`User ${user.id} upgraded to Level ${newLevel} with ${referralCount} referrals`);
+              }
+          }
+  
+      } catch (error) {
+          console.error("Error updating user levels:", error);
+      }
+
 };
 
 
@@ -117,7 +129,7 @@ cron.schedule('0 0 * * *', () => {
 
 // Schedule the job to run every minute
 cron.schedule('* * * * *', () => {
-    // userLevelChecker();
+    userLevelChecker();
     checkReferrals();
     streak()
 });
