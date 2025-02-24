@@ -16,16 +16,9 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const quoteService = require("../utils/dialyQuote");
 
 const {v4:uuidv4} = require('uuid')
-const { generatePrediction } = require("../utils/prediction");
+
 const {streakCheck} = require('../utils/streak')
 const appInfo = require('../model/appinfo')
-
-
-
-const matches = JSON.parse(
-  fs.readFileSync(path.join(__dirname,"../", "matches.txt"), "utf-8")
-);
-
 
 
 
