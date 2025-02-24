@@ -353,7 +353,7 @@
     <div class="invite-link">
       <input id="link" class="form-control" value="<%= referLink %>" readonly />
       <br>
-      <span id="copy-text" class="copy-icon" onclick="copyToClipboard()"> <i class="bi bi-clipboard"></i></span>
+       <p>My link: <%= referLink %>  <span id="copy-text" class="copy-icon" onclick="copyToClipboard()">  <i class="bi bi-clipboard"></i></span></p>
     </div>
 
     <div class="invite-board-container">
@@ -380,7 +380,8 @@
       <!-- Graph Section -->
       <div class="chart-container">
         <!-- <canvas id="miningChart"></canvas> -->
-        <img src="/images/phi-coin.png" alt="Profile Picture" class="throne-image">
+        <canvas id="myAreaChart"></canvas>
+        <!-- <img src="/images/phi-coin.png" alt="Profile Picture" class="throne-image"> -->
       </div>
   
       <!-- Stats Section -->
@@ -416,50 +417,83 @@
 <br>
 <%- include ('./partials/bottomnav') %>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- <script>
-  
+
+<script>
   document.addEventListener("DOMContentLoaded", function () {
-    const miningData = <%= JSON.stringify(miningData) %>;
-    return console.log(miningData);
+    const miningData = <%- JSON.stringify(miningData || []) %>;  
+    console.log("Mining Data:", miningData);
 
-    // Format Dates Properly
+    if (!miningData.length) {
+      console.warn("No mining data available.");
+      return;
+    }
+
+    // Extract dates and earnings
     const miningLabels = miningData.map(row => new Date(row.date).toISOString().split("T")[0]);
-    const miningValues = miningData.map(row => parseFloat(row.total_mined));
+    const miningValues = miningData.map(row => Number(row.total_mined));
 
-
-    // Chart Configuration
-    var options = {
-      chart: {
-        type: 'line',
-        height: 350,
-        background: 'transparent',
+    // Set up Chart.js
+    var ctx = document.getElementById("myAreaChart").getContext("2d");
+    var myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: miningLabels,
+        datasets: [{
+          label: "Mining Earnings ($)",
+          data: miningValues,
+          lineTension: 0.3,
+          backgroundColor: "rgba(78, 115, 223, 0.05)",
+          borderColor: "rgba(78, 115, 223, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointBorderColor: "rgba(78, 115, 223, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+        }],
       },
-      series: [{
-        name: "Mining Earnings ($)",
-        data: miningValues
-      }],
-      xaxis: {
-        categories: miningLabels,
-        labels: { style: { colors: "white" } },
-      },
-      yaxis: {
-        labels: { style: { colors: "white" } },
-      },
-      stroke: {
-        curve: 'smooth',
-        width: 2
-      },
-      colors: ["#8a2be2"],
-    };
-
-    // Render the Chart
-    var chart = new ApexCharts(document.querySelector("#miningChart"), options);
-    chart.render();
+      options: {
+        maintainAspectRatio: false,
+        layout: {
+          padding: { left: 10, right: 25, top: 25, bottom: 0 }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { maxTicksLimit: 7 },
+          },
+          y: {
+            ticks: {
+              maxTicksLimit: 5,
+              callback: function (value) {
+                return "$" + value.toFixed(2);
+              },
+            },
+            grid: {
+              color: "rgb(234, 236, 244)",
+              drawBorder: false,
+              borderDash: [2],
+              zeroLineBorderDash: [2]
+            },
+          },
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (tooltipItem) {
+                return "$" + tooltipItem.raw.toFixed(2);
+              }
+            }
+          }
+        }
+      }
+    });
   });
 </script>
- -->
 
 
  <script>
@@ -483,3 +517,4 @@
 
 
 </script>
+

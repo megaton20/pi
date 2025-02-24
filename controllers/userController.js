@@ -139,7 +139,7 @@ exports.mine =  async (req, res) => {
       }
 
       // Mining rates based on level
-      const miningRates = { 1: 0.10, 2: 0.50, 3: 1.00, 4: 1.50, 5: 2.00 };
+      const miningRates = { 1: 0.10, 2: 0.50, 3: 1.00, 4: 1.50, 5: 2.00, 6:5, 7:5.5, 8:6.50, 9:7.00 , 10:10.00 };
       
       const earnings = miningRates[user[0].mining_level] || 0.1;
 
