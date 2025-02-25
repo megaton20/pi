@@ -11,7 +11,7 @@ CREATE TABLE users (
     fname VARCHAR(255) NOT NULL,
 	lname VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password TEXT NOT NULL,
+    password TEXT ,
     balance DECIMAL(10, 2) DEFAULT 0.00, -- User's earnings
     mining_level INT DEFAULT 1, -- Level system for mining
     mining_rate DECIMAL(5,4) DEFAULT 0.10, -- Earnings per mining session
@@ -29,6 +29,7 @@ CREATE TABLE users (
     verified BOOLEAN DEFAULT FALSE,
     token character varying(255),
     token_expires timestamp without time zone,
+    google_id VARCHAR(255)
 );
 
 

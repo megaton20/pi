@@ -29,29 +29,34 @@ const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
 const FOOTBALL_NEWS_API = "https://example-football-news-api.com/news";
 
-// Fetch news posts with error handling
-const getNewsPosts = async () => {
-  try {
-    const response = await axios.get(FOOTBALL_NEWS_API);
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  async (req, res) => {
 
-    // Ensure we have data to display
-    if (!response.data.articles || response.data.articles.length === 0) {
-      throw new Error("No articles found.");
+    try {
+      // Parameterized query to prevent SQL injection
+      const updateQuery = `UPDATE users SET updated_at = $1 WHERE "id" = $2`;
+
+      // Execute the query with parameters
+      await query(updateQuery, [new Date(), req.user.id]);
+      res.redirect('/');
+    } catch (error) {
+      console.error('Error during user update:', error);
+
+      // Determine the type of error and respond accordingly
+      let errorMessage = 'An unexpected error occurred. Please try again later.';
+      
+      // Customize the error message based on the error type
+      if (error.name === 'QueryFailedError') {
+        errorMessage = 'Database error. Please contact support if this continues.';
+      } else if (error.message.includes('network')) {
+        errorMessage = 'Network error. Please check your connection and try again.';
+      }
+
+      return res.redirect('/login');
     }
-
-    // Map data to expected format
-    return response.data.articles.map((article) => ({
-      title: article.title || "Untitled Article",
-      description: article.description || "No description available",
-      image: article.image || "https://via.placeholder.com/80",
-      url: article.url || "#",
-    }));
-  } catch (error) {
-    console.error("Error fetching news:", error.message);
-    // Return fallback data or an empty array
-    return [];
   }
-};
+);
 
 
 
