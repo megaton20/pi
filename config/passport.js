@@ -106,13 +106,14 @@ const generateReferralCode = (username) => {
         updated_at: new Date(),
         user_role:"user",
         verified: true,
-        newReferralCode
+        newReferralCode,
+        last_mined:null
       };
 
       // Insert the new user into the database
-      const {rows:insertResult} = await query(`INSERT INTO users (id, google_id, fname, lname, email, created_at, updated_at, user_role, referral_code, verified)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`, 
-        [uuidv4(), newUser.google_id, newUser.fname, newUser.lname, newUser.email, newUser.created_at, newUser.updated_at, newUser.user_role, newUser.newReferralCode, newUser.verified]
+      const {rows:insertResult} = await query(`INSERT INTO users (id, google_id, fname, lname, email, created_at, updated_at, user_role, referral_code, verified, last_mined)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`, 
+        [uuidv4(), newUser.google_id, newUser.fname, newUser.lname, newUser.email, newUser.created_at, newUser.updated_at, newUser.user_role, newUser.newReferralCode, newUser.verified, newUser.last_mined]
       );
 
       // extract and link the referral code if present in session 
