@@ -130,7 +130,7 @@ app.use((err, req, res, next) => {
 
 // Start server
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production2') {
   app.listen();
   console.log(`app is public`);
 }else{
