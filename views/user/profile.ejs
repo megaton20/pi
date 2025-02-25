@@ -151,11 +151,6 @@
   font-size: 12px;
 }
 
-/* Hover Glow */
-.stat-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 0px 12px rgba(138, 43, 226, 0.7);
-}
 
 /* Graph */
 #miningChart {
@@ -330,12 +325,23 @@
         <!-- <a href="#" class=" btn btn-success">
           <i class="fas fa-comment-dots"></i> Message
         </a> -->
+        <% if (user.verified) { %>
+          <a href="/user/withdraw" class=" btn btn-success" >
+            <i class="fas fa-coins"></i> Cashout 
+          </a>
+        <% } else { %>
+          <!-- <a class="details text-warning" href="/user/profile"> <i class="bi bi-exclamation-circle-fill"></i> </a> -->
+          <form action="/auth/verify-request" method="post" class="status-form">
+            <input type="hidden" value="<%=user.email%>" name="email">
+            <button type="submit" class=" btn btn-success"> <i class="fas fa-envelope"></i> Verify your email </button>
+            
+          </form>
+   
+      <% } %>
         <!-- <a href="#" class=" secondary">
           <i class="fas fa-user-plus"></i> Follow
         </a> -->
-        <a href="/user/withdraw" class=" btn btn-success" >
-          <i class="fas fa-coins"></i> Cashout 
-        </a>
+     
         <!-- <a href="/settings/edit-profile" class=" btn btn-success">
           <i class="fas fa-pen"></i> Edit Profile
         </a> -->
@@ -379,9 +385,8 @@
     <div class="dashboard-grid">
       <!-- Graph Section -->
       <div class="chart-container">
-        <!-- <canvas id="miningChart"></canvas> -->
-        <canvas id="myAreaChart"></canvas>
-        <!-- <img src="/images/phi-coin.png" alt="Profile Picture" class="throne-image"> -->
+        <canvas id="myAreaChart">
+        </canvas>
       </div>
   
       <!-- Stats Section -->
@@ -423,7 +428,6 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const miningData = <%- JSON.stringify(miningData || []) %>;  
-    console.log("Mining Data:", miningData);
 
     if (!miningData.length) {
       console.warn("No mining data available.");
@@ -441,7 +445,7 @@
       data: {
         labels: miningLabels,
         datasets: [{
-          label: "Mining Earnings ($)",
+          label: "Daily Mining Earnings ($)",
           data: miningValues,
           lineTension: 0.3,
           backgroundColor: "rgba(78, 115, 223, 0.05)",

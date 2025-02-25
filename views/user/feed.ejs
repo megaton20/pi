@@ -510,9 +510,18 @@
         <img src="/images/<%= user.image %>" alt="Profile Picture" class="profile-pic">
         <div class="user-text">
           <h5><%= user.fname %> <%= user.lname %></h5>
-          <p class="email"><%= user.email %></p>
+          <p class="email"><%= user.email %> </p>
           <p class="details"> Level: <%= user.mining_level %></p>
           <p class="details text-success"> mining Rate: <%= user.mining_rate %></p>
+          <p class="details">
+
+            <% if (user.verified) { %>
+                <!-- <i class="fas fa-user"></i> Exclusive services -->
+              <% } else { %>
+                <a class="details text-warning" href="/user/profile"> <i class="bi bi-exclamation-circle-fill"></i> Verify your email!</a>
+
+            <% } %>
+          </p>
           <!-- <p class="details"> status: </p> <span class="online-status"></span> -->
         </div>
       </div>

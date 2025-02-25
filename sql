@@ -26,7 +26,9 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT NOW(),
 	user_role VARCHAR(20),
 	image TEXT DEFAULT 'avatar.png',
-    verified BOOLEAN DEFAULT FALSE
+    verified BOOLEAN DEFAULT FALSE,
+    token character varying(255),
+    token_expires timestamp without time zone,
 );
 
 

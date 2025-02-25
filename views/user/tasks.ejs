@@ -124,6 +124,7 @@
 
     <%- include ('../partials/messages') %>
 
+    <% if (user.verified) { %>
     <!-- Sticky Tabs -->
     <div class="sticky-tabs">
       <ul class="nav nav-tabs" id="taskTabs" role="tablist">
@@ -140,7 +141,6 @@
       </ul>
     </div>
 
-    <!-- Task Content -->
       <!-- Task Content -->
       <div class="tab-content scrollable-content" id="taskTabsContent">
         <!-- Cinema Tasks -->
@@ -162,9 +162,8 @@
                 </div>
                 <% if (task.user_status === 'not_started') { %>
                   <button class="task-action start-task" data-task-id="<%= task.id %>">Start Task</button>
-                  <% } else { %>
-                    <button class="task-action complete-task " data-task-id="<%= task.id %>">claim</button>
-                  <!-- <button class="task-action" data-task-id="<%= task.id %>">Done</button> -->
+                <% } else { %>
+                  <button class="task-action complete-task" data-task-id="<%= task.id %>">Claim</button>
                 <% } %>
               </div>
             <% }) %>
@@ -172,49 +171,18 @@
             <p class="text-center text-light">No Cinema tasks available.</p>
           <% } %>
         </div>
-  
-        <!-- Audio Tasks -->
-        <div class="tab-pane fade" id="audio">
-          <% let audioTasks = tasks.filter(task => task.task_type === 'listen_music'); %>
-          <% if (audioTasks.length > 0) { %>
-            <% audioTasks.forEach(task => { %>
-              <div class="task-card mb-2">
-                <div class="task-icon">
-                  <i class="bi bi-music-note"></i>
-                </div>
-                <div class="task-details">
-                  <h5>LISTEN MUSIC</h5>
-                  <p><%= task.source %> Task - Earn $<%= task.earnings %></p>
-                  <span class="badge <%= task.user_status === 'completed' ? 'completed' : 'pending' %>">
-                    <%= task.user_status === 'completed' ? 'Completed' : 'Pending' %>
-                  </span>
-                </div>
-                <% if (task.user_status === 'not_started') { %>
-                  <button class="task-action start-task" data-task-id="<%= task.id %>">Start Task</button>
-                <% } else { %>
-                  <button class="task-action" disabled>Done</button>
-                <% } %>
-              </div>
-            <% }) %>
-          <% } else { %>
-            <p class="text-center text-light">No Audio tasks available.</p>
-          <% } %>
-        </div>
-  
-        <!-- Referral Tasks -->
-        <div class="tab-pane fade" id="ads">
-                
-          <br>
-          <br>
-          <br>
-          <a href="#" class=" ads-grid mt-5">
-                <div class="ads-card" id="watchAdBtn">
-                  <h3>⚡ </h3>
-                  Watch Ad & Earn
-                </div>
-            </a>
+      </div>
+    <% } else { %>
+      <!-- Verification Required Section -->
+      <div class="verification-container">
+        <div class="verification-box">
+          <i class="bi bi-exclamation-circle-fill"></i>
+          <h3>Email Verification Required</h3>
+          <p>You need to verify your email to access tasks.</p>
+          <a href="/user/profile" class="verify-button">Verify Now</a>
         </div>
       </div>
+    <% } %>
   
   </div>
 

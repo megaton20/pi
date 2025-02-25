@@ -4,6 +4,7 @@ const { promisify } = require('util');
 const query = promisify(db.query).bind(db);
 const { v4: uuidv4 } = require('uuid')
 
+
 module.exports = {
     streakCheck: async function (userId) {
         const now = new Date();
@@ -24,28 +25,36 @@ module.exports = {
 
         const { streak_count, last_login } = userStreak.rows[0];
 
-        // Convert last_login to UTC and manually add 1 day to fix offset issue
-        const lastLoginDate = new Date(last_login);
-        lastLoginDate.setUTCDate(lastLoginDate.getUTCDate() + 1); // Manually add 1 day
 
-        const lastLoginStr = lastLoginDate.toISOString().split('T')[0];
-
+        let lastLoginDate = new Date(last_login);
+        let lastLoginStr 
+        let yesterday = new Date();
+        yesterday.setUTCDate(yesterday.getUTCDate()-1);
+        const  honestYesterdayStr = yesterday.toISOString().split('T')[0];
+        
+        // Adjust last_login based on environment
+        if (process.env.NODE_ENV == 'production') {
+            lastLoginDate.setUTCDate(lastLoginDate.getUTCDate()); 
+        }else{
+            console.log("Running on local, adjusting date offset");
+            lastLoginDate.setUTCDate(lastLoginDate.getUTCDate() +1); // Adjust for local testing
+        }
+        
+         lastLoginStr = lastLoginDate.toISOString().split('T')[0];
+        
         if (lastLoginStr === today) {
             console.log("Already logged in today, no update needed");
             return;
         }
+        
 
-        // Calculate yesterday from the corrected last_login
-        const yesterday = new Date(lastLoginDate);
-        yesterday.setUTCDate(yesterday.getUTCDate() ); // Subtract 1 day from corrected last login
-        const yesterdayStr = yesterday.toISOString().split('T')[0];
-
-        // console.log("Last Login (Corrected):", lastLoginStr);
-        // console.log("Today (UTC):", today);
-        // console.log("Yesterday (UTC):", yesterdayStr);
+        
+        // console.log("last login: " + lastLoginStr);
+        // console.log("yest: " + honestYesterdayStr);
+        // console.log("today: " + today);
 
         // Update streak count correctly
-        let newStreakCount = lastLoginStr === yesterdayStr ? streak_count + 1 : 1;
+        let newStreakCount = lastLoginStr === honestYesterdayStr ? streak_count + 1 : 1;
         let newStatus = newStreakCount >= 5 ? 'complete' : 'in_progress';
 
         await query('UPDATE streaks SET streak_count = $1, last_login = $2, status = $3 WHERE user_id = $4', 

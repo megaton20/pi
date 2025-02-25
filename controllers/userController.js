@@ -40,8 +40,8 @@ exports.withdrawal =  async (req, res) => {
       currentPage: 'Withdrawals',
       returnPage:"/user/profile",
       user:userData[0] || [],
-      balance: 50000 || balance || 20,
-      referralCount: 20 || referralCount || 10,
+      balance: balance || 20,
+      referralCount: referralCount || 10,
       bank:bankData
     });
 
@@ -101,14 +101,15 @@ exports.withdrawalFunds = async (req, res) => {
 exports.withdrawals = async (req, res) => {
 
   const { rows: withdrawals } = await query('SELECT * FROM withdrawals WHERE user_id = $1', [req.user.id]);
-  
+  const {rows: userData} = await query(`SELECT * FROM users WHERE id = $1`, [req.user.id]);
+
   try {
 
     // Render the landing page
     res.render('./user/withdrawals', {
       pageTitle: `Welcome to ${appInfo}`,
       currentPage: 'withdrawals',
-      recentlyViewed: req.session.recentlyViewed || [],
+      user :userData[0],
       withdrawals:withdrawals || []
   });
 

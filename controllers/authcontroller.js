@@ -149,7 +149,7 @@ exports.loginHandler = async (req, res, next) => {
 
     try {
       // Log the user ID and current date for debugging purposes
-      const result = await query(`UPDATE "users" SET "updated_at" = $1 WHERE id = $2`,[new Date(), user.id]);
+      const result = await query(`UPDATE users SET updated_at = $1 WHERE id = $2`,[new Date(), user.id]);
       streakCheck(user.id)
 
       req.login(user, err => {
@@ -177,7 +177,7 @@ exports.verifyEmailRequest = async (req, res) => {
 
   try {
     // Query to check if the user's email is already verified
-    const results = await query(`SELECT * FROM "Users" WHERE email = $1`, [email]);
+    const results = await query(`SELECT * FROM users WHERE email = $1`, [email]);
     const user = results.rows[0];
 
     if (!user) {
@@ -185,7 +185,7 @@ exports.verifyEmailRequest = async (req, res) => {
       return res.redirect('/handler');
     }
 
-    if (user.verify_email) {
+    if (user.verified) {
       req.flash('warning_msg', `This user email is already verified`);
       return res.redirect('/handler');
     }
@@ -195,12 +195,12 @@ exports.verifyEmailRequest = async (req, res) => {
     const tokenExpires = new Date(Date.now() + 3600000); // 1 hour from now
 
     // Update query to store the token and its expiry time
-    const updateQuery = `UPDATE "Users" SET "tokenExpires" = $1, "token" = $2 WHERE id = $3`;
+    const updateQuery = `UPDATE users SET token_expires = $1, token = $2 WHERE id = $3`;
     const updateResults = await query(updateQuery, [tokenExpires, token, user.id]);
 
     if (updateResults.rowCount < 1) {
       req.flash('error_msg', `Unknown error`);
-      return res.redirect('/handler');
+      return res.redirect('/');
     }
 
     // Send verification email
@@ -223,13 +223,17 @@ exports.verifyEmailRequest = async (req, res) => {
       to: email,
       subject: 'Confirm Your Email Address',
       html: `
-    <p>Dear Customer,</p>
-    <p>Thank you for joining <strong>${appInfo.name}</strong>, your one-stop shop for all your grocery and food item needs. We are excited to have you as part of our community!</p>
-    <p>To ensure the security of your account, please verify your email address by clicking the button below:</p>
-    <a href="${process.env.LIVE_DIRR || 'http://localhost:2000'}/auth/verify-email?token=${token}" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #41afa5; text-decoration: none; border-radius: 5px;">Verify Email</a>
-    <p>If you did not create an account with us, please disregard this email.</p>
-    <p>Thank you for choosing <strong>${appInfo.name}</strong>.</p>
-    <p>Best regards,<br>The ${appInfo.name} Team</p>
+
+      <p>We are excited to have you as part of our community!</p>
+      <p>To ensure the security of your account, please verify your email address by clicking the button below:</p>
+      
+      <a href="${process.env.LIVE_DIRR || `http://localhost:${process.env.PORT || 2000}`}/auth/verify-email?token=${token}" 
+         style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #41afa5; text-decoration: none; border-radius: 5px;">
+         Verify Email
+      </a>
+      
+      <p>If you did not create an account with us, please disregard this email.</p>
+      <p>Best regards,<br>The ${appInfo.name} Team</p>
   `
     };
 
@@ -241,7 +245,7 @@ exports.verifyEmailRequest = async (req, res) => {
       }
 
       req.flash('success_msg', `Check your mail inbox or spam to activate your account`);
-      return res.redirect('back');
+      return res.redirect('/user/profile');
     });
 
   } catch (error) {
@@ -260,38 +264,34 @@ exports.verifyEmailCallBack = (req, res) => {
     return res.redirect('/register');
   }
 
-  db.query('SELECT email, "tokenExpires" FROM "Users" WHERE token = $1', [token], (err, results) => {
+  db.query('SELECT email, token_expires FROM users WHERE token = $1', [token], (err, results) => {
     if (err) {
       req.flash('error_msg', `Error: ${err.message}`);
-      return res.redirect('/register');
+      return res.redirect('/error');
     }
 
     if (results.rows.length === 0) {
       req.flash('error_msg', `Error: Invalid or expired token`);
-      return res.redirect('/handler'); // user profile instead
+      return res.redirect('/'); 
     }
 
     const { email, tokenExpires } = results.rows[0];
 
     if (new Date(tokenExpires) < new Date()) {
       req.flash('error_msg', `Error: Token has expired!`);
-      return res.redirect('/handler'); // user profile instead
+      return res.redirect('/'); // user profile instead
     }
 
     // Verify the token
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         req.flash('error_msg', `Error: Unmatched or expired token`);
-        return res.redirect('back'); // user profile instead
+        return res.redirect('/'); // user profile instead
       }
 
       // Update user as verified
-      const updateQuery = `
-        UPDATE "Users" 
-        SET "verify_email" = true, "token" = NULL, "tokenExpires" = NULL, "status" = 'verified' 
-        WHERE email = $1
-      `;
-      db.query(updateQuery, [email], (err, result) => {
+      const updateQuery = `UPDATE users SET verified = $1, token = $2, token_expires = $3 WHERE email = $4`;
+      db.query(updateQuery, [true,null, null, email], (err, result) => {
         if (err) {
           console.log(err);
           req.flash('error_msg', `Error: ${err.message}`);
@@ -304,6 +304,7 @@ exports.verifyEmailCallBack = (req, res) => {
     });
   });
 };
+
 
 // forgot password
 exports.resetRequest = async (req, res, next) => {

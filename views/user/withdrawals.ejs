@@ -110,6 +110,7 @@
 
       <%- include('../partials/messages') %>
   
+      <% if (user.verified) { %>
       <div class="sticky-tabs">
         <ul class="nav nav-tabs" id="withdrawalTabs" role="tablist">
           <li class="nav-item">
@@ -223,6 +224,19 @@
         <br>
         <br>
       </div>
+
+      <% } else { %>
+        <!-- Verification Required Section -->
+        <div class="verification-container">
+          <div class="verification-box">
+            <i class="bi bi-exclamation-circle-fill"></i>
+            <h3>Email Verification Required</h3>
+            <p>You need to verify your email even have a history...</p>
+            <a href="/user/profile" class="verify-button">Verify Now</a>
+          </div>
+        </div>
+      <% } %>
+
     </div>
 
   

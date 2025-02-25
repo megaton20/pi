@@ -16,7 +16,7 @@ router.post('/reset-timer', userController.mine);
 
 module.exports = router;
 
-router.get('/withdrawals', userController.withdrawals);
+router.get('/withdrawals', userController.withdrawals); // hhistory
   router.get('/withdraw',userController.withdrawal);
   router.post('/withdraw-funds',userController.withdrawalFunds);
   router.get('/tasks',userController.task);
