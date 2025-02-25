@@ -12,6 +12,7 @@ const { v4: uuidv4 } = require('uuid')
 const crypto = require('crypto')
 
 const { generateResetToken, verifyResetToken } = require('../config/jsonWebToken');
+const {streakCheck} = require('../utils/streak')
 const appInfo = require('../model/appinfo')
 
 
@@ -149,6 +150,7 @@ exports.loginHandler = async (req, res, next) => {
     try {
       // Log the user ID and current date for debugging purposes
       const result = await query(`UPDATE "users" SET "updated_at" = $1 WHERE id = $2`,[new Date(), user.id]);
+      streakCheck(user.id)
 
       req.login(user, err => {
         if (err) {
@@ -156,6 +158,8 @@ exports.loginHandler = async (req, res, next) => {
           req.flash('error_msg', `Try again`);
           return res.redirect('/login');
         }
+        
+        req.session.greetings = true // to show messeage
         return res.redirect('/');
       });
     } catch (error) {

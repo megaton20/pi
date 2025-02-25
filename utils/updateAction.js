@@ -107,9 +107,13 @@ async function checkReferrals() {
 
             // const refereeResult = await query(`SELECT "spending" FROM "Users" WHERE id = $1`,[referee_id]);
 
-                await query(`UPDATE users SET balance = balance + ${referralBonus} WHERE id = $1`,[referrer_id]);
+            const result = await query(`UPDATE users SET balance = balance + $1 WHERE id = $2 AND verified = $3 RETURNING *`, [referralBonus, referrer_id, true]);
+            
+            if (result.rowCount > 0) { // Corrected 'rowcount' to 'rowCount'
                 // Mark the referral as "has_earned" to prevent duplicate rewards
-                await query(`UPDATE referrals SET "has_earned" = TRUE WHERE "referee_id" = $1`,[referee_id]);
+                await query(`UPDATE referrals SET has_earned = TRUE WHERE referee_id = $1`, [referee_id]);
+            }
+
                 // await query('INSERT INTO "notifications" ("user_id", "message", "type", "is_read") VALUES ($1, $2, $3, $4)',[referrer_id, `Your have been credited with NGN ${referralBonus}. on your referral bonus`, 'success', false]);
         }
 
@@ -129,7 +133,7 @@ cron.schedule('0 0 * * *', () => {
 cron.schedule('0 8 * * *', () => { 
     dailyEarning(); 
   });
-  
+
 // Schedule the job to run every minute
 cron.schedule('* * * * *', () => {
     // dailyEarning()

@@ -196,7 +196,7 @@ exports.feed = async (req, res) => {
       dailyEarningsResult,
       pushes,
       userTask:userTask || [],
-      streak: streak || []
+      streak: streak[0] || []
     });
 
   } catch (error) {

@@ -17,7 +17,7 @@ const quoteService = require("../utils/dialyQuote");
 
 const {v4:uuidv4} = require('uuid')
 
-const {streakCheck} = require('../utils/streak')
+
 const appInfo = require('../model/appinfo')
 
 
@@ -61,10 +61,15 @@ router.get('/', (req, res) => {
       req.flash("error_msg", "Please log in to use our valuable resources");
       return res.redirect('/login');
   }
-  streakCheck(req.user.id)
+  
   const { user_role: role, position, fname } = req.user;
 
-  req.flash("success_msg", `Welcome back ${fname}`);
+  if (req.session.greetings == true) {
+    req.flash("success_msg", `Welcome back ${fname}`);
+    req.session.greetings = false
+    
+  }
+
 
   switch (role) {
       case "super":

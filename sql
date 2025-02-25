@@ -25,7 +25,8 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
 	user_role VARCHAR(20),
-	image TEXT DEFAULT 'avatar.png'
+	image TEXT DEFAULT 'avatar.png',
+    verified BOOLEAN DEFAULT FALSE
 );
 
 
