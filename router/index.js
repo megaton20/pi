@@ -14,6 +14,7 @@ const fs = require('fs')
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 const quoteService = require("../utils/dialyQuote");
+const {streakCheck} = require('../utils/streak')
 
 const {v4:uuidv4} = require('uuid')
 
@@ -39,6 +40,7 @@ router.get('/auth/google/callback',
 
       // Execute the query with parameters
       await query(updateQuery, [new Date(), req.user.id]);
+      streakCheck(req.user.id)
       res.redirect('/');
     } catch (error) {
       console.error('Error during user update:', error);
