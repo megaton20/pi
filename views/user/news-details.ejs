@@ -1,0 +1,186 @@
+<style>
+  .news-details-container {
+    max-width: 800px;
+    margin: auto;
+    background: #2a3348;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    color: #fff;
+  }
+  
+  .featured-image {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    max-height: 300px;
+  }
+  
+  .news-header {
+    margin-top: 1rem;
+  }
+  
+  .news-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .news-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-top: 5px;
+  }
+  
+  .news-meta i {
+    color: #6a5acd;
+  }
+  
+  .news-content {
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  
+  /* Comment Section */
+  .comment-section {
+    margin-top: 2rem;
+  }
+  
+  .comment-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  
+  .comment-box input {
+    flex: 1;
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: none;
+    background: #394660;
+    color: white;
+  }
+  
+  .comment-box button {
+    background: #6a5acd;
+    border: none;
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .comment-box button:hover {
+    background: #584dc5;
+  }
+  
+  .comment-list {
+    margin-top: 1rem;
+  }
+  
+  .comment {
+    padding: 10px;
+    background: #394660;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+  </style>
+  
+  <div class="news-details-container">
+    <!-- Featured Image -->
+    <img src="featured-image.jpg" alt="News Image" class="featured-image">
+  
+    <!-- News Header -->
+    <div class="news-header">
+      <h2 class="news-title">Exciting Feature Update Released!</h2>
+      <div class="news-meta">
+        <i class="bi bi-eye"></i> <span id="readCount">1.2k</span> Reads
+        <i class="bi bi-chat"></i> <span id="commentCount">0</span> Comments
+      </div>
+    </div>
+  
+    <!-- News Content -->
+    <div class="news-content">
+      <p>Our latest update brings new features and improvements to enhance your experience...</p>
+      <p>We have revamped the interface, introduced dark mode, and improved overall performance...</p>
+    </div>
+  
+    <!-- Comment Section -->
+    <div class="comment-section">
+      <h3>Comments</h3>
+  
+      <!-- Add Comment Box -->
+      <div class="comment-box">
+        <input type="text" id="commentInput" placeholder="Add a comment..." />
+        <button onclick="postComment()">Comment</button>
+      </div>
+  
+      <!-- Comment List -->
+      <div class="comment-list" id="commentList">
+        <!-- Comments will be added here dynamically -->
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  const newsId = "123"; // Change this to the actual news ID
+  
+  // Fetch and display comments on page load
+  async function loadComments() {
+      const response = await fetch(`/api/news/${newsId}/comments`);
+      const comments = await response.json();
+    
+      const commentList = document.getElementById("commentList");
+      commentList.innerHTML = ""; // Clear existing comments
+  
+      comments.forEach(comment => {
+          appendComment(comment.text);
+      });
+  
+      // Update comment count
+      document.getElementById("commentCount").textContent = comments.length;
+  }
+  
+  // Append comment to UI
+  function appendComment(text) {
+      const commentList = document.getElementById("commentList");
+  
+      const comment = document.createElement("div");
+      comment.classList.add("comment");
+      comment.textContent = text;
+  
+      commentList.appendChild(comment);
+  }
+  
+  // Post new comment to the server
+  async function postComment() {
+      const commentInput = document.getElementById("commentInput");
+      const text = commentInput.value.trim();
+  
+      if (!text) return;
+  
+      const response = await fetch(`/api/news/${newsId}/comment`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+      });
+  
+      const data = await response.json();
+      if (data.success) {
+          appendComment(text);
+          commentInput.value = ""; // Clear input
+          document.getElementById("commentCount").textContent++;
+      } else {
+          alert("Failed to post comment");
+      }
+  }
+  
+  // Load comments when page loads
+  loadComments();
+  </script>
+  

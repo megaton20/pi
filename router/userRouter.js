@@ -31,7 +31,8 @@ router.get('/withdrawals', userController.withdrawals); // hhistory
   router.get('/settings',userController.settings);
   router.get('/profile',userController.profile);
   
-  router.get('/notifications', userController.notificationScreen);
+  router.get('/news', userController.news);
+  router.get('/news/:id/more', userController.newsDetails);
   
   router.get('/change-password', userController.settingsPassword);
 

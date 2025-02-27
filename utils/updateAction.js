@@ -136,7 +136,7 @@ cron.schedule('0 0 * * *', () => {
 
 // Schedule the job to run every minute
 cron.schedule('* * * * *', () => {
-    dailyEarning()
+    // dailyEarning()
     userLevelChecker();
     checkReferrals();
     streak()

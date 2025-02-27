@@ -120,3 +120,23 @@ CREATE TABLE withdrawals (
 );
 
 
+CREATE TABLE reviews (
+    id character varying(255) PRIMARY KEY,
+    news_id character varying(255),
+    user_id character varying(255),
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (news_id) REFERENCES news(id)
+);
+
+CREATE TABLE news (
+    id CHARACTER VARYING(255) PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    image_url VARCHAR(500),
+    read_count INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

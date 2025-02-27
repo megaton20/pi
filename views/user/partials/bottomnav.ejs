@@ -62,20 +62,21 @@
     <p>leaderboard</p>
   </a> -->
 
+  <a href="/user"  style="color: gold;" class="nav-item <%= currentPage === 'feed' ? 'active' : '' %>" title="Dashboard">
+    <i class="fas fa-home"></i>
+    <p>Home</p>
+  </a>
 
   <a href="/user/tasks" class="nav-item <%= currentPage === 'tasks' ? 'active' : '' %>" title="Tasks">
     <i class="fas fa-tasks"></i>
     <p>Tasks</p>
   </a>
 
-  <a href="/user"  style="color: gold;" class="nav-item <%= currentPage === 'feed' ? 'active' : '' %>" title="Dashboard">
-    <i class="fas fa-home"></i>
-    <p>Home</p>
-  </a>
-  <!-- <a href="/user/notifications" class="nav-item <%= currentPage === 'notifications' ? 'active' : '' %>" title="Notifications">
+
+  <a href="/user/news" class="nav-item <%= currentPage === 'news' ? 'active' : '' %>" title="Notifications">
     <i class="fas fa-bell"></i>
-    <p>Notifications</p>
-  </a> -->
+    <p>News</p>
+  </a>
 
   <a href="/user/withdrawals" class="nav-item <%= currentPage === 'withdrawals' ? 'active' : '' %>" title="Withdrawals">
     <i class="fas fa-wallet"></i>

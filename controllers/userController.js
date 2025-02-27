@@ -767,15 +767,32 @@ exports.updateUserInfo = async (req, res) => {
 };
 
 
-exports.notificationScreen = async (req, res) => {
+exports.news = async (req, res) => {
   
   try {
 
     // Render the landing page
-    res.render('./user/notifications', {
+    res.render('./user/news', {
       pageTitle: `Welcome to ${appInfo}`,
-      currentPage: 'notifications',
-      notifications:[]
+      currentPage: 'news',
+      news:[]
+    });
+
+  } catch (error) {
+    console.error(`Error fetching user shop data: ${error}`);
+    req.flash('error_msg', 'An error occurred while loading the shop items');
+    return res.redirect('/');
+  }
+}
+exports.newsDetails = async (req, res) => {
+  
+  try {
+
+    // Render the landing page
+    res.render('./user/news-details', {
+      pageTitle: `Welcome to ${appInfo}`,
+      currentPage: 'news',
+      news:[]
     });
 
   } catch (error) {
