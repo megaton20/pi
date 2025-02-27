@@ -13,22 +13,13 @@ const fs = require('fs')
 
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
-const quoteService = require("../utils/dialyQuote");
+// const quoteService = require("../utils/dialyQuote");
 const {streakCheck} = require('../utils/streak')
 
 const {v4:uuidv4} = require('uuid')
 
 
 const appInfo = require('../model/appinfo')
-
-
-
-const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY ;
-const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
-
-
-
-const FOOTBALL_NEWS_API = "https://example-football-news-api.com/news";
 
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),

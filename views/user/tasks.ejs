@@ -1,171 +1,208 @@
 <style>
 
-/* Task Grid */
-.task-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
-}
+  /* Task Grid */
+  .task-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  
+  .task-card {
 
-.task-card {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  border-radius: 10px;
-  background: #2a3348;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
-}
-
-.task-card:hover {
-  transform: translateY(-5px);
-  background-color: #394660;
-}
-
-.task-icon {
-  font-size: 1.8rem;
-  color: #6a5acd;
-  margin-right: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(106, 90, 205, 0.1);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-}
-
-.task-details h5 {
-  margin: 0 0 0.3rem 0;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #fff;
-}
-
-.task-details p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #aaa;
-}
-
-.badge {
-  font-size: 0.75rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  font-weight: bold;
-  margin-top: 0.3rem;
-}
-
-.badge.completed {
-  background-color: #3dd598;
-  color: white;
-}
-
-.badge.pending {
-  background-color: #f25c54;
-  color: white;
-}
-
-.task-action {
-  font-size: 0.9rem;
-  font-weight: bold;
-  background: #6a5acd;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-  margin-left: auto;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.task-action:disabled {
-  background: #555;
-  cursor: not-allowed;
-}
-
-.task-action:hover:not(:disabled) {
-  background-color: #584dc5;
-}
-
-
-/* ads Grid */
-.ads-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  min-width: 350px;
-}
-
-/* Stat Cards */
-.ads-card {
-  margin-right: 20px;
-  background: #1a1f36;
-  padding: 12px;
-  padding-top: 30px;
-  border-radius: 8px;
-  text-align: center;
-  transition: all 0.3s ease-in-out;
-  color: #fff;
-  font-size: 12px;
-  box-shadow: 0px 0px 12px rgba(138, 43, 226, 0.7);
-}
-
-</style>
-
-
-
-<!-- End of Topbar -->
-
-
-
+    padding: 1rem;
+    border-radius: 10px;
+    background: #2a3348;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  }
+  
+  .upperside{
+    display: flex;
+    align-items: center;
+  }
+  .down{
+    margin-top: 10px;
+    margin-left: 65px;
+  }
+  .task-code-input{
+    padding: 10px 12px;
+    border-radius: 5px;
+    border: none;
+  }
+  .task-card:hover {
+    transform: translateY(-5px);
+    background-color: #394660;
+  }
+  
+  .task-icon {
+    font-size: 1.8rem;
+    color: #6a5acd;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(106, 90, 205, 0.1);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .task-details h5 {
+    margin: 0 0 0.3rem 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .task-details p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 0.3rem;
+  }
+  
+  .badge.completed {
+    background-color: #3dd598;
+    color: white;
+  }
+  
+  .badge.pending {
+    background-color: #f25c54;
+    color: white;
+  }
+  
+  .task-action {
+    font-size: 0.9rem;
+    font-weight: bold;
+    background: #6a5acd;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    margin-left: auto;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .task-action:disabled {
+    background: #555;
+    cursor: not-allowed;
+  }
+  
+  .task-action:hover:not(:disabled) {
+    background-color: #584dc5;
+  }
+  
+  /* ads Grid */
+  .ads-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    min-width: 350px;
+  }
+  
+  /* Stat Cards */
+  .ads-card {
+    margin-right: 20px;
+    background: #1a1f36;
+    padding: 12px;
+    padding-top: 30px;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    font-size: 12px;
+    box-shadow: 0px 0px 12px rgba(138, 43, 226, 0.7);
+  }
+  
+  /* Initially hide the form */
+  .claim-form {
+    display: none;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 0;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+  
+  /* Show form when active */
+  .claim-form.active {
+    display: flex;
+    margin: 0;
+    max-height: 100px; /* Adjust based on form size */
+    opacity: 1;
+  }
+  </style>
+  
   <div class="compact-container">
-
     <%- include ('../partials/messages') %>
-
+  
     <% if (user.verified) { %>
-    <!-- Sticky Tabs -->
-    <div class="sticky-tabs">
-      <ul class="nav nav-tabs" id="taskTabs" role="tablist">
-        <li class="nav-item">
-          <button class="nav-link active" id="daily-tab" data-bs-toggle="tab" data-bs-target="#cinema" type="button">Cinema</button>
-        </li>
+      <div class="sticky-tabs">
+        <ul class="nav nav-tabs" id="taskTabs" role="tablist">
+          <li class="nav-item">
+            <button class="nav-link active" id="daily-tab" data-bs-toggle="tab" data-bs-target="#cinema" type="button">Cinema</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="weekly-tab" data-bs-toggle="tab" data-bs-target="#audio" type="button">Audio</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#ads" type="button">General ADs</button>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="tab-content scrollable-content " id="taskTabsContent">
 
-        <li class="nav-item">
-          <button class="nav-link" id="weekly-tab" data-bs-toggle="tab" data-bs-target="#audio" type="button">Audio</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#ads" type="button"> General ADs </button>
-        </li>
-      </ul>
-    </div>
-
-      <!-- Task Content -->
-      <div class="tab-content scrollable-content" id="taskTabsContent">
-        <!-- Cinema Tasks -->
-        <br>
-        <div class="tab-pane fade show active" id="cinema">
+        <div class="tab-pane fade show active mt-5" id="cinema">
           <% let cinemaTasks = tasks.filter(task => task.task_type === 'watch_video'); %>
           <% if (cinemaTasks.length > 0) { %>
             <% cinemaTasks.forEach(task => { %>
               <div class="task-card mb-2">
-                <div class="task-icon">
-                  <i class="bi bi-film"></i>
+                <div class="upperside">
+                  <div class="task-icon">
+                    <i class="bi bi-film"></i>
+                  </div>
+                  <div class="task-details">
+                    <p><%= task.source %> Task - Earn $<%= task.earnings %></p>
+                    <span class="badge <%= task.user_status === 'completed' ? 'completed' : 'pending' %>">
+                      <%= task.user_status === 'completed' ? 'Completed' : 'Pending' %>
+                    </span>
+                  </div>
+                  <% if (task.user_status === 'not_started') { %>
+                    <button class="task-action start-task" data-task-id="<%= task.id %>">Start Task</button>
+                  <% } else { %>
+                     
+                    <!-- <button class="task-action complete-task" type="button" data-task-id="<%= task.id %>">Claim</button> -->
+                  <% } %>
+                  
                 </div>
-                <div class="task-details">
-                  <h5>WATCH VIDEO</h5>
-                  <p><%= task.source %> Task - Earn $<%= task.earnings %></p>
-                  <span class="badge <%= task.user_status === 'completed' ? 'completed' : 'pending' %>">
-                    <%= task.user_status === 'completed' ? 'Completed' : 'Pending' %>
-                  </span>
-                </div>
-                <% if (task.user_status === 'not_started') { %>
-                  <button class="task-action start-task" data-task-id="<%= task.id %>">Start Task</button>
-                <% } else { %>
-                  <button class="task-action complete-task" data-task-id="<%= task.id %>">Claim</button>
-                <% } %>
+                <div class="down">
+                  <% if (task.user_status !== 'not_started') { %>
+                    <button class="task-action complete-task" type="button" data-task-id="<%= task.id %>">Claim</button>
+                    <form class="claim-form" action="/user/tasks/complete" method="POST" data-task-id="<%= task.id %>">
+                      <input type="hidden" name="taskId" value="<%= task.id %>">
+                      <input type="text" name="code" class="task-code-input" placeholder="Enter Code" required>
+                      <button type="submit" class="task-action submit-code">Submit</button>
+                    </form>
+                    
+                  <% } else { %>
+                     
+  
+                    <% } %>
+                  </div>
               </div>
+              <!-- form -->
             <% }) %>
           <% } else { %>
             <p class="text-center text-light">No Cinema tasks available.</p>
@@ -173,7 +210,6 @@
         </div>
       </div>
     <% } else { %>
-      <!-- Verification Required Section -->
       <div class="verification-container">
         <div class="verification-box">
           <i class="bi bi-exclamation-circle-fill"></i>
@@ -183,101 +219,35 @@
         </div>
       </div>
     <% } %>
-  
   </div>
-
-      
-
-      <%- include ('./partials/bottomnav') %>
-      
-
-<script>
-    document.querySelectorAll('.start-task').forEach(button => {
-    button.addEventListener('click', async function () {
-        const taskId = this.getAttribute('data-task-id');
-
-        const response = await fetch('/user/tasks/start', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                userId: '<%= user.id %>', 
-                taskId 
-            })
-        });
-
-        
-        const data = await response.json();;
-        if (data.success) {
-          window.open(data.url, '_blank'); // Open YouTube link
-          location.reload();
-        } else {
-            alert('Error: ' + data.message);
-        }
-    });
-});
-
-</script>
-      
-
-  <script>
-       document.querySelectorAll(".complete-task").forEach(button => {
-       button.addEventListener("click", async function () {
-        const taskId = this.getAttribute("data-task-id");
-
-        try {
-            const response = await fetch("/user/tasks/complete", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    userId: '<%= user.id %>', 
-                    taskId 
-                })
-            });
-
-            const data = await response.json();
-            if (data.success) {
-                alert("Success: " + data.message);
-                location.reload();
-            } else {
-                alert("Error: " + data.message);
-                window.open(data.url, '_blank'); // Open YouTube link
-            }
-        } catch (error) {
-            console.error("Task completion failed", error);
-        }
-    });
-      });
   
-      </script>
-      
-      <script src="https://www.is.com/ironsource-sdk.js"></script>
-
-     
-
-<script>
-    document.getElementById("watchAdBtn").addEventListener("click", function() {
-        ironSource.showRewardedAd({
-            appKey: "YOUR_IRONSOURCE_APP_KEY",
-            userId: 365605,
-            onAdStarted: function() {
-                fetch("/start-ad", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ userId: "USER_ID_HERE" })
-                });
-            },
-            onAdCompleted: function(adData) {
-                fetch("/ad-completed", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        userId: "USER_ID_HERE",
-                        adId: "GENERATED_AD_ID_HERE",
-                        adDuration: adData.duration
-                    })
-                }).then(response => response.json())
-                  .then(data => alert(data.message));
-            }
-        });
+  <%- include ('./partials/bottomnav') %>
+  
+  <script>
+  document.querySelectorAll('.start-task').forEach(button => {
+    button.addEventListener('click', async function () {
+      const taskId = this.getAttribute('data-task-id');
+      const response = await fetch('/user/tasks/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: '<%= user.id %>', taskId })
+      });
+      const data = await response.json();
+      if (data.success) {
+        window.open(data.url, '_blank');
+        location.reload();
+      } else {
+        alert('Error: ' + data.message);
+      }
     });
-</script>
+  });
+  </script>
+  
+  <script>
+    document.querySelectorAll('.complete-task').forEach(button => {
+      button.addEventListener('click', function () {
+        const form = this.nextElementSibling;
+        form.classList.toggle('active');
+      });
+    });
+    </script>

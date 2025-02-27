@@ -297,54 +297,68 @@ exports.performTask =  async (req, res) => {
 exports.completeTask = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { taskId } = req.body;
+    const { taskId, code } = req.body;
 
+    if (!code) {
+      req.flash('error', 'Invalid task code.');
+      return res.redirect('/useer/tasks');
+    }
+
+    // Fetch task, user, and main task data
     const { rows: task } = await query('SELECT * FROM user_tasks WHERE user_id = $1 AND task_id = $2', [userId, taskId]);
     const { rows: user } = await query('SELECT * FROM users WHERE id = $1', [userId]);
     const { rows: mainTask } = await query('SELECT * FROM tasks WHERE id = $1', [taskId]);
-  
-    
-    if (user.rowCount === 0) {
-      return res.status(400).json({success: false, message: "Invalid ad session." });
-    }
-    if (task.rowCount === 0) {
-      return res.status(400).json({success: false, message: "Invalid ad session." });
-    }
-    if (mainTask.rowCount === 0) {
-      return res.status(400).json({success: false, message: "task  not found..." });
-    }
-    const newBalance = Number(user[0].balance) + Number(mainTask[0].earnings)
 
-  const startTime = new Date(task[0].started_at);
-  const currentTime = new Date();
-  const timeDifference = (currentTime - startTime) / 1000
+    if (user.length === 0) {
+      req.flash('error', 'Invalid user.');
+      return res.redirect('/useer/tasks');
+    }
+    if (task.length === 0) {
+      req.flash('error', 'Invalid task session.');
+      return res.redirect('/useer/tasks');
+    }
+    if (mainTask.length === 0) {
+      req.flash('error', 'Task not found.');
+      return res.redirect('/useer/tasks');
+    }
 
-  // Check if the ad duration was actually completed
-  if (timeDifference >= 30) {
-        // Ensure the task is in progress before marking complete
-      const updateTsk = `
-      UPDATE user_tasks 
-      SET status = 'completed', completed_at = NOW() 
-      WHERE user_id = $1 AND task_id = $2 AND status = 'in_progress';
-    `;
+    // ✅ Compare the provided code with the task code
+    if (mainTask[0].code !== code) {
+      req.flash('error', 'Invalid task code.');
+      return res.redirect('/useer/tasks');
+    }
 
-    const updateBalance = `UPDATE users SET balance = $1 WHERE id = $2;`;
-      await query(updateTsk, [userId, taskId]);
+    const newBalance = Number(user[0].balance) + Number(mainTask[0].earnings);
+    const startTime = new Date(task[0].started_at);
+    const currentTime = new Date();
+    const timeDifference = (currentTime - startTime) / 1000; // Convert to seconds
+
+    // ✅ Check if the ad duration was completed
+    if (timeDifference >= 30) {
+      // ✅ Ensure the task is in progress before marking complete
+      const updateTask = `
+        UPDATE user_tasks 
+        SET status = 'completed', completed_at = NOW() 
+        WHERE user_id = $1 AND task_id = $2 AND status = 'in_progress';
+      `;
+      const updateBalance = `UPDATE users SET balance = $1 WHERE id = $2;`;
+
+      await query(updateTask, [userId, taskId]);
       await query(updateBalance, [newBalance, userId]);
 
-      return res.json({ success: true, message: `Task completed!.... $ ${mainTask[0].earnings} Rewarded!` });
-      
+      req.flash('success', `Task completed! $${mainTask[0].earnings} rewarded!`);
+      return res.redirect('/user');
     } else {
-      res.json({ success: false, link: task[0].reference_id, message: 'watch video till the end! Rewards not added.' });
-
+      req.flash('error', 'Watch the video till the end! Rewards not added.');
+      return res.redirect('/useer/tasks');
     }
-  
-
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: "Task completion failed." });
+    req.flash('error', 'Task completion failed.');
+    return res.redirect('/');
   }
-}
+};
+
 
 exports.settings =  async (req, res) => {
 

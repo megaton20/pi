@@ -45,6 +45,7 @@ CREATE TABLE mining_logs (
 CREATE TABLE tasks (
     id VARCHAR(255) PRIMARY KEY,
     task_type VARCHAR(50) NOT NULL, -- e.g., 'watch_video', 'play_game', 'listen_music'
+    code VARCHAR(50) NOT NULL, 
     source VARCHAR(255) NOT NULL,   -- e.g., 'YouTube', 'Spotify', 'GameApp'
     reference_id TEXT NOT NULL,     -- e.g., YouTube video ID, Game URL, Music link
     earnings DECIMAL(10,4) NOT NULL, -- Amount user earns
