@@ -769,13 +769,14 @@ exports.updateUserInfo = async (req, res) => {
 
 exports.news = async (req, res) => {
   
+  const {rows: news} = await query( `SELECT * FROM news`);
   try {
 
     // Render the landing page
     res.render('./user/news', {
       pageTitle: `Welcome to ${appInfo}`,
       currentPage: 'news',
-      news:[]
+      news: news || []
     });
 
   } catch (error) {
@@ -785,14 +786,22 @@ exports.news = async (req, res) => {
   }
 }
 exports.newsDetails = async (req, res) => {
+  const id = req.params.id
   
+  const {rows: news} = await query( `SELECT * FROM news WHERE id = $1`, [id]);
+  const { rows: comments } = await query( ` SELECT r.*, u.fname AS user_name, u.image AS image FROM reviews r JOIN users u ON r.user_id = u.id WHERE r.news_id = $1 `,[id]);
+  // update read count
+
+  await query("UPDATE news SET read_count = $1 WHERE id = $2", [news[0].read_count +1, id]);
   try {
 
     // Render the landing page
     res.render('./user/news-details', {
       pageTitle: `Welcome to ${appInfo}`,
       currentPage: 'news',
-      news:[]
+      returnPage:'/user/news',
+      news: news[0] || [],
+      comments :comments ||[]
     });
 
   } catch (error) {
@@ -801,6 +810,57 @@ exports.newsDetails = async (req, res) => {
     return res.redirect('/');
   }
 }
+
+exports.addReview = async (req, res) => {
+  const {  id } = req.params;
+  const { comment } = req.body;
+  const user_id = req.user.id;
+
+  try {
+
+      await db.query("INSERT INTO reviews ( news_id, user_id, comment, id) VALUES ($1, $2, $3, $4)",[id, user_id, comment, uuidv4()]);
+
+      req.flash("success_msg", 'Review Added')
+     return res.redirect(`/user/news/${id}/more`);
+  } catch (error) {
+      console.error(error);
+      req.flash("error_msg", 'Error occured from our end!')
+      return res.redirect(`/user/invoice/${sale_id}`);
+  }
+}
+
+exports.updateReview = async (req, res) => {
+  const { sale_id, product_id } = req.params;
+  const { comment } = req.body;
+  const user_id = req.user.id;
+
+  try {
+      const review = await db.query(
+          "SELECT * FROM reviews WHERE sale_id = $1 AND product_id = $2 AND user_id = $3",
+          [sale_id, product_id, user_id]
+      );
+
+      if (review.rowCount === 0) {
+        req.flash("error_msg", 'Review not found or unauthorized')
+        res.redirect(`/user/invoice/${sale_id}`);
+          return 
+      }
+
+      await db.query(
+          "UPDATE reviews SET comment = $1, updated_at = NOW() WHERE sale_id = $2 AND product_id = $3 AND user_id = $4",
+          [comment, sale_id, product_id, user_id]
+      );
+
+      req.flash("success_msg", 'Review updated')
+      res.redirect(`/user/invoice/${sale_id}`);
+  } catch (error) {
+    console.error(error);
+    req.flash("error_msg", 'Error occured from our end!')
+    return res.redirect(`/user/invoice/${sale_id}`);
+  }
+
+}
+
 
 exports.settingsHelp =  async (req, res) => {
   

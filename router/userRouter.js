@@ -33,6 +33,8 @@ router.get('/withdrawals', userController.withdrawals); // hhistory
   
   router.get('/news', userController.news);
   router.get('/news/:id/more', userController.newsDetails);
+  router.post("/comment/:id",userController.addReview)
+  router.post("/edit-comment/:id",userController.updateReview)
   
   router.get('/change-password', userController.settingsPassword);
 

@@ -50,34 +50,30 @@
 </style>
 
 
+<%- include ('./partials/topnavhome') %>
+
 <div class="compact-container">
-  <% if(news.length <=0){ %>
-    
-    <p class="text-light">no new update!!</p>
-
-    <% } else{ %>
-
-      <% news.forEach(function(data) {%>
-        <div class="news-container">
-          <div class="news-card">
-            <img src="thumbnail2.jpg" alt="News Image" class="news-thumbnail">
-            <div class="news-details">
-              <h5 class="news-title"><%=data.title%></h5>
-              <p><%=data.detils%></p>
-              <div class="news-meta">
-                <i class="bi bi-eye"></i> <%=data.reads%> Reads
-                <i class="bi bi-chat"></i> <%=data.comments%> Comments
-              </div>
+  <% if (news.length <= 0) { %>
+    <p class="text-light empty-msg">No new update!!</p>
+  <% } else { %>
+    <br>
+    <% news.forEach(function(data) { %>
+      <div class="news-container">
+        <a href="/user/news/<%= data.id %>/more" class="news-card mb-2">
+          <img src="<%= data.image_url ? data.image_url : '/images/phi.png' %>" 
+               alt="News Image" class="news-thumbnail">
+          <div class="news-details">
+            <h5 class="news-title"><%= data.title %></h5>
+            <p><%= data.content.length > 80 ? data.content.substring(0, 80) + '...' : data.content %></p>
+            <div class="news-meta">
+              <i class="bi bi-eye"></i> <%= data.read_count || 0 %> Reads
             </div>
           </div>
-        </div>
-       
-
-
-        <% }) %>
-
-
-          <% } %>
+        </a>
+      </div>
+    <% }) %>
+  <% } %>
 </div>
+
 
 <%- include ('./partials/bottomnav') %>

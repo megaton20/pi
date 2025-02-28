@@ -44,143 +44,200 @@
     line-height: 1.6;
     color: #ddd;
   }
-  
-  /* Comment Section */
-  .comment-section {
-    margin-top: 2rem;
-  }
-  
-  .comment-box {
-    display: flex;
-    gap: 10px;
-    margin-top: 1rem;
-  }
-  
-  .comment-box input {
-    flex: 1;
-    padding: 0.6rem;
-    border-radius: 6px;
-    border: none;
-    background: #394660;
-    color: white;
-  }
-  
-  .comment-box button {
+ /* Toggle Button */
+.toggle-comments-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
     background: #6a5acd;
     border: none;
     color: white;
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
+    font-size: 16px;
     cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .comment-box button:hover {
-    background: #584dc5;
-  }
-  
-  .comment-list {
-    margin-top: 1rem;
-  }
-  
-  .comment {
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.toggle-comments-btn:hover {
+    background: #5a4abc;
+}
+
+/* Initially Hide Comments */
+.comment-container {
+    display: none;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 8px;
+    padding: 15px;
+    color: #fff;
+    margin-top: 10px;
+}
+
+/* Comment Styling */
+.comment-section {
+    margin-top: 10px;
     padding: 10px;
-    background: #394660;
-    border-radius: 6px;
-    margin-bottom: 8px;
-  }
-  </style>
-  
-  <div class="news-details-container">
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+/* Reply Button */
+.reply-btn {
+    cursor: pointer;
+    color: #b300ff;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.reply-btn:hover {
+    text-decoration: underline;
+}
+
+/* Reply Input Box */
+.reply-input {
+    display: none;
+    margin-top: 10px;
+}
+
+.reply-input textarea {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #444;
+    color: white;
+}
+
+.reply-input button {
+    margin-top: 5px;
+    padding: 5px 10px;
+    background: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.reply-input button:hover {
+    background: #0056b3;
+}
+</style>
+
+<%- include ('./partials/topnav') %>
+<div class="compact-container">
+  <div class="news-details-container mt-5">
     <!-- Featured Image -->
-    <img src="featured-image.jpg" alt="News Image" class="featured-image">
-  
+    <img src="<%= news.image_url ? news.image_url : '/images/beach.jpg' %>" alt="News Image" class="featured-image">
+
     <!-- News Header -->
     <div class="news-header">
-      <h2 class="news-title">Exciting Feature Update Released!</h2>
+      <h2 class="news-title"><%= news.title %></h2>
       <div class="news-meta">
-        <i class="bi bi-eye"></i> <span id="readCount">1.2k</span> Reads
-        <i class="bi bi-chat"></i> <span id="commentCount">0</span> Comments
+        <i class="bi bi-eye"></i> <span id="readCount"><%= news.read_count || 0 %></span> Reads
+        <i class="bi bi-chat"></i> <span id="commentCount"><%= comments.length || 0 %></span> Comments
       </div>
     </div>
-  
+
     <!-- News Content -->
     <div class="news-content">
-      <p>Our latest update brings new features and improvements to enhance your experience...</p>
-      <p>We have revamped the interface, introduced dark mode, and improved overall performance...</p>
+      <p><%= news.content %></p>
     </div>
-  
-    <!-- Comment Section -->
-    <div class="comment-section">
-      <h3>Comments</h3>
-  
+
+    <!-- View Comments Toggle -->
+    <button class="toggle-comments-btn" onclick="toggleComments()">View Comments</button>
+
+    <!-- Comment Section (Initially Hidden) -->
+    <div class="comment-container" id="commentSection">
       <!-- Add Comment Box -->
       <div class="comment-box">
-        <input type="text" id="commentInput" placeholder="Add a comment..." />
-        <button onclick="postComment()">Comment</button>
+        <form action="/user/comment/<%= news.id %>" method="post">
+          <input type="text" id="commentInput" class="form-control" name="comment" placeholder="Add a comment..." />
+          <button class="btn btn-success mt-3 w-100">Comment</button>
+        </form>
       </div>
-  
-      <!-- Comment List -->
-      <div class="comment-list" id="commentList">
-        <!-- Comments will be added here dynamically -->
-      </div>
+
+      <% if (comments.length <= 0) { %>
+        <p class="text-light empty-msg">No comments yet!</p>
+      <% } else { %>
+        <% comments.forEach((data) => { %>
+          <div class="comment-section p-3 rounded mb-3">
+            <div class="d-flex">
+              <div class="flex-grow-1 ms-3">
+                <div class="d-flex justify-content-between">
+                  <h6 class="mb-1"><%= data.user_name %></h6>
+                  <small class="d-flex align-items-center text-light">
+                    <i class="fas fa-clock me-1"></i>
+                    <span><%= new Date(data.created_at).toLocaleString() %></span>
+                  </small>
+                </div>
+                <p class="mb-0"><%= data.comment %></p>
+
+                <!-- Reply Button -->
+                <p class="reply-btn" onclick="toggleReply('<%= data.id %>')">Reply</p>
+
+                <!-- Reply Input Box (Hidden by Default) -->
+                <div class="reply-input" id="reply-box-<%= data.id %>">
+                  <textarea rows="2" placeholder="Write your reply..."></textarea>
+                  <button onclick="submitReply('<%= data.id %>')">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
     </div>
   </div>
-  
-  <script>
-  const newsId = "123"; // Change this to the actual news ID
-  
-  // Fetch and display comments on page load
-  async function loadComments() {
-      const response = await fetch(`/api/news/${newsId}/comments`);
-      const comments = await response.json();
-    
-      const commentList = document.getElementById("commentList");
-      commentList.innerHTML = ""; // Clear existing comments
-  
-      comments.forEach(comment => {
-          appendComment(comment.text);
-      });
-  
-      // Update comment count
-      document.getElementById("commentCount").textContent = comments.length;
+</div>
+
+<script>
+
+function toggleComments() {
+  const commentSection = document.getElementById("commentSection");
+  if (commentSection.style.display === "none" || commentSection.style.display === "") {
+      commentSection.style.display = "block";
+      commentSection.style.maxHeight = "400px"; // Add smooth drop-down effect
+  } else {
+      commentSection.style.maxHeight = "0px";
+      setTimeout(() => { commentSection.style.display = "none"; }, 300); // Hide after animation
   }
-  
-  // Append comment to UI
-  function appendComment(text) {
-      const commentList = document.getElementById("commentList");
-  
-      const comment = document.createElement("div");
-      comment.classList.add("comment");
-      comment.textContent = text;
-  
-      commentList.appendChild(comment);
+}
+
+function toggleReply(commentId) {
+  const replyBox = document.getElementById(`reply-box-${commentId}`);
+  if (replyBox.style.display === "block") {
+      replyBox.style.display = "none";
+  } else {
+      replyBox.style.display = "block";
   }
-  
-  // Post new comment to the server
-  async function postComment() {
-      const commentInput = document.getElementById("commentInput");
-      const text = commentInput.value.trim();
-  
-      if (!text) return;
-  
-      const response = await fetch(`/api/news/${newsId}/comment`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text })
-      });
-  
-      const data = await response.json();
+}
+
+function submitReply(commentId) {
+  const replyBox = document.getElementById(`reply-box-${commentId}`);
+  const textarea = replyBox.querySelector("textarea");
+  const replyText = textarea.value.trim();
+
+  if (replyText === "") {
+      alert("Reply cannot be empty!");
+      return;
+  }
+
+  // Send the reply via an AJAX request
+  fetch("/user/submit-reply", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ commentId, reply: replyText })
+  })
+  .then(response => response.json())
+  .then(data => {
       if (data.success) {
-          appendComment(text);
-          commentInput.value = ""; // Clear input
-          document.getElementById("commentCount").textContent++;
+          alert("Reply added successfully!");
+          textarea.value = "";
+          replyBox.style.display = "none";
       } else {
-          alert("Failed to post comment");
+          alert("Failed to add reply.");
       }
-  }
-  
-  // Load comments when page loads
-  loadComments();
-  </script>
-  
+  })
+  .catch(error => console.error("Error:", error));
+}
+</script>
