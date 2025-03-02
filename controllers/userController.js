@@ -12,7 +12,6 @@ const getRecentCustomers = require("../model/recentCustomers");
 const appInfo = require('../model/appinfo')
 const miningRatesData = require('../model/miningRates')
 const bankData = require("../utils/bank");
-const miningRates = require("../model/miningRates");
 
 
 exports.withdrawal =  async (req, res) => {
