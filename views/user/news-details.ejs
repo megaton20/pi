@@ -1,14 +1,5 @@
 <style>
-  .news-details-container {
-    max-width: 800px;
-    margin: auto;
-    background: #2a3348;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    color: #fff;
-  }
-  
+
   .featured-image {
     width: 100%;
     border-radius: 8px;
@@ -69,7 +60,7 @@
     max-height: 400px;
     overflow-y: auto;
     border-radius: 8px;
-    padding: 15px;
+    padding: 5px;
     color: #fff;
     margin-top: 10px;
 }
@@ -77,7 +68,6 @@
 /* Comment Styling */
 .comment-section {
     margin-top: 10px;
-    padding: 10px;
     border-radius: 8px;
     border-left: 4px solid #007bff;
 }
@@ -126,7 +116,7 @@
 
 <%- include ('./partials/topnav') %>
 <div class="compact-container">
-  <div class="news-details-container mt-5">
+  <div class="mt-2">
     <!-- Featured Image -->
     <img src="<%= news.image_url ? news.image_url : '/images/beach.jpg' %>" alt="News Image" class="featured-image">
 
@@ -145,7 +135,7 @@
     </div>
 
     <!-- View Comments Toggle -->
-    <button class="toggle-comments-btn" onclick="toggleComments()">View Comments</button>
+    <button class="toggle-comments-btn" onclick="toggleComments()"> Comments</button>
 
     <!-- Comment Section (Initially Hidden) -->
     <div class="comment-container" id="commentSection">

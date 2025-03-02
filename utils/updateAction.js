@@ -128,7 +128,7 @@ async function checkReferrals() {
 // Schedule the job to run once every 24 hours
 cron.schedule('0 0 * * *', () => {
   dailyEarning()
-  userLevelChecker();
+//   userLevelChecker();
 });
 
 // cron.schedule('0 8 * * *', () => { 
