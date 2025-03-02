@@ -10,7 +10,9 @@ const {v4:uuidv4} = require('uuid')
 const quoteService = require("../utils/dialyQuote");
 const getRecentCustomers = require("../model/recentCustomers");
 const appInfo = require('../model/appinfo')
+const miningRatesData = require('../model/miningRates')
 const bankData = require("../utils/bank");
+const miningRates = require("../model/miningRates");
 
 
 exports.withdrawal =  async (req, res) => {
@@ -98,7 +100,7 @@ exports.withdrawalFunds = async (req, res) => {
   }
 };
 
-exports.withdrawals = async (req, res) => {
+exports.allWithdrawals = async (req, res) => {
 
   const { rows: withdrawals } = await query('SELECT * FROM withdrawals WHERE user_id = $1', [req.user.id]);
   const {rows: userData} = await query(`SELECT * FROM users WHERE id = $1`, [req.user.id]);
@@ -140,9 +142,9 @@ exports.mine =  async (req, res) => {
       }
 
       // Mining rates based on level
-      const miningRates = { 1: 0.10, 2: 0.50, 3: 1.00, 4: 1.50, 5: 2.00, 6:5, 7:5.5, 8:6.50, 9:7.00 , 10:10.00 };
+      const miningRates = miningRatesData
       
-      const earnings = miningRates[user[0].mining_level] || 0.1;
+      const earnings = miningRates[user[0].mining_level] ;
 
 
       await query('INSERT INTO daily_earnings (id, user_id, earnings) VALUES ($1, $2,$3)', [ uuidv4(), userId, earnings]);

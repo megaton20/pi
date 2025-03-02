@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authcontroller");
-const { isUser } = require("../config/isUser");
 const { ensureAuthenticated,forwardAuthenticated } = require("../config/auth");
 
 const passport = require('../config/passport');

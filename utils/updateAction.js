@@ -5,62 +5,62 @@ const cron = require('node-cron');
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
+const miningRatesData = require('../model/miningRates')
 
 
 // Function to determine user level based on balance
-function getUserLevel(balance) {
-    if (balance >= 10000) return 10;
-    if (balance >= 9000) return 9;
-    if (balance >= 8000) return 8;
-    if (balance >= 7000) return 7;
-    if (balance >= 6000) return 6;
-    if (balance >= 5000) return 5;
-    if (balance >= 4000) return 4;
-    if (balance >= 3000) return 3;
-    if (balance >= 2000) return 2;
-    return 1; // Default level if balance is below $2000
-}
-
+// function getUserLevelByBalance(balance) {
+//     if (balance >= 10000) return 10;
+//     if (balance >= 9000) return 9;
+//     if (balance >= 8000) return 8;
+//     if (balance >= 7000) return 7;
+//     if (balance >= 6000) return 6;
+//     if (balance >= 5000) return 5;
+//     if (balance >= 4000) return 4;
+//     if (balance >= 3000) return 3;
+//     if (balance >= 2000) return 2;
+//     return 1; 
+// }
 
 
 
 const userLevelChecker = async () => {
+    function getUserLevelByReferralCount(referralCount) {
+        if (referralCount >= 40) return 10;
+        if (referralCount >= 35) return 9;
+        if (referralCount >= 30) return 8;
+        if (referralCount >= 25) return 7;
+        if (referralCount >= 20) return 6;
+        if (referralCount >= 16) return 5;
+        if (referralCount >= 15) return 4;
+        if (referralCount >= 10) return 3;
+        if (referralCount >= 5) return 2;
+        return 1; // Default level if referrals are less than 5
+    }
 
-  function getUserLevel(referralCount) {
-      if (referralCount >= 40) return 10;
-      if (referralCount >= 35) return 9;
-      if (referralCount >= 30) return 8;
-      if (referralCount >= 25) return 7;
-      if (referralCount >= 20) return 6;
-      if (referralCount >= 16) return 5;
-      if (referralCount >= 15) return 4;
-      if (referralCount >= 10) return 3;
-      if (referralCount >= 5) return 2;
-      return 1; // Default level if referrals are less than 2
-  }
+    const MiningRate = miningRatesData
 
-      try {
-          // Fetch all users
-          const users = await query("SELECT id, mining_level FROM users");
-  
-          for (const user of users.rows) {
-              // Count referrals for each user
-              const referralResult = await query("SELECT COUNT(*) AS referral_count FROM referrals WHERE referrer_id = $1",[user.id]);
-  
-              const referralCount = parseInt(referralResult.rows[0].referral_count);
-              const newLevel = getUserLevel(referralCount);
-              
-              if (newLevel >= user.mining_level) {
-                  // Update the user's level
-                  await query("UPDATE users SET mining_level = $1 WHERE id = $2", [newLevel, user.id]);
-                //   console.log(`User ${user.id} upgraded to Level ${newLevel} with ${referralCount} referrals`);
-              }
-          }
-  
-      } catch (error) {
-          console.error("Error updating user levels:", error);
-      }
+    try {
+        // Fetch all users
+        const users = await query("SELECT id, mining_level FROM users");
 
+        for (const user of users.rows) {
+            // Count referrals for each user
+            const referralResult = await query("SELECT COUNT(*) AS referral_count FROM referrals WHERE referrer_id = $1", [user.id]);
+            const referralCount = parseInt(referralResult.rows[0].referral_count);
+
+            const newLevel = getUserLevelByReferralCount(referralCount);
+            const newMiningRate = MiningRate[newLevel];
+
+
+            if (newLevel > user.mining_level) {
+                // Update the user's level and mining rate
+                await query("UPDATE users SET mining_level = $1, mining_rate = $2 WHERE id = $3", [newLevel, newMiningRate, user.id]);
+            }
+        }
+    } catch (error) {
+        console.error("Error updating user levels and mining rates:", error);
+    }
 };
 
 
@@ -128,6 +128,7 @@ async function checkReferrals() {
 // Schedule the job to run once every 24 hours
 cron.schedule('0 0 * * *', () => {
   dailyEarning()
+  userLevelChecker();
 });
 
 // cron.schedule('0 8 * * *', () => { 

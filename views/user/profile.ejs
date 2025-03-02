@@ -3,523 +3,510 @@
 
 
 
-/* User Info */
-.user-info {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.user-info h1 {
-  font-size: 1.4rem;
-  color: white;
-}
-
-.user-info p {
-  font-size: 1rem;
-  color: #ccc;
-}
-
-/* Stats & Buttons */
-.stats-buttons-wrapper {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.stats-row {
-  background-color: #22283d;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  padding: 10px;
-  padding-top: 15px;
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.stat {
-  text-align: center;
-}
-
-.stat h4 {
-  font-size: 1.2rem;
-  color: white;
-}
-
-.stat p {
-  font-size: 0.9rem;
-  color: #aaa;
-}
-
-.button-row {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-
-/* Media Grid */
-.media-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  gap: 5px;
-  margin: 15px 0;
-}
-
-.media-item {
-  height: 100px;
-  overflow: hidden;
-}
-
-.media-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-  .profile-banner {
-    height: 140px;
+  /* User Info */
+  .user-info {
+    text-align: center;
+    margin-top: 50px;
   }
-
-  .avatar {
-    width: 75px;
-    height: 75px;
-  }
-
+  
   .user-info h1 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    color: white;
   }
-
+  
+  .user-info p {
+    font-size: 1rem;
+    color: #ccc;
+  }
+  
+  /* Stats & Buttons */
+  .stats-buttons-wrapper {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
   .stats-row {
+    background-color: #22283d;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    padding-top: 15px;
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .stat {
+    text-align: center;
+  }
+  
+  .stat h4 {
+    font-size: 1.2rem;
+    color: white;
+  }
+  
+  .stat p {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+  
+  .button-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
     flex-wrap: wrap;
   }
-
+  
+  
+  /* Media Grid */
   .media-grid {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 5px;
+    margin: 15px 0;
   }
-
+  
   .media-item {
-    height: 90px;
+    height: 100px;
+    overflow: hidden;
   }
-}
-
-/* Main Grid for Dashboard */
-.dashboard-grid {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Chart Container */
-.chart-container {
-  flex: 1;
-  max-width: 50%;
-  min-width: 300px;
-  background: #1a1f36;
-  padding: 10px;
-  color: floralwhite;
-  box-shadow: 0px 0px 12px rgba(138, 43, 226, 0.7);
-}
-.throne-image{
-  max-width: 100%;
-  padding: 10px;
-}
-/* Stats Grid */
-.stats-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  /* max-width: 50%; */
-  min-width: 350px;
-}
-
-/* Stat Cards */
-.stat-card {
-  background: #1a1f36;
-  padding: 12px;
-  padding-top: 50px;
-  border-radius: 8px;
-  text-align: center;
-  transition: all 0.3s ease-in-out;
-  color: #fff;
-  font-size: 12px;
-}
-
-
-/* Graph */
-#miningChart {
-  max-width: 100%;
-  height: 250px;
-}
-
-/* Responsive: Stack graph and stats on mobile */
-@media (max-width: 768px) {
+  
+  .media-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Mobile */
+  @media (max-width: 480px) {
+    .profile-banner {
+      height: 140px;
+    }
+  
+    .avatar {
+      width: 75px;
+      height: 75px;
+    }
+  
+    .user-info h1 {
+      font-size: 1.2rem;
+    }
+  
+    .stats-row {
+      flex-wrap: wrap;
+    }
+  
+    .media-grid {
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+  
+    .media-item {
+      height: 90px;
+    }
+  }
+  
+  /* Main Grid for Dashboard */
   .dashboard-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .chart-container, .stats-grid {
-    max-width: 100%;
-  }
-
-  .stats-grid {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-right: 30px;
   }
-}
+  
+  /* Chart Container */
+  .chart-container {
+    max-width: 100%;
+    min-width: 300px;
+    background: #1a1f36;
+    padding: 10px;
+    color: floralwhite;
+    box-shadow: 0px 0px 12px rgba(138, 43, 226, 0.7);
+  }
 
-.invite-board {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  padding: 10px;
-  background-color: #22283d;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  color: white;
-  text-align: center;
-}
-
-
-/* invite-board Title */
-.invite-board h3 {
-  font-size: 1rem;
-  color: #8a2be2;
-  margin-bottom: 8px;
-}
-
-/* invite-board List */
-.invite-board-container {
-  max-height: 200px; /* Prevents invite-board from being too tall */
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #8a2be2 #1a1f36;
-}
-
-.invite-board-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.invite-board-container::-webkit-scrollbar-thumb {
-  background: #8a2be2;
-  border-radius: 4px;
-}
-
-.invite-board-container::-webkit-scrollbar-track {
-  background: #1a1f36;
-}
-
-/* Individual invite-board Entry */
-.invite-board ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.invite-board li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 10px;
-  border-bottom: 1px solid #444;
-  font-size: 0.9rem;
-}
-
-/* Highlight Current User */
-.invite-board .highlight {
-  background-color: rgba(138, 43, 226, 0.2);
-  font-weight: bold;
-  border-left: 4px solid #8a2be2;
-  padding-left: 6px;
-}
-
-/* invite-board Entry Details */
-.invite-board .rank {
-  font-weight: bold;
-  color: #f8b400;
-  width: 40px;
-  text-align: left;
-}
-
-.invite-board .name {
-  flex: 1;
-  text-align: left;
-  padding-left: 10px;
-}
-
-.invite-board .earnings {
-  font-weight: bold;
-  color: #3dd598;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 480px) {
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    min-width: 350px;
+  }
+  
+  /* Stat Cards */
+  .stat-card {
+    background: #1b1e2d;
+    border: 1px solid #531260;;
+    padding: 12px;
+    padding-top: 30px;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    font-size: 12px;
+  }
+  
+  
+  
+  /* Responsive: Stack graph and stats on mobile */
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 20px;
+      max-width: 50%;
+    }
+  
+    .chart-container, .stats-grid {
+      max-width: 100%;
+    }
+  
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
   .invite-board {
-    font-size: 0.85rem;
-    padding: 8px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 10px;
+    background-color: #22283d;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-align: center;
   }
-
-  .invite-board li {
-    font-size: 0.8rem;
-    padding: 6px;
+  
+  
+  /* invite-board Title */
+  .invite-board h3 {
+    font-size: 1rem;
+    color: #8a2be2;
+    margin-bottom: 8px;
   }
-
-  .invite-board .rank {
-    width: 30px;
-  }
-
+  
+  /* invite-board List */
   .invite-board-container {
-    max-height: 150px;
+    max-height: 200px; /* Prevents invite-board from being too tall */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #8a2be2 #1a1f36;
   }
-}
-
-
-.copy-icon.copied {
-  color: var(--default-color);
-}
-</style>
-
-
-<%- include ('./partials/topnavhome') %>
-
-<%- include ('../partials/messages') %>
-
-
-<div class="compact-container">
-  <section class="dashboard-profile mb-4">
-    <!-- Profile Banner -->
-
   
-    <!-- User Info -->
-    <div class="user-info">
-      <h1><%= user.fname %> <%= user.lname %></h1>
-      <p><i class="fas fa-envelope"></i> <%= user.email %></p>
-    </div>
-
-    <!-- Stats & Actions -->
-    <div class="stats-buttons-wrapper">
-      <div class="stats-row">
-        <div class="stat">
-          <h4><%= referees.length %></h4>
-          <p>Referrals</p>
-        </div>
-        <div class="stat">
-          <h4><%= userTask.length %></h4>
-          <p>Movies Watched</p>
-        </div>
-        <div class="stat">
-          <h4>0</h4>
-          <p>Music Listened</p>
-        </div>
-        <div class="stat">
-          <h4>$ <%= user.balance %></h4>
-          <p>Balance</p>
-        </div>
+  .invite-board-container::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .invite-board-container::-webkit-scrollbar-thumb {
+    background: #8a2be2;
+    border-radius: 4px;
+  }
+  
+  .invite-board-container::-webkit-scrollbar-track {
+    background: #1a1f36;
+  }
+  
+  /* Individual invite-board Entry */
+  .invite-board ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .invite-board li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid #444;
+    font-size: 0.9rem;
+  }
+  
+  /* Highlight Current User */
+  .invite-board .highlight {
+    background-color: rgba(138, 43, 226, 0.2);
+    font-weight: bold;
+    border-left: 4px solid #8a2be2;
+    padding-left: 6px;
+  }
+  
+  /* invite-board Entry Details */
+  .invite-board .rank {
+    font-weight: bold;
+    color: #f8b400;
+    width: 40px;
+    text-align: left;
+  }
+  
+  .invite-board .name {
+    flex: 1;
+    text-align: left;
+    padding-left: 10px;
+  }
+  
+  .invite-board .earnings {
+    font-weight: bold;
+    color: #3dd598;
+  }
+  
+  /* Mobile Adjustments */
+  @media (max-width: 480px) {
+    .invite-board {
+      font-size: 0.85rem;
+      padding: 8px;
+    }
+  
+    .invite-board li {
+      font-size: 0.8rem;
+      padding: 6px;
+    }
+  
+    .invite-board .rank {
+      width: 30px;
+    }
+  
+    .invite-board-container {
+      max-height: 150px;
+    }
+  }
+  
+  
+  .copy-icon.copied {
+    color: var(--default-color);
+  }
+  </style>
+  
+  
+  <%- include ('./partials/topnavhome') %>
+  
+  <%- include ('../partials/messages') %>
+  
+  
+  <div class="compact-container">
+    <section class="dashboard-profile mb-4">
+      <!-- Profile Banner -->
+  
+    
+      <!-- User Info -->
+      <div class="user-info">
+        <h1><%= user.fname %> <%= user.lname %></h1>
+        <p><i class="fas fa-envelope"></i> <%= user.email %></p>
       </div>
-
-      <div class="button-row">
-        <!-- <a href="#" class=" btn btn-success">
-          <i class="fas fa-comment-dots"></i> Message
-        </a> -->
-        <% if (user.verified) { %>
-          <a href="/user/withdraw" class=" btn btn-success" >
-            <i class="fas fa-coins"></i> Cashout 
+  
+      <!-- Stats & Actions -->
+      <div class="stats-buttons-wrapper">
+        <div class="stats-row">
+          <div class="stat">
+            <h4><%= referees.length %></h4>
+            <p>Referrals</p>
+          </div>
+          <div class="stat">
+            <h4><%= userTask.length %></h4>
+            <p>Movies Watched</p>
+          </div>
+          <div class="stat">
+            <h4>0</h4>
+            <p>Music Listened</p>
+          </div>
+          <div class="stat">
+            <h4>$ <%= user.balance %></h4>
+            <p>Balance</p>
+          </div>
+        </div>
+  
+        <div class="button-row">
+          <!-- <a href="#" class=" btn btn-success">
+            <i class="fas fa-comment-dots"></i> Message
+          </a> -->
+          <% if (user.verified) { %>
+            <a href="/user/withdraw" class=" btn btn-success" >
+              <i class="fas fa-coins"></i> Cashout 
+            </a>
+          <% } else { %>
+            <!-- <a class="details text-warning" href="/user/profile"> <i class="bi bi-exclamation-circle-fill"></i> </a> -->
+            <form action="/auth/verify-request" method="post" class="status-form">
+              <input type="hidden" value="<%=user.email%>" name="email">
+              <button type="submit" class=" btn btn-success"> <i class="fas fa-envelope"></i> Verify your email </button>
+              
+            </form>
+     
+        <% } %>
+          <!-- <a href="#" class=" secondary">
+            <i class="fas fa-user-plus"></i> Follow
+          </a> -->
+       
+          <!-- <a href="/settings/edit-profile" class=" btn btn-success">
+            <i class="fas fa-pen"></i> Edit Profile
+          </a> -->
+          <a href="/user/settings" class=" btn btn-success">
+            <i class="fas fa-cog"></i> 
           </a>
-        <% } else { %>
-          <!-- <a class="details text-warning" href="/user/profile"> <i class="bi bi-exclamation-circle-fill"></i> </a> -->
-          <form action="/auth/verify-request" method="post" class="status-form">
-            <input type="hidden" value="<%=user.email%>" name="email">
-            <button type="submit" class=" btn btn-success"> <i class="fas fa-envelope"></i> Verify your email </button>
-            
-          </form>
-   
-      <% } %>
-        <!-- <a href="#" class=" secondary">
-          <i class="fas fa-user-plus"></i> Follow
-        </a> -->
-     
-        <!-- <a href="/settings/edit-profile" class=" btn btn-success">
-          <i class="fas fa-pen"></i> Edit Profile
-        </a> -->
-        <a href="/user/settings" class=" btn btn-success">
-          <i class="fas fa-cog"></i> 
-        </a>
-     
+       
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+    
   
-
-  <section class="invite-board">
-    <!-- <h3>🏆 Today's Top Pushers</h3> -->
-    <div class="invite-link">
-      <input id="link" class="form-control" value="<%= referLink %>" readonly />
-      <br>
-       <p>My link: <%= referLink %>  <span id="copy-text" class="copy-icon" onclick="copyToClipboard()">  <i class="bi bi-clipboard"></i></span></p>
-    </div>
-
-    <div class="invite-board-container">
-      <ul>
-        <% referees.forEach((users, index) => { %>
-          <li class="<%= users.email === user.email ? 'highlight' : '' %>">
-            <span class="rank">#<%= index + 1 %></span>
-            <span class="name"><%= users.fname %> <%= users.lname %> (<%= users.balance %>)</span>
-            <span class="earnings">   <% if (users.has_earned) { %>
-              <i class="fas fa-check text-success"></i>
-              <% } else { %>
-              <i class="fas fa-times text-danger"></i>
-              <% } %>
-            </span>
-          </li>
-        <% }); %>
-      </ul>
-    </div>
-  </section>
-
-
-  <div class="user-dashboard">
-    <div class="dashboard-grid">
-      <!-- Graph Section -->
-      <div class="chart-container">
-        <canvas id="myAreaChart">
-        </canvas>
+    <section class="invite-board">
+      <!-- <h3>🏆 Today's Top Pushers</h3> -->
+      <div class="invite-link">
+        <input id="link" class="form-control" value="<%= referLink %>" readonly />
+        <br>
+         <p>My link: <%= referLink %>  <span id="copy-text" class="copy-icon" onclick="copyToClipboard()">  <i class="bi bi-clipboard"></i></span></p>
       </div>
   
-      <!-- Stats Section -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h3>⚡ </h3>
-          <p>Level <%= user.mining_level %></p>
-        </div>
-        <div class="stat-card">
-          <h3>⛏️</h3>
-          <p>$<%= user.mining_rate %>/session</p>
-        </div>
-        <div class="stat-card">
-          <h3>👥 </h3>
-          <p><%= user.total_referrals %></p>
+      <div class="invite-board-container">
+        <ul>
+          <% referees.forEach((users, index) => { %>
+            <li class="<%= users.email === user.email ? 'highlight' : '' %>">
+              <span class="rank">#<%= index + 1 %></span>
+              <span class="name"><%= users.fname %> <%= users.lname %> (<%= users.balance %>)</span>
+              <span class="earnings">   <% if (users.has_earned) { %>
+                <i class="fas fa-check text-success"></i>
+                <% } else { %>
+                <i class="fas fa-times text-danger"></i>
+                <% } %>
+              </span>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    </section>
+  
+  
+    <div class="user-dashboard" >
+      <div class="dashboard-grid">
+        <!-- Graph Section -->
+        <div class="chart-container">
+          <canvas id="myAreaChart">
+          </canvas>
         </div>
     
-        <div class="stat-card" id="vip-card">
-          <h3>⭐ </h3>
-          <p><%= user.premium_user ? 'VIP Member' : 'Standard' %></p>
+        <!-- Stats Section -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>⚡ </h3>
+            <p>Level <%= user.mining_level %></p>
+          </div>
+          <div class="stat-card">
+            <h3>⛏️</h3>
+            <p>$<%= user.mining_rate %>/session</p>
+          </div>
+      
+          <div class="stat-card" id="vip-card">
+            <h3>⭐ </h3>
+            <p><%= user.premium_user ? 'VIP Member' : 'Standard' %></p>
+          </div>
         </div>
+
       </div>
     </div>
+    
+    
   </div>
   
   
-</div>
-
-
-<br>
-<br>
-<br>
-<br>
-<%- include ('./partials/bottomnav') %>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const miningData = <%- JSON.stringify(miningData || []) %>;  
-
-    if (!miningData.length) {
-      console.warn("No mining data available.");
-      return;
-    }
-
-    // Extract dates and earnings
-    const miningLabels = miningData.map(row => new Date(row.date).toISOString().split("T")[0]);
-    const miningValues = miningData.map(row => Number(row.total_mined));
-
-    // Set up Chart.js
-    var ctx = document.getElementById("myAreaChart").getContext("2d");
-    var myLineChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: miningLabels,
-        datasets: [{
-          label: "Daily Mining Earnings ($)",
-          data: miningValues,
-          lineTension: 0.3,
-          backgroundColor: "rgba(78, 115, 223, 0.05)",
-          borderColor: "rgba(78, 115, 223, 1)",
-          pointRadius: 3,
-          pointBackgroundColor: "rgba(78, 115, 223, 1)",
-          pointBorderColor: "rgba(78, 115, 223, 1)",
-          pointHoverRadius: 3,
-          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-          pointHitRadius: 10,
-          pointBorderWidth: 2,
-        }],
-      },
-      options: {
-        maintainAspectRatio: false,
-        layout: {
-          padding: { left: 10, right: 25, top: 25, bottom: 0 }
+  <br>
+  <br>
+  <br>
+  <br>
+  <%- include ('./partials/bottomnav') %>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const miningData = <%- JSON.stringify(miningData || []) %>;  
+  
+      if (!miningData.length) {
+        console.warn("No mining data available.");
+        return;
+      }
+  
+      // Extract dates and earnings
+      const miningLabels = miningData.map(row => new Date(row.date).toISOString().split("T")[0]);
+      const miningValues = miningData.map(row => Number(row.total_mined));
+  
+      // Set up Chart.js
+      var ctx = document.getElementById("myAreaChart").getContext("2d");
+      var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: miningLabels,
+          datasets: [{
+            label: "Daily Mining Earnings ($)",
+            data: miningValues,
+            lineTension: 0.3,
+            backgroundColor: "rgba(78, 115, 223, 0.05)",
+            borderColor: "rgba(78, 115, 223, 1)",
+            pointRadius: 3,
+            pointBackgroundColor: "rgba(78, 115, 223, 1)",
+            pointBorderColor: "rgba(78, 115, 223, 1)",
+            pointHoverRadius: 3,
+            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+            pointHitRadius: 10,
+            pointBorderWidth: 2,
+          }],
         },
-        scales: {
-          x: {
-            grid: { display: false },
-            ticks: { maxTicksLimit: 7 },
+        options: {
+          maintainAspectRatio: false,
+          layout: {
+            padding: { left: 10, right: 25, top: 25, bottom: 0 }
           },
-          y: {
-            ticks: {
-              maxTicksLimit: 5,
-              callback: function (value) {
-                return "$" + value.toFixed(2);
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { maxTicksLimit: 7 },
+            },
+            y: {
+              ticks: {
+                maxTicksLimit: 5,
+                callback: function (value) {
+                  return "$" + value.toFixed(2);
+                },
+              },
+              grid: {
+                color: "rgb(234, 236, 244)",
+                drawBorder: false,
+                borderDash: [2],
+                zeroLineBorderDash: [2]
               },
             },
-            grid: {
-              color: "rgb(234, 236, 244)",
-              drawBorder: false,
-              borderDash: [2],
-              zeroLineBorderDash: [2]
-            },
           },
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: function (tooltipItem) {
-                return "$" + tooltipItem.raw.toFixed(2);
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (tooltipItem) {
+                  return "$" + tooltipItem.raw.toFixed(2);
+                }
               }
             }
           }
         }
-      }
+      });
     });
-  });
-</script>
-
-
- <script>
-  function copyToClipboard() {
-    const copyText = document.getElementById("link");
-    copyText.select();
-    document.execCommand("copy");
-
-    // Update the text and icon to "Copied" with a checkmark
-    const copyTextElement = document.getElementById("copy-text");
-    copyTextElement.innerHTML = 'Copied  <i class="bi bi-check-circle-fill"></i>';
-    copyTextElement.classList.add("copied");
-
-    // Reset back to "Copy" after a delay
-    setTimeout(() => {
-      copyTextElement.innerHTML = '<i class="bi bi-clipboard"></i>';
-      copyTextElement.classList.remove("copied");
-    }, 2000);
-  }
-
-
-
-</script>
-
+  </script>
+  
+  
+   <script>
+    function copyToClipboard() {
+      const copyText = document.getElementById("link");
+      copyText.select();
+      document.execCommand("copy");
+  
+      // Update the text and icon to "Copied" with a checkmark
+      const copyTextElement = document.getElementById("copy-text");
+      copyTextElement.innerHTML = 'Copied  <i class="bi bi-check-circle-fill"></i>';
+      copyTextElement.classList.add("copied");
+  
+      // Reset back to "Copy" after a delay
+      setTimeout(() => {
+        copyTextElement.innerHTML = '<i class="bi bi-clipboard"></i>';
+        copyTextElement.classList.remove("copied");
+      }, 2000);
+    }
+  
+  
+  
+  </script>

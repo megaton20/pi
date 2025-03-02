@@ -1,7 +1,6 @@
 // routes/userRoute.js
 const express = require('express');
 const router = express.Router();
-const { isUser,userIsExclusive,userIsAlreadyExclusive } = require('../config/isUser');
 
 
 const userController = require('../controllers/userController');
@@ -14,11 +13,9 @@ router.get('/', userController.feed);
 // Mining Timer Reset Route
 router.post('/reset-timer', userController.mine);
 
-module.exports = router;
-
-router.get('/withdrawals', userController.withdrawals); // hhistory
-  router.get('/withdraw',userController.withdrawal);
-  router.post('/withdraw-funds',userController.withdrawalFunds);
+router.get('/withdraw',userController.withdrawal);
+router.post('/withdraw-funds',userController.withdrawalFunds);
+router.get('/withdrawals', userController.allWithdrawals); // hhistory
   
   router.get('/tasks',userController.task);
   router.post("/tasks/start", userController.performTask);
